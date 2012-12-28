@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4EA4564C168E0E8D00C9B490 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA4564A168E0E8D00C9B490 /* SWRevealViewController.m */; };
+		4EA4565A168E2D1D00C9B490 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA45658168E2D1D00C9B490 /* SWRevealViewController.m */; };
 		5E1EFE1414A0BA4F008062C1 /* FrontViewController~iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E1EFE0C14A0BA4F008062C1 /* FrontViewController~iPad.xib */; };
 		5E1EFE1514A0BA4F008062C1 /* FrontViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E1EFE0E14A0BA4F008062C1 /* FrontViewController.xib */; };
 		5E1EFE1614A0BA4F008062C1 /* RearViewController~iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E1EFE1014A0BA4F008062C1 /* RearViewController~iPad.xib */; };
@@ -27,8 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4EA4564A168E0E8D00C9B490 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = SMRevealController/SWRevealViewController.m; sourceTree = SOURCE_ROOT; };
-		4EA4564B168E0E8D00C9B490 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = SMRevealController/SWRevealViewController.h; sourceTree = SOURCE_ROOT; };
+		4EA45658168E2D1D00C9B490 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = SWRevealViewController/SWRevealViewController.m; sourceTree = SOURCE_ROOT; };
+		4EA45659168E2D1D00C9B490 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = SWRevealViewController/SWRevealViewController.h; sourceTree = SOURCE_ROOT; };
 		5E1EFE0D14A0BA4F008062C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/FrontViewController~iPad.xib"; sourceTree = "<group>"; };
 		5E1EFE0F14A0BA4F008062C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FrontViewController.xib; sourceTree = "<group>"; };
 		5E1EFE1114A0BA4F008062C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/RearViewController~iPad.xib"; sourceTree = "<group>"; };
@@ -72,8 +72,8 @@
 		12410CC8152137DD00DE1CD9 /* SMRevealViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4EA4564A168E0E8D00C9B490 /* SWRevealViewController.m */,
-				4EA4564B168E0E8D00C9B490 /* SWRevealViewController.h */,
+				4EA45658168E2D1D00C9B490 /* SWRevealViewController.m */,
+				4EA45659168E2D1D00C9B490 /* SWRevealViewController.h */,
 				12410CC9152137DD00DE1CD9 /* Supporting Files */,
 			);
 			name = SMRevealViewController;
@@ -253,7 +253,7 @@
 				5EF3AA5F14D73A1C00FDD48F /* FrontViewController.m in Sources */,
 				5EF3AA6014D73A1C00FDD48F /* RearViewController.m in Sources */,
 				5E5A2D0314E0D1590042AE1E /* MapViewController.m in Sources */,
-				4EA4564C168E0E8D00C9B490 /* SWRevealViewController.m in Sources */,
+				4EA4565A168E2D1D00C9B490 /* SWRevealViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
