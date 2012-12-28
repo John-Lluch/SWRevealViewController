@@ -13,6 +13,8 @@ A UIViewController subclass for presenting two view controllers inspired on the 
 * Includes a category method of UIViewController 'revealViewController' to get the parent SWRevealViewController of any child controller. Similar to the UIViewController's property 'navigationController'.
 * Light weight, Clean, Easy to read, self explaining code you will enjoy using in your projects.
 
+![Dynamic](https://raw.github.com/Joan-Lluch/SWRevealViewController/master/SWRevealViewController.png)
+
 ## Requirements
 
 * iOS 6.0 or later
