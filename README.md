@@ -1,12 +1,12 @@
-# SWRevealViewController - A FaceBook like Reveal View Controller, done right !
+# SWRevealViewController
 
 A UIViewController subclass for presenting two view controllers inspired in the FaceBook app, done right!
 
 ## Features
 
-* Tab controller implemented using view controller containment
-* API is easier than UINavigationController
-* Correctly handles appearance methods on the provided child controllers
+* Reveal view controller implemented using view controller containment
+* API is easier than a UINavigationController
+* Correctly handles appearance methods on its child controllers
 * Correctly handles rotations
 * Can be embedded in other controllers, it always works, no glitches, no interface artifacts, no initialization issues, no rotation or resizing problems
 * Seamless integrated pan gesture support behaving as smooth as silk.
@@ -20,9 +20,9 @@ A UIViewController subclass for presenting two view controllers inspired in the 
 ## Usage
 
 * Copy the following to your project:
-    * SWRevealViewController.h
-    * SWRevealViewController.m
-    
+   * SWRevealViewController.h
+   * SWRevealViewController.m
+
 * Initialize an instance of a SWRevealViewController with a "rear" and "front" view controllers
 * Use the SWRevealViewController instance in your code as you would use any containment controller
 * Add the panGestureRecognized provided by the SWRevealViewController to your "front" view controller 
@@ -34,18 +34,19 @@ Initializing a SWRevealViewController:
 
     - (id)initWithRearViewController:(UIViewController *)rearViewController frontViewController:(UIViewController *)frontViewController;
 	
-Setting, changing the front view controller
+Setting or changing the front view controller:
 
     - (void)setFrontViewController:(UIViewController *)frontViewController animated:(BOOL)animated;
 
-Setting the position of the front view controller, can be FrontViewPositionLeft, FrontViewPositionRight, FrontViewPositionRightMost or FrontViewPositionRightMostHidden
+Setting the position of the front view controller. Position can be FrontViewPositionLeft, FrontViewPositionRight, FrontViewPositionRightMost or FrontViewPositionRightMostHidden:
 
 	- (void)setFrontViewPosition:(FrontViewPosition)frontViewPosition animated:(BOOL)animated;
 	
-Obtaining a gesture recognizer to add to your front view controller
+Obtaining a gesture recognizer to add to your front view controller:
 
 	- (UIPanGestureRecognizer*)panGestureRecognizer;
 	
+Other customization methods are documented in the SWRevealViewController.h file. 
 	
 ## License
 
