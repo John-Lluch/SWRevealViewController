@@ -1,16 +1,17 @@
 # SWRevealViewController
 
-A UIViewController subclass for presenting two view controllers inspired in the FaceBook app, done right!
+A UIViewController subclass for presenting two view controllers inspired on the FaceBook app, done right!
 
 ## Features
 
-* Reveal view controller implemented using view controller containment
-* API is easier than a UINavigationController
-* Correctly handles appearance methods on its child controllers
-* Correctly handles rotations
-* Can be embedded in other controllers, it always works, no glitches, no interface artifacts, no initialization issues, no rotation or resizing problems
-* Seamless integrated pan gesture support behaving as smooth as silk.
-* Includes a category method of UIViewController, 'revealViewController', to get the parent SWRevealViewController, similar to the UIViewController's property 'navigationController'
+* Reveal view controller implemented using view controller containment, done right!.
+* API is easier than a UINavigationController.
+* Correctly handles appearance methods on its child controllers, which you can rely on.
+* Correctly handles rotations.
+* Can be embedded as a child view of other controllers, it always works, no glitches, no interface artifacts, no initialization issues, no rotation or resizing problems.
+* Seamless integration of pan gesture recognizer, behaving as smooth as silk.
+* Includes a category method of UIViewController 'revealViewController' to get the parent SWRevealViewController of any child controller. Similar to the UIViewController's property 'navigationController'.
+* Light weight, clean, easy to read code you will enjoy using in your projects.
 
 ## Requirements
 
