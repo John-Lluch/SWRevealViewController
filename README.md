@@ -6,12 +6,12 @@ A UIViewController subclass for presenting two view controllers inspired on the 
 
 * Reveal view controller implemented using view controller containment, done right!.
 * API is easier than a UINavigationController.
-* Correctly handles appearance methods on its child controllers, which you can rely on.
+* Correctly handles appearance methods on its child controllers that you can rely on.
 * Correctly handles rotations.
-* Can be embedded as a child view of other controllers, it always works, no glitches, no interface artifacts, no initialization issues, no rotation or resizing problems.
+* Can be embedded as a child view controller of other controllers, it always works, no glitches, no interface artifacts, no initialization issues, no rotation or resizing problems.
 * Seamless integration of pan gesture recognizer, behaving as smooth as silk.
 * Includes a category method of UIViewController 'revealViewController' to get the parent SWRevealViewController of any child controller. Similar to the UIViewController's property 'navigationController'.
-* Light weight, clean, easy to read code you will enjoy using in your projects.
+* Light weight, Clean, Easy to read, self explaining code you will enjoy using in your projects.
 
 ## Requirements
 
@@ -24,12 +24,14 @@ A UIViewController subclass for presenting two view controllers inspired on the 
    * SWRevealViewController.h
    * SWRevealViewController.m
 
-* Initialize an instance of a SWRevealViewController with a "rear" and "front" view controllers
-* Use the SWRevealViewController instance in your code as you would use any containment controller
-* Add the panGestureRecognized provided by the SWRevealViewController to your "front" view controller 
-* You can change the "front" view controller at any time, even with animation
 
-## Basic API
+* Initialize an instance of a SWRevealViewController passing in a "rear" and a "front" view controllers.
+* Use the SWRevealViewController instance in your code as you would use any view controller.
+* Deploy as the application window rootViewController, or as a child of other containment controllers.
+* Add the panGestureRecognized provided by the SWRevealViewController to a suitable view of your "front" view controller, for example use the viewDidLoad method of your controller to add the gesture recognizer to a navigationBar.
+* At any time, you can reveal, conceal the "rear" view or replace the "front" view controller, programmatically or based on user actions, with or without animations enabled
+
+## Basic API description
 
 Initializing a SWRevealViewController:
 
@@ -47,7 +49,7 @@ Obtaining a gesture recognizer to add to your front view controller:
 
 	- (UIPanGestureRecognizer*)panGestureRecognizer;
 	
-Other customization methods are documented in the SWRevealViewController.h file. 
+Other methods are documented in the SWRevealViewController.h header file. 
 	
 ## License
 
@@ -72,7 +74,7 @@ without specific prior written permission.
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL PHILIP KLUZ BE LIABLE FOR ANY DIRECT, 
+DISCLAIMED. IN NO EVENT SHALL JOHN LLUCH BE LIABLE FOR ANY DIRECT, 
 INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
