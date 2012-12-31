@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4ECAAEE5169049A1005862CE /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECAAEE4169049A1005862CE /* MapViewController.m */; };
-		4ECAAEE9169049AD005862CE /* RearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECAAEE8169049AD005862CE /* RearViewController.m */; };
-		4ECAAEEC169049B7005862CE /* FrontViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECAAEEB169049B7005862CE /* FrontViewController.m */; };
-		4ECAAEF016904A85005862CE /* reveal-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ECAAEEE16904A84005862CE /* reveal-icon.png */; };
-		4ECAAEF116904A85005862CE /* reveal-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ECAAEEF16904A84005862CE /* reveal-icon@2x.png */; };
+		4E235CB6168F92EF00223C30 /* RearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E235CB5168F92EF00223C30 /* RearViewController.m */; };
+		4E235CBE168F931300223C30 /* FrontViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E235CBD168F931300223C30 /* FrontViewController.m */; };
+		4E235CC1168F932000223C30 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E235CC0168F932000223C30 /* MapViewController.m */; };
+		4E235CC6168F9C6500223C30 /* reveal-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E235CC4168F9C6500223C30 /* reveal-icon.png */; };
+		4E235CC7168F9C6500223C30 /* reveal-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E235CC5168F9C6500223C30 /* reveal-icon@2x.png */; };
 		4EDE1D03168F0648005656D1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDE1D02168F0648005656D1 /* AppDelegate.m */; };
 		4EDE1D0C168F06A5005656D1 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDE1D0B168F06A5005656D1 /* SWRevealViewController.m */; };
 		4EDE1D0F168F06D6005656D1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EDE1D0E168F06D6005656D1 /* Default-568h@2x.png */; };
@@ -19,7 +19,6 @@
 		5E1EFE1514A0BA4F008062C1 /* FrontViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E1EFE0E14A0BA4F008062C1 /* FrontViewController.xib */; };
 		5E1EFE1714A0BA4F008062C1 /* RearViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E1EFE1214A0BA4F008062C1 /* RearViewController.xib */; };
 		5E5A2D0014E0CD8D0042AE1E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E5A2CFF14E0CD8D0042AE1E /* MapKit.framework */; };
-		5E5A2D0814E0D1600042AE1E /* MapViewController~iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E5A2D0414E0D1600042AE1E /* MapViewController~iPad.xib */; };
 		5E5A2D0914E0D1600042AE1E /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E5A2D0614E0D1600042AE1E /* MapViewController.xib */; };
 		5E605BAA14A081F900853025 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E605BA914A081F900853025 /* UIKit.framework */; };
 		5E605BAC14A081F900853025 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E605BAB14A081F900853025 /* Foundation.framework */; };
@@ -28,14 +27,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4ECAAEE3169049A1005862CE /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
-		4ECAAEE4169049A1005862CE /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
-		4ECAAEE7169049AD005862CE /* RearViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RearViewController.h; sourceTree = "<group>"; };
-		4ECAAEE8169049AD005862CE /* RearViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RearViewController.m; sourceTree = "<group>"; };
-		4ECAAEEA169049B7005862CE /* FrontViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrontViewController.h; sourceTree = "<group>"; };
-		4ECAAEEB169049B7005862CE /* FrontViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrontViewController.m; sourceTree = "<group>"; };
-		4ECAAEEE16904A84005862CE /* reveal-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reveal-icon.png"; sourceTree = "<group>"; };
-		4ECAAEEF16904A84005862CE /* reveal-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reveal-icon@2x.png"; sourceTree = "<group>"; };
+		4E235CB5168F92EF00223C30 /* RearViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RearViewController.m; sourceTree = "<group>"; };
+		4E235CB8168F92F700223C30 /* RearViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RearViewController.h; sourceTree = "<group>"; };
+		4E235CBC168F931300223C30 /* FrontViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrontViewController.h; sourceTree = "<group>"; };
+		4E235CBD168F931300223C30 /* FrontViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrontViewController.m; sourceTree = "<group>"; };
+		4E235CBF168F932000223C30 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		4E235CC0168F932000223C30 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		4E235CC4168F9C6500223C30 /* reveal-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reveal-icon.png"; path = "Resources/reveal-icon.png"; sourceTree = "<group>"; };
+		4E235CC5168F9C6500223C30 /* reveal-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reveal-icon@2x.png"; path = "Resources/reveal-icon@2x.png"; sourceTree = "<group>"; };
 		4EDE1D02168F0648005656D1 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4EDE1D0B168F06A5005656D1 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = SWRevealViewController/SWRevealViewController.m; sourceTree = SOURCE_ROOT; };
 		4EDE1D0D168F06AF005656D1 /* SWRevealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = SWRevealViewController/SWRevealViewController.h; sourceTree = SOURCE_ROOT; };
@@ -44,7 +43,6 @@
 		5E1EFE0F14A0BA4F008062C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FrontViewController.xib; sourceTree = "<group>"; };
 		5E1EFE1314A0BA4F008062C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RearViewController.xib; sourceTree = "<group>"; };
 		5E5A2CFF14E0CD8D0042AE1E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		5E5A2D0514E0D1600042AE1E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/MapViewController~iPad.xib"; sourceTree = "<group>"; };
 		5E5A2D0714E0D1600042AE1E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MapViewController.xib; sourceTree = "<group>"; };
 		5E605BA514A081F900853025 /* RevealControllerProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RevealControllerProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E605BA914A081F900853025 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -74,8 +72,8 @@
 		12410CC8152137DD00DE1CD9 /* SMRevealViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4EDE1D0B168F06A5005656D1 /* SWRevealViewController.m */,
 				4EDE1D0D168F06AF005656D1 /* SWRevealViewController.h */,
+				4EDE1D0B168F06A5005656D1 /* SWRevealViewController.m */,
 				12410CC9152137DD00DE1CD9 /* Supporting Files */,
 			);
 			name = SMRevealViewController;
@@ -89,11 +87,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		4ECAAEED16904A0F005862CE /* Resources */ = {
+		4E235CC3168F9C4900223C30 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4ECAAEEE16904A84005862CE /* reveal-icon.png */,
-				4ECAAEEF16904A84005862CE /* reveal-icon@2x.png */,
+				4E235CC4168F9C6500223C30 /* reveal-icon.png */,
+				4E235CC5168F9C6500223C30 /* reveal-icon@2x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -101,8 +99,8 @@
 		5E5A2CF314E0CB760042AE1E /* FrontViewController (Front) */ = {
 			isa = PBXGroup;
 			children = (
-				4ECAAEEA169049B7005862CE /* FrontViewController.h */,
-				4ECAAEEB169049B7005862CE /* FrontViewController.m */,
+				4E235CBC168F931300223C30 /* FrontViewController.h */,
+				4E235CBD168F931300223C30 /* FrontViewController.m */,
 				5E1EFE0E14A0BA4F008062C1 /* FrontViewController.xib */,
 			);
 			name = "FrontViewController (Front)";
@@ -111,8 +109,8 @@
 		5E5A2CF414E0CB860042AE1E /* RearViewController (Rear) */ = {
 			isa = PBXGroup;
 			children = (
-				4ECAAEE7169049AD005862CE /* RearViewController.h */,
-				4ECAAEE8169049AD005862CE /* RearViewController.m */,
+				4E235CB8168F92F700223C30 /* RearViewController.h */,
+				4E235CB5168F92EF00223C30 /* RearViewController.m */,
 				5E1EFE1214A0BA4F008062C1 /* RearViewController.xib */,
 			);
 			name = "RearViewController (Rear)";
@@ -121,9 +119,8 @@
 		5E5A2CF514E0CB9E0042AE1E /* MapViewController (Front) */ = {
 			isa = PBXGroup;
 			children = (
-				4ECAAEE3169049A1005862CE /* MapViewController.h */,
-				4ECAAEE4169049A1005862CE /* MapViewController.m */,
-				5E5A2D0414E0D1600042AE1E /* MapViewController~iPad.xib */,
+				4E235CBF168F932000223C30 /* MapViewController.h */,
+				4E235CC0168F932000223C30 /* MapViewController.m */,
 				5E5A2D0614E0D1600042AE1E /* MapViewController.xib */,
 			);
 			name = "MapViewController (Front)";
@@ -166,10 +163,11 @@
 				5E5A2CF414E0CB860042AE1E /* RearViewController (Rear) */,
 				5E5A2CF314E0CB760042AE1E /* FrontViewController (Front) */,
 				5E5A2CF514E0CB9E0042AE1E /* MapViewController (Front) */,
-				4ECAAEED16904A0F005862CE /* Resources */,
 				5E605BB014A081F900853025 /* Supporting Files */,
+				4E235CC3168F9C4900223C30 /* Resources */,
 			);
-			path = RevealControllerProject;
+			name = RevealControllerProject;
+			path = RevealControllerProject2;
 			sourceTree = "<group>";
 		};
 		5E605BB014A081F900853025 /* Supporting Files */ = {
@@ -212,7 +210,7 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = 5E605B9F14A081F900853025 /* Build configuration list for PBXProject "RevealControllerProject" */;
+			buildConfigurationList = 5E605B9F14A081F900853025 /* Build configuration list for PBXProject "RevealControllerProject2" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -237,11 +235,10 @@
 				5E605BB414A081F900853025 /* InfoPlist.strings in Resources */,
 				5E1EFE1514A0BA4F008062C1 /* FrontViewController.xib in Resources */,
 				5E1EFE1714A0BA4F008062C1 /* RearViewController.xib in Resources */,
-				5E5A2D0814E0D1600042AE1E /* MapViewController~iPad.xib in Resources */,
 				5E5A2D0914E0D1600042AE1E /* MapViewController.xib in Resources */,
 				4EDE1D0F168F06D6005656D1 /* Default-568h@2x.png in Resources */,
-				4ECAAEF016904A85005862CE /* reveal-icon.png in Resources */,
-				4ECAAEF116904A85005862CE /* reveal-icon@2x.png in Resources */,
+				4E235CC6168F9C6500223C30 /* reveal-icon.png in Resources */,
+				4E235CC7168F9C6500223C30 /* reveal-icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,9 +252,9 @@
 				4EDE1D03168F0648005656D1 /* AppDelegate.m in Sources */,
 				4EDE1D0C168F06A5005656D1 /* SWRevealViewController.m in Sources */,
 				4EDE1D11168F06E3005656D1 /* main.m in Sources */,
-				4ECAAEE5169049A1005862CE /* MapViewController.m in Sources */,
-				4ECAAEE9169049AD005862CE /* RearViewController.m in Sources */,
-				4ECAAEEC169049B7005862CE /* FrontViewController.m in Sources */,
+				4E235CB6168F92EF00223C30 /* RearViewController.m in Sources */,
+				4E235CBE168F931300223C30 /* FrontViewController.m in Sources */,
+				4E235CC1168F932000223C30 /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,14 +275,6 @@
 				5E1EFE1314A0BA4F008062C1 /* en */,
 			);
 			name = RearViewController.xib;
-			sourceTree = "<group>";
-		};
-		5E5A2D0414E0D1600042AE1E /* MapViewController~iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5E5A2D0514E0D1600042AE1E /* en */,
-			);
-			name = "MapViewController~iPad.xib";
 			sourceTree = "<group>";
 		};
 		5E5A2D0614E0D1600042AE1E /* MapViewController.xib */ = {
@@ -362,8 +351,8 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RevealControllerProject/Project-Prefix.pch";
-				INFOPLIST_FILE = "RevealControllerProject/RevealControllerProject-Info.plist";
+				GCC_PREFIX_HEADER = "RevealControllerProject2/Project-Prefix.pch";
+				INFOPLIST_FILE = "RevealControllerProject2/RevealControllerProject-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -375,8 +364,8 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RevealControllerProject/Project-Prefix.pch";
-				INFOPLIST_FILE = "RevealControllerProject/RevealControllerProject-Info.plist";
+				GCC_PREFIX_HEADER = "RevealControllerProject2/Project-Prefix.pch";
+				INFOPLIST_FILE = "RevealControllerProject2/RevealControllerProject-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -386,7 +375,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5E605B9F14A081F900853025 /* Build configuration list for PBXProject "RevealControllerProject" */ = {
+		5E605B9F14A081F900853025 /* Build configuration list for PBXProject "RevealControllerProject2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5E605BC414A081F900853025 /* Debug */,

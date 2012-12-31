@@ -55,25 +55,26 @@
 {
 	static NSString *cellIdentifier = @"Cell";
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    NSInteger row = indexPath.row;
 	
 	if (nil == cell)
 	{
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
 	}
 	
-	if (indexPath.row == 0)
+	if (row == 0)
 	{
 		cell.textLabel.text = @"Front View Controller";
 	}
-	else if (indexPath.row == 1)
+	else if (row == 1)
 	{
 		cell.textLabel.text = @"Map View Controller";
 	}
-	else if (indexPath.row == 2)
+	else if (row == 2)
 	{
 		cell.textLabel.text = @"Enter Presentation Mode";
 	}
-	else if (indexPath.row == 3)
+	else if (row == 3)
 	{
 		cell.textLabel.text = @"Resign Presentation Mode";
 	}
@@ -84,11 +85,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	// Grab a handle to the reveal controller, as if you'd do with a navigtion controller via self.navigationController.
-    SWRevealViewController *revealController = [self revealViewController];
-    UINavigationController *frontNavigationController = (id)revealController.frontViewController;
+    SWRevealViewController *revealController = self.revealViewController;
+    
+    // We know the frontViewController is a NavigationController
+    UINavigationController *frontNavigationController = (id)revealController.frontViewController;  // <-- we know it is a NavigationController
+    NSInteger row = indexPath.row;
 
 	// Here you'd implement some of your own logic... I simply take for granted that the first row (=0) corresponds to the "FrontViewController".
-	if (indexPath.row == 0)
+	if (row == 0)
 	{
 		// Now let's see if we're not attempting to swap the current frontViewController for a new instance of ITSELF, which'd be highly redundant.        
         if ( ![frontNavigationController.topViewController isKindOfClass:[FrontViewController class]] )
@@ -105,7 +109,7 @@
 	}
     
 	// ... and the second row (=1) corresponds to the "MapViewController".
-	else if (indexPath.row == 1)
+	else if (row == 1)
 	{
 		// Now let's see if we're not attempting to swap the current frontViewController for a new instance of ITSELF, which'd be highly redundant.
         if ( ![frontNavigationController.topViewController isKindOfClass:[MapViewController class]] )
@@ -121,21 +125,16 @@
 			[revealController revealToggle:self];
 		}
 	}
-	else if (indexPath.row == 2)
+	else if (row == 2)
 	{
         [revealController setFrontViewPosition:FrontViewPositionRightMost animated:YES];
 	}
-	else if (indexPath.row == 3)
+	else if (row == 3)
 	{
         [revealController setFrontViewPosition:FrontViewPositionRight animated:YES];
 	}
 }
 
 
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-	return (toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-}
 
 @end

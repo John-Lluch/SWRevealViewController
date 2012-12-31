@@ -34,9 +34,7 @@
 
 @interface RearViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-// Public Properties:
 @property (nonatomic, retain) IBOutlet UITableView *rearTableView;
 
-// Public Methods:
 
 @end

@@ -44,48 +44,21 @@
 
 #pragma mark - View lifecycle
 
-/*
- * The following lines are crucial to understanding how the ZUUIRevealController works.
- *
- * In this example, the FrontViewController is contained inside of a UINavigationController.
- * And the UINavigationController is contained inside of a ZUUIRevealController. Thus the
- * following hierarchy is created:
- *
- * - ZUUIRevealController is parent of:
- * - - UINavigationController is parent of:
- * - - - FrontViewController
- *
- * If you don't want the UINavigationController in between (which is totally fine) all you need to
- * do is to adjust the if-condition below in a way to suit your needs. If the hierarchy were to look 
- * like this:
- *
- * - ZUUIRevealController is parent of:
- * - - FrontViewController
- * 
- * Without a UINavigationController in between, you'd need to change:
- * self.navigationController.parentViewController TO: self.parentViewController
- *
- * Note that self.navigationController is equal to self.parentViewController. Thus you could generalize
- * the code even more by calling self.parentViewController.parentViewController. In order to make 
- * the code easier to understand I decided to go with self.navigationController.
- *
- */
+
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
 	
-	self.title = NSLocalizedString(@"Front View", @"FrontView");
+	self.title = NSLocalizedString(@"Front View", nil);
     
     SWRevealViewController *revealController = [self revealViewController];
     
     [self.navigationController.navigationBar addGestureRecognizer:revealController.panGestureRecognizer];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Reveal", @"Reveal") style:UIBarButtonItemStylePlain target:revealController action:@selector(revealToggle:)];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-{
-	return (toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
+        style:UIBarButtonItemStyleBordered target:revealController action:@selector(revealToggle:)];
+    
+    self.navigationItem.leftBarButtonItem = revealButtonItem;
 }
 
 #pragma mark - Example Code

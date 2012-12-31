@@ -48,16 +48,16 @@
 {
 	UIWindow *window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	self.window = window;
-	
-	FrontViewController *frontViewController = [[FrontViewController alloc] init];
-	RearViewController *rearViewController = [[RearViewController alloc] init];
-	
-	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:frontViewController];
-	
-	SWRevealViewController *revealController = [[SWRevealViewController alloc] initWithRearViewController:rearViewController frontViewController:navigationController];
-    revealController.delegate = self;
     
-	self.viewController = revealController;
+    FrontViewController *frontViewController = [[FrontViewController alloc] init];
+	RearViewController *rearViewController = [[RearViewController alloc] init];
+	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:frontViewController];
+    SWRevealViewController *mainRevealController = [[SWRevealViewController alloc]
+        initWithRearViewController:rearViewController frontViewController:navigationController];
+    
+    mainRevealController.delegate = self;
+    
+	self.viewController = mainRevealController;
 	
 	self.window.rootViewController = self.viewController;
 	[self.window makeKeyAndVisible];
@@ -86,44 +86,45 @@
     NSLog( @"%@: %@", NSStringFromSelector(_cmd), [self stringFromFrontViewPosition:position]);
 }
 
-- (void)revealController:(SWRevealViewController *)revealController willRevealRearViewController:(UIViewController *)viewController
+- (void)revealController:(SWRevealViewController *)revealController willRevealRearViewController:(UIViewController *)rearViewController
 {
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
+    NSLog( @"%@", NSStringFromSelector(_cmd));
 }
 
-- (void)revealController:(SWRevealViewController *)revealController didRevealRearViewController:(UIViewController *)viewController
+- (void)revealController:(SWRevealViewController *)revealController didRevealRearViewController:(UIViewController *)rearViewController
 {
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
+    NSLog( @"%@", NSStringFromSelector(_cmd));
 }
 
-- (void)revealController:(SWRevealViewController *)revealController willHideRearViewController:(UIViewController *)viewController
+- (void)revealController:(SWRevealViewController *)revealController willHideRearViewController:(UIViewController *)rearViewController
 {
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
+    NSLog( @"%@", NSStringFromSelector(_cmd));
 }
 
-- (void)revealController:(SWRevealViewController *)revealController didHideRearViewController:(UIViewController *)viewController
+- (void)revealController:(SWRevealViewController *)revealController didHideRearViewController:(UIViewController *)rearViewController
 {
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
+    NSLog( @"%@", NSStringFromSelector(_cmd));
 }
 
-- (void)revealController:(SWRevealViewController *)revealController willShowFrontViewController:(UIViewController *)viewController
+- (void)revealController:(SWRevealViewController *)revealController willShowFrontViewController:(UIViewController *)rearViewController
 {
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
+    NSLog( @"%@", NSStringFromSelector(_cmd));
 }
 
-- (void)revealController:(SWRevealViewController *)revealController didShowFrontViewController:(UIViewController *)viewController
+- (void)revealController:(SWRevealViewController *)revealController didShowFrontViewController:(UIViewController *)rearViewController
 {
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
+    NSLog( @"%@", NSStringFromSelector(_cmd));
 }
 
-- (void)revealController:(SWRevealViewController *)revealController willHideFrontViewController:(UIViewController *)viewController
+- (void)revealController:(SWRevealViewController *)revealController willHideFrontViewController:(UIViewController *)rearViewController
 {
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
+    NSLog( @"%@", NSStringFromSelector(_cmd));
 }
 
-- (void)revealController:(SWRevealViewController *)revealController didHideFrontViewController:(UIViewController *)viewController
+- (void)revealController:(SWRevealViewController *)revealController didHideFrontViewController:(UIViewController *)rearViewController
+
 {
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
+    NSLog( @"%@", NSStringFromSelector(_cmd));
 }
 
 
