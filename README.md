@@ -8,13 +8,13 @@ A UIViewController subclass for presenting two view controllers inspired on the 
 * API is easier than a UINavigationController.
 * Correctly handles appearance methods on its child controllers that you can rely on.
 * Correctly handles rotations.
-* Can be embedded as a child view controller of other controllers, it always works, no glitches, no interface artifacts, no initialization issues, no rotation or resizing problems.
+* Can be embedded as a child view controller of other controllers, it just works, no glitches, no interface artifacts, no initialization issues, no rotation or resizing problems.
 * Seamless integration of pan gesture recognizer, behaving as smooth as silk.
 * Includes a category method of UIViewController 'revealViewController' to get the parent SWRevealViewController of any child controller. Similar to the UIViewController's property 'navigationController'.
 * Light weight, Clean, Easy to read, self explaining code you will enjoy using in your projects.
 
 
-![Dynamic](https://raw.github.com/Joan-Lluch/SWRevealViewController/master/SWRevealViewController.png)
+![Dynamic](https://raw.github.com/Joan-Lluch/SWRevealViewController/master/SWRevealViewController3.png)
 
 
 ## Requirements
