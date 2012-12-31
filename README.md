@@ -15,6 +15,7 @@ A UIViewController subclass for presenting two view controllers inspired on the 
 
 
 ![Dynamic](https://raw.github.com/Joan-Lluch/SWRevealViewController/master/SWRevealViewController3.png)
+![Dynamic](https://raw.github.com/Joan-Lluch/SWRevealViewController/master/SWRevealViewController.png)
 
 
 ## Requirements
