@@ -45,7 +45,7 @@ Setting or changing the front view controller:
 
     - (void)setFrontViewController:(UIViewController *)frontViewController animated:(BOOL)animated;
 
-Setting the position of the front view controller. Position can be FrontViewPositionLeft, FrontViewPositionRight, FrontViewPositionRightMost or FrontViewPositionRightMostHidden:
+Setting the position of the front view controller. Position can be FrontViewPositionLeft, FrontViewPositionRight, FrontViewPositionRightMost or FrontViewPositionRightMostRemoved:
 
 	- (void)setFrontViewPosition:(FrontViewPosition)frontViewPosition animated:(BOOL)animated;
 	
