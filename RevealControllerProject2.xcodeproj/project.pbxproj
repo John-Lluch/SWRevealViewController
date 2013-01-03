@@ -24,6 +24,7 @@
 		5E605BAC14A081F900853025 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E605BAB14A081F900853025 /* Foundation.framework */; };
 		5E605BAE14A081F900853025 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E605BAD14A081F900853025 /* CoreGraphics.framework */; };
 		5E605BB414A081F900853025 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E605BB214A081F900853025 /* InfoPlist.strings */; };
+		F12C857F169607260055AA8E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F12C857E169607260055AA8E /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		5E605BB314A081F900853025 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5E605BB714A081F900853025 /* Project-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Project-Prefix.pch"; sourceTree = "<group>"; };
 		5E605BB814A081F900853025 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F12C857E169607260055AA8E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F12C857F169607260055AA8E /* QuartzCore.framework in Frameworks */,
 				5E5A2D0014E0CD8D0042AE1E /* MapKit.framework in Frameworks */,
 				5E605BAA14A081F900853025 /* UIKit.framework in Frameworks */,
 				5E605BAC14A081F900853025 /* Foundation.framework in Frameworks */,
@@ -147,6 +150,7 @@
 		5E605BA814A081F900853025 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F12C857E169607260055AA8E /* QuartzCore.framework */,
 				5E5A2CFF14E0CD8D0042AE1E /* MapKit.framework */,
 				5E605BA914A081F900853025 /* UIKit.framework */,
 				5E605BAB14A081F900853025 /* Foundation.framework */,

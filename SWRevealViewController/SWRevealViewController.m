@@ -442,6 +442,7 @@ const int FrontViewPositionNone = -1;
 
 - (void)_handleRevealGestureStateBeganWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {
+	_rearViewController.view.userInteractionEnabled = NO;
     _panInitialFrontPosition = _frontViewPosition;
 }
 
@@ -515,8 +516,13 @@ const int FrontViewPositionNone = -1;
         }
 	}
     
+	[CATransaction begin];
+	[CATransaction setCompletionBlock:^{
+		_rearViewController.view.userInteractionEnabled = YES;
+	}];
     // now animate to the final position
     [self _setFrontViewPosition:frontViewPosition withDuration:duration];
+	[CATransaction commit];
 }
 
 
