@@ -86,11 +86,6 @@ typedef enum
     CGFloat moveX = nowPoint.x - _init.x;
     CGFloat moveY = nowPoint.y - _init.y;
     
-    NSLog( @"now      :%f", nowPoint.y);
-    NSLog( @"moveX      :%f", moveX);
-    NSLog( @"moveY      :%f", moveY);
-    
-    
     if (abs(moveX) > kDirectionPanThreshold)
     {
         if (_direction == SWDirectionPanGestureRecognizerHorizontal)
@@ -421,17 +416,24 @@ const int FrontViewPositionNone = -1;
     switch ( recognizer.state )
 	{
 		case UIGestureRecognizerStateBegan:
-			[self _handleRevealGestureStateBeganWithRecognizer:recognizer];
+        {
+            [self _enqueueBlock:^
+            {
+                [self _handleRevealGestureStateBeganWithRecognizer:recognizer];
+            }];
 			break;
-			
+		}
 		case UIGestureRecognizerStateChanged:
 			[self _handleRevealGestureStateChangedWithRecognizer:recognizer];
 			break;
 			
 		case UIGestureRecognizerStateEnded:
+			[self _handleRevealGestureStateEndedWithRecognizer:recognizer];
+			break;
+            
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed:
-			[self _handleRevealGestureStateEndedWithRecognizer:recognizer];
+			[self _handleRevealGestureStateCancelledWithRecognizer:recognizer];
 			break;
 			
 		default:
@@ -517,10 +519,17 @@ const int FrontViewPositionNone = -1;
     
     // now animate to the final position
     [self _setFrontViewPosition:frontViewPosition withDuration:duration];
+
 }
 
 
-
+- (void)_handleRevealGestureStateCancelledWithRecognizer:(UIPanGestureRecognizer *)recognizer
+{
+    if (_panRearCompletion) _panRearCompletion();
+        _panRearCompletion = nil;
+    
+    [self _dequeue];
+}
 
 #pragma mark deferred position and controller setup private methods
 
@@ -534,6 +543,7 @@ const int FrontViewPositionNone = -1;
     }];
 }
 
+
 - (void)_dispatchSetFrontViewController:(UIViewController *)newFrontViewController animated:(BOOL)animated
 {
     NSTimeInterval duration = animated?_toggleAnimationDuration:0.0;
@@ -544,21 +554,30 @@ const int FrontViewPositionNone = -1;
 //    else if ( _frontViewPosition == FrontViewPositionRight )
 //        firstDuration = duration*0.5;
 
-    [self _enqueueBlock:^
+    if ( animated )
     {
-        [self _setFrontViewPosition:FrontViewPositionRightMostRemoved withDuration:duration];
-    }];
+        [self _enqueueBlock:^
+        {
+            [self _setFrontViewPosition:FrontViewPositionRightMostRemoved withDuration:duration];
+        }];
     
-    [self _enqueueBlock:^
-    {
-        _frontViewController = newFrontViewController;
-        [self _dequeue];
-    }];
+        [self _enqueueBlock:^
+        {
+            [self _setFrontViewController:newFrontViewController];
+        }];
     
-    [self _enqueueBlock:^
+        [self _enqueueBlock:^
+        {
+            [self _setFrontViewPosition:FrontViewPositionLeft withDuration:duration];
+        }];
+    }
+    else
     {
-        [self _setFrontViewPosition:FrontViewPositionLeft withDuration:duration];
-    }];
+        [self _enqueueBlock:^
+        {
+            [self _setFrontViewController:newFrontViewController];
+        }];
+    }
 }
 
 
@@ -623,6 +642,16 @@ const int FrontViewPositionNone = -1;
         animations();
         completion(YES);
     }
+}
+
+// Basic method for front controller deployment with no layout or position change
+- (void)_setFrontViewController:(UIViewController*)newFrontViewController
+{
+    FrontViewPosition endPosition = _frontViewPosition;
+    [self _frontViewDeploymentForNewFrontViewPosition:FrontViewPositionRightMostRemoved]();
+    _frontViewController = newFrontViewController;
+    [self _frontViewDeploymentForNewFrontViewPosition:endPosition]();
+    [self _dequeue];
 }
 
 

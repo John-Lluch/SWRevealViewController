@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4E235CC1168F932000223C30 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E235CC0168F932000223C30 /* MapViewController.m */; };
 		4E235CC6168F9C6500223C30 /* reveal-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E235CC4168F9C6500223C30 /* reveal-icon.png */; };
 		4E235CC7168F9C6500223C30 /* reveal-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E235CC5168F9C6500223C30 /* reveal-icon@2x.png */; };
 		4E523227169088D200A13268 /* RearMasterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E523225169088D200A13268 /* RearMasterTableViewController.m */; };
@@ -38,7 +37,6 @@
 		4EDE1D0F168F06D6005656D1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EDE1D0E168F06D6005656D1 /* Default-568h@2x.png */; };
 		4EDE1D11168F06E3005656D1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDE1D10168F06E3005656D1 /* main.m */; };
 		5E5A2D0014E0CD8D0042AE1E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E5A2CFF14E0CD8D0042AE1E /* MapKit.framework */; };
-		5E5A2D0914E0D1600042AE1E /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E5A2D0614E0D1600042AE1E /* MapViewController.xib */; };
 		5E605BAA14A081F900853025 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E605BA914A081F900853025 /* UIKit.framework */; };
 		5E605BAC14A081F900853025 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E605BAB14A081F900853025 /* Foundation.framework */; };
 		5E605BAE14A081F900853025 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E605BAD14A081F900853025 /* CoreGraphics.framework */; };
@@ -46,8 +44,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4E235CBF168F932000223C30 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
-		4E235CC0168F932000223C30 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		4E235CC4168F9C6500223C30 /* reveal-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reveal-icon.png"; path = "Resources/reveal-icon.png"; sourceTree = "<group>"; };
 		4E235CC5168F9C6500223C30 /* reveal-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reveal-icon@2x.png"; path = "Resources/reveal-icon@2x.png"; sourceTree = "<group>"; };
 		4E523224169088D200A13268 /* RearMasterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RearMasterTableViewController.h; sourceTree = "<group>"; };
@@ -83,7 +79,6 @@
 		4EDE1D0E168F06D6005656D1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		4EDE1D10168F06E3005656D1 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5E5A2CFF14E0CD8D0042AE1E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		5E5A2D0714E0D1600042AE1E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MapViewController.xib; sourceTree = "<group>"; };
 		5E605BA514A081F900853025 /* RevealControllerProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RevealControllerProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E605BA914A081F900853025 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5E605BAB14A081F900853025 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -191,16 +186,6 @@
 			name = RearTableViewController;
 			sourceTree = "<group>";
 		};
-		5E5A2CF514E0CB9E0042AE1E /* MapViewController (Front) */ = {
-			isa = PBXGroup;
-			children = (
-				4E235CBF168F932000223C30 /* MapViewController.h */,
-				4E235CC0168F932000223C30 /* MapViewController.m */,
-				5E5A2D0614E0D1600042AE1E /* MapViewController.xib */,
-			);
-			name = "MapViewController (Front)";
-			sourceTree = "<group>";
-		};
 		5E605B9A14A081F900853025 = {
 			isa = PBXGroup;
 			children = (
@@ -239,7 +224,6 @@
 				4ECAAF2616905D20005862CE /* RearTableViewController */,
 				4ECAAF2016905A12005862CE /* FrontViewControllerLabel (Front) */,
 				4ECAAEFC1690560C005862CE /* FrontViewControllerImage (Front) */,
-				5E5A2CF514E0CB9E0042AE1E /* MapViewController (Front) */,
 				5E605BB014A081F900853025 /* Supporting Files */,
 				4E235CC3168F9C4900223C30 /* Resources */,
 			);
@@ -310,7 +294,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E605BB414A081F900853025 /* InfoPlist.strings in Resources */,
-				5E5A2D0914E0D1600042AE1E /* MapViewController.xib in Resources */,
 				4EDE1D0F168F06D6005656D1 /* Default-568h@2x.png in Resources */,
 				4E235CC6168F9C6500223C30 /* reveal-icon.png in Resources */,
 				4E235CC7168F9C6500223C30 /* reveal-icon@2x.png in Resources */,
@@ -346,7 +329,6 @@
 				4EDE1D03168F0648005656D1 /* AppDelegate.m in Sources */,
 				4EDE1D0C168F06A5005656D1 /* SWRevealViewController.m in Sources */,
 				4EDE1D11168F06E3005656D1 /* main.m in Sources */,
-				4E235CC1168F932000223C30 /* MapViewController.m in Sources */,
 				4ECAAEFA169055FF005862CE /* FrontViewControllerImage.m in Sources */,
 				4ECAAF2416905A81005862CE /* FrontViewControllerLabel.m in Sources */,
 				4ECAAF2F16905DE9005862CE /* RearTableViewController.m in Sources */,
@@ -357,14 +339,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		5E5A2D0614E0D1600042AE1E /* MapViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5E5A2D0714E0D1600042AE1E /* en */,
-			);
-			name = MapViewController.xib;
-			sourceTree = "<group>";
-		};
 		5E605BB214A081F900853025 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
