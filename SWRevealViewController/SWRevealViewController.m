@@ -227,7 +227,7 @@ typedef enum
 
 #pragma mark - SWRevealViewController Class
 
-@interface SWRevealViewController()
+@interface SWRevealViewController()<UIGestureRecognizerDelegate>
 {
     SWRevealView *_contentView;
     UIPanGestureRecognizer *_panGestureRecognizer;
@@ -241,6 +241,7 @@ typedef enum
     void (^_panRearCompletion)(void);
     FrontViewPosition _panInitialFrontPosition;
     NSMutableArray *_animationQueue;
+    BOOL _userInteractionStore;
 }
 
 @synthesize frontViewPosition = _frontViewPosition;
@@ -395,6 +396,7 @@ const int FrontViewPositionNone = -1;
             [[SWDirectionPanGestureRecognizer alloc] initWithTarget:self action:@selector(_handleRevealGesture:)];
         
         customRecognizer.direction = SWDirectionPanGestureRecognizerHorizontal;
+        customRecognizer.delegate = self;
         _panGestureRecognizer = customRecognizer ;
     }
     return _panGestureRecognizer;
@@ -409,6 +411,33 @@ const int FrontViewPositionNone = -1;
 }
 
 
+#pragma mark - Gesture Delegate
+
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    // only allow gesture if no previous request is in process
+    return ( gestureRecognizer == _panGestureRecognizer && _animationQueue.count == 0) ;
+}
+
+#pragma mark - UserInteractionEnabling
+
+// disable userInteraction on the entire control
+- (void)_disableUserInteraction
+{
+    _userInteractionStore = _contentView.userInteractionEnabled;
+    [_contentView setUserInteractionEnabled:NO];
+}
+
+// restore userInteraction on the control
+- (void)_restoreUserInteraction
+{
+    // we use the stored userInteraction state just in case a developer decided
+    // to have our view interaction disabled beforehand
+    [_contentView setUserInteractionEnabled:_userInteractionStore];
+}
+
+
 #pragma mark - Gesture Based Reveal
 
 - (void)_handleRevealGesture:(UIPanGestureRecognizer *)recognizer
@@ -417,10 +446,7 @@ const int FrontViewPositionNone = -1;
 	{
 		case UIGestureRecognizerStateBegan:
         {
-            [self _enqueueBlock:^
-            {
-                [self _handleRevealGestureStateBeganWithRecognizer:recognizer];
-            }];
+            [self _handleRevealGestureStateBeganWithRecognizer:recognizer];
 			break;
 		}
 		case UIGestureRecognizerStateChanged:
@@ -444,7 +470,18 @@ const int FrontViewPositionNone = -1;
 
 - (void)_handleRevealGestureStateBeganWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {
+    // we know that we will not get here unless the animationQueue is empty because the recognizer
+    // delegate prevents it, however we do not want any forthcoming programatic actions to disturbe
+    // the gesture, so we just enqueue a dummy block to ensure any programatic acctions will be
+    // scheduled after the gesture is completed
+    [self _enqueueBlock:^{}]; // <-- dummy block
+
+    // we store the initial position
     _panInitialFrontPosition = _frontViewPosition;
+
+    // we disable user interactions on the views, however programatic accions will still be
+    // enqueued to be performed after the gesture completes
+    [self _disableUserInteraction];
 }
 
 
@@ -517,7 +554,8 @@ const int FrontViewPositionNone = -1;
         }
 	}
     
-    // now animate to the final position
+    // restore user interaction and animate to the final position
+    [self _restoreUserInteraction];
     [self _setFrontViewPosition:frontViewPosition withDuration:duration];
 
 }
@@ -528,6 +566,7 @@ const int FrontViewPositionNone = -1;
     if (_panRearCompletion) _panRearCompletion();
         _panRearCompletion = nil;
     
+    [self _restoreUserInteraction];
     [self _dequeue];
 }
 
