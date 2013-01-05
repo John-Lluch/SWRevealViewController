@@ -32,16 +32,36 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2A1-C5-vYY">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="n4p-X7-zX1">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="Bqe-89-lnq" id="ybd-HY-lmj"/>
                                     <outlet property="delegate" destination="Bqe-89-lnq" id="yt1-f0-62B"/>
                                 </connections>
                             </tableView>
+                            <navigationBar contentMode="scaleToFill" id="KpR-Xx-NY9">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Rear View" id="WHE-Jp-vp6"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="rearTableView" destination="2A1-C5-vYY" id="zFb-aC-A22"/>
                         <outlet property="view" destination="jnZ-Fo-zFl" id="uiG-Ny-DnF"/>
@@ -89,29 +109,6 @@
             <point key="canvasLocation" x="666" y="724"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="FrontViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FrontViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="pushExample:"/>
-            </relationships>
-        </class>
-        <class className="MapViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
-        </class>
-        <class className="RearViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RearViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="rearTableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="RevealViewController" superclassName="SWRevealViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RevealViewController.h"/>
-        </class>
-        <class className="SWRevealViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SWRevealViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
