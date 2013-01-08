@@ -127,10 +127,10 @@ typedef enum
     {
         _c = controller;
         CGRect bounds = self.bounds;
-	
+    
         _frontView = [[UIView alloc] initWithFrame:bounds];
         _rearView = [[UIView alloc] initWithFrame:bounds];
-	
+    
         _frontView.autoresizingMask = UIViewAutoresizingNone;
         _rearView.autoresizingMask = UIViewAutoresizingNone;
 
@@ -197,7 +197,7 @@ typedef enum
 
 - (CGFloat)_adjustedDragLocationForLocation:(CGFloat)x
 {
-	CGFloat result;
+    CGFloat result;
     CGFloat efRevealWidth = _c.rearViewRevealWidth;
     CGFloat revealOverdraw = _c.rearViewRevealOverdraw;
     BOOL stableTrack = !_c.bounceBackOnOverdraw || _c.stableDragOnOverdraw || _c.frontViewPosition==FrontViewPositionRightMost;
@@ -209,17 +209,17 @@ typedef enum
     
     if ( x <= 0.0 )
         result = 0.0f;      // keep at top left possition
-	
-	else if (x <= efRevealWidth)
-		result = x;         // Translate linearly.
+    
+    else if (x <= efRevealWidth)
+        result = x;         // Translate linearly.
 
-	else if (x <= efRevealWidth+2*revealOverdraw)
-		result = efRevealWidth + (x-efRevealWidth)/2;   // slow down translation by halph the movement.
+    else if (x <= efRevealWidth+2*revealOverdraw)
+        result = efRevealWidth + (x-efRevealWidth)/2;   // slow down translation by halph the movement.
 
-	else
-		result = efRevealWidth+revealOverdraw;        // keep at the rightMost location.
-	
-	return result;
+    else
+        result = efRevealWidth+revealOverdraw;        // keep at the rightMost location.
+    
+    return result;
 }
 
 @end
@@ -263,12 +263,12 @@ const int FrontViewPositionNone = -1;
 
 - (id)initWithRearViewController:(UIViewController *)rearViewController frontViewController:(UIViewController *)frontViewController;
 {
-	self = [super init];
-	
-	if (nil != self)
-	{
-		_frontViewController = frontViewController;
-		_rearViewController = rearViewController;
+    self = [super init];
+    
+    if (nil != self)
+    {
+        _frontViewController = frontViewController;
+        _rearViewController = rearViewController;
         _frontViewPosition = FrontViewPositionLeft;
         _rearViewPosition = FrontViewPositionLeft;
         _rearViewRevealWidth = 260.0f;
@@ -279,8 +279,8 @@ const int FrontViewPositionNone = -1;
         _frontViewShadowRadius = 2.5f;
         _frontViewShadowOffset = CGSizeMake(0.0f, 2.5f);
         _animationQueue = [NSMutableArray array];
-	}
-	return self;
+    }
+    return self;
 }
 
 
@@ -289,7 +289,7 @@ const int FrontViewPositionNone = -1;
 
 - (void)loadView
 {
-    // Do not call super, to prevent the apis from unfruitfully looking for inexistent xibs!
+    // Do not call super, to prevent the apis from unfruitful looking for inexistent xibs!
     
     // This is what Apple tells us to set as the initial frame, which is of course totally irrelevant
     // with the modern view controller containment patterns, let's leave it for the sake of it!
@@ -344,7 +344,7 @@ const int FrontViewPositionNone = -1;
 
 - (void)setFrontViewController:(UIViewController *)frontViewController
 {
-	[self setFrontViewController:frontViewController animated:NO];
+    [self setFrontViewController:frontViewController animated:NO];
 }
 
 
@@ -407,8 +407,8 @@ const int FrontViewPositionNone = -1;
 #pragma mark - Provided acction methods
 
 - (void)revealToggle:(id)sender
-{	
-	[self revealToggleAnimated:YES];
+{    
+    [self revealToggleAnimated:YES];
 }
 
 
@@ -444,28 +444,28 @@ const int FrontViewPositionNone = -1;
 - (void)_handleRevealGesture:(UIPanGestureRecognizer *)recognizer
 {
     switch ( recognizer.state )
-	{
-		case UIGestureRecognizerStateBegan:
+    {
+        case UIGestureRecognizerStateBegan:
         {
             [self _handleRevealGestureStateBeganWithRecognizer:recognizer];
-			break;
-		}
-		case UIGestureRecognizerStateChanged:
-			[self _handleRevealGestureStateChangedWithRecognizer:recognizer];
-			break;
-			
-		case UIGestureRecognizerStateEnded:
-			[self _handleRevealGestureStateEndedWithRecognizer:recognizer];
-			break;
+            break;
+        }
+        case UIGestureRecognizerStateChanged:
+            [self _handleRevealGestureStateChangedWithRecognizer:recognizer];
+            break;
+            
+        case UIGestureRecognizerStateEnded:
+            [self _handleRevealGestureStateEndedWithRecognizer:recognizer];
+            break;
             
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed:
-			[self _handleRevealGestureStateCancelledWithRecognizer:recognizer];
-			break;
-			
-		default:
-			break;
-	}
+            [self _handleRevealGestureStateCancelledWithRecognizer:recognizer];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 
@@ -515,9 +515,9 @@ const int FrontViewPositionNone = -1;
     FrontViewPosition frontViewPosition = FrontViewPositionLeft;
     NSTimeInterval duration = _toggleAnimationDuration;
 
-	// Velocity driven change:
-	if (fabsf(velocity) > _quickFlickVelocity)
-	{
+    // Velocity driven change:
+    if (fabsf(velocity) > _quickFlickVelocity)
+    {
         // we may need to set the drag position and to adjust the animation duration
         CGFloat journey = xPosition;
         if (velocity > 0.0f)
@@ -535,11 +535,11 @@ const int FrontViewPositionNone = -1;
         }
         
         duration = fabsf(journey/velocity);
-	}
+    }
     
-	// Position driven change:
-	else
-	{
+    // Position driven change:
+    else
+    {
         // we may need to set the drag position        
         if (xPosition > _rearViewRevealWidth*0.5f)
         {
@@ -553,7 +553,7 @@ const int FrontViewPositionNone = -1;
                     frontViewPosition = FrontViewPositionRightMost;
             }
         }
-	}
+    }
     
     // restore user interaction and animate to the final position
     [self _restoreUserInteraction];
