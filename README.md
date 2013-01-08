@@ -20,7 +20,7 @@ A UIViewController subclass for presenting two view controllers inspired on the 
 
 ## Requirements
 
-* iOS 6.0 or later
+* iOS 6.0 or later, tested to work fine on iOS 5.1 as well.
 * ARC memory management.
 
 ## Usage
