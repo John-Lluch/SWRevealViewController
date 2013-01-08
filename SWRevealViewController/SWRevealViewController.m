@@ -289,7 +289,7 @@ const int FrontViewPositionNone = -1;
 
 - (void)loadView
 {
-    // Do not call super, to prevent the apis from unfructuously looking for inexistent xibs!
+    // Do not call super, to prevent the apis from unfruitfully looking for inexistent xibs!
     
     // This is what Apple tells us to set as the initial frame, which is of course totally irrelevant
     // with the modern view controller containment patterns, let's leave it for the sake of it!
@@ -297,6 +297,7 @@ const int FrontViewPositionNone = -1;
 
     // create a custom content view for the controller and assign it to the controller's view
     _contentView = [[SWRevealView alloc] initWithFrame:frame controller:self];
+     [_contentView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     self.view = _contentView;
     
     // Apple also tells us to do this:
@@ -471,7 +472,7 @@ const int FrontViewPositionNone = -1;
 - (void)_handleRevealGestureStateBeganWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {
     // we know that we will not get here unless the animationQueue is empty because the recognizer
-    // delegate prevents it, however we do not want any forthcoming programatic actions to disturbe
+    // delegate prevents it, however we do not want any forthcoming programatic actions to disturb
     // the gesture, so we just enqueue a dummy block to ensure any programatic acctions will be
     // scheduled after the gesture is completed
     [self _enqueueBlock:^{}]; // <-- dummy block
@@ -658,7 +659,7 @@ const int FrontViewPositionNone = -1;
     
     void (^animations)() = ^()
     {
-        [_contentView layoutSubviews];
+        [self _layoutControllerViews];
     };
     
     void (^completion)(BOOL) = ^(BOOL finished)
@@ -694,7 +695,21 @@ const int FrontViewPositionNone = -1;
 }
 
 
-#pragma mark view controller deployment
+
+
+#pragma mark view controller deployment and layout
+
+// Calls the layoutSubviews method on the contentView view and sends a delegate call, which will
+// occur inside of an animation block if any animated transition is being performed
+- (void)_layoutControllerViews
+{
+    [_contentView layoutSubviews];
+    
+    if ([_delegate respondsToSelector:@selector(revealController:animateToPosition:)])
+            [_delegate revealController:self animateToPosition:_frontViewPosition];
+
+}
+
 
 // Deploy/Undeploy of the rear view controller following the containment principles. Returns a block
 // that must be invoked on animation completion in order to finish deployment
