@@ -1,5 +1,5 @@
 //
-//  RearTableViewController.h
+//  MenuViewController.h
 //  RevealControllerStoryboardExample
 //
 //  Created by Nick Hodapp on 1/9/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RearTableViewController : UITableViewController
+@interface MenuViewController : UITableViewController
 
 @end

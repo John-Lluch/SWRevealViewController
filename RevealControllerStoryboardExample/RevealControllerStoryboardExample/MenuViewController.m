@@ -1,37 +1,24 @@
 //
-//  RearTableViewController.m
+//  MenuViewController.m
 //  RevealControllerStoryboardExample
 //
 //  Created by Nick Hodapp on 1/9/13.
 //  Copyright (c) 2013 CoDeveloper. All rights reserved.
 //
 
-#import "RearTableViewController.h"
+#import "MenuViewController.h"
+#import "ColorViewController.h"
 
-@interface RearTableViewController ()
+@interface MenuViewController ()
 
 @end
 
-@implementation RearTableViewController
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@implementation MenuViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,82 +27,77 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender
+{
+    // configure the destination view controller:
+    if ( [segue.destinationViewController isKindOfClass: [ColorViewController class]] &&
+        [sender isKindOfClass:[UITableViewCell class]] )
+    {
+        UITableViewCell* c = sender;
+        ColorViewController* cvc = segue.destinationViewController;
+        
+        [cvc view];
+        cvc.label.textColor = c.textLabel.textColor;
+        cvc.label.text = c.textLabel.text;
+    }
+
+    // configure the segue.
+    // in this case we dont swap out the front view controller, which is a UINavigationController.
+    // but we could..
+    if ( [segue isKindOfClass: [SWRevealViewControllerSegue class]] )
+    {
+        SWRevealViewControllerSegue* rvcs = (SWRevealViewControllerSegue*) segue;
+        
+        SWRevealViewController* rvc = self.revealViewController;
+        NSAssert( rvc != nil, @"oops! must have a revealViewController" );
+        
+        NSAssert( [rvc.frontViewController isKindOfClass: [UINavigationController class]], @"oops!  for this segue we want a permanent navigation controller in the front!" );
+
+        rvcs.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc) {
+
+            UINavigationController* nc = (UINavigationController*)rvc.frontViewController;
+            [nc setViewControllers: @[ dvc ] animated: YES ];
+            
+            [rvc setFrontViewPosition: FrontViewPositionLeft animated: YES];
+        };
+    }
+}
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
+
+    switch ( indexPath.row )
+    {
+        case 0:
+            CellIdentifier = @"map";
+            break;
+            
+        case 1:
+            CellIdentifier = @"blue";
+            break;
+
+        case 2:
+            CellIdentifier = @"red";
+            break;
+    }
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+ 
     return cell;
-}
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
 }
 
 @end

@@ -9,7 +9,7 @@
 #import "MapViewController.h"
 
 @interface MapViewController ()
-
+@property (readonly) IBOutlet UIBarButtonItem* revealButtonItem;
 @end
 
 @implementation MapViewController
@@ -26,7 +26,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    [self.revealButtonItem setTarget: self.revealViewController];
+    [self.revealButtonItem setAction: @selector( revealToggle: )];
+    [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
 }
 
 - (void)didReceiveMemoryWarning

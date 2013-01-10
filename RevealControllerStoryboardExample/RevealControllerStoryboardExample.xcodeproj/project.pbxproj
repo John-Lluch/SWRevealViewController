@@ -17,7 +17,13 @@
 		01FB867E169E2D8B00A0A1A8 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01FB867D169E2D8B00A0A1A8 /* Default@2x.png */; };
 		01FB8680169E2D8B00A0A1A8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01FB867F169E2D8B00A0A1A8 /* Default-568h@2x.png */; };
 		01FB8683169E2D8B00A0A1A8 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01FB8681169E2D8B00A0A1A8 /* MainStoryboard.storyboard */; };
-		01FB8686169E2D8B00A0A1A8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01FB8685169E2D8B00A0A1A8 /* ViewController.m */; };
+		01FB868F169E2DA500A0A1A8 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01FB868E169E2DA500A0A1A8 /* SWRevealViewController.m */; };
+		01FB869D169E364800A0A1A8 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01FB869C169E364800A0A1A8 /* MenuViewController.m */; };
+		01FB86A4169E36FE00A0A1A8 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01FB86A3169E36FE00A0A1A8 /* MapViewController.m */; };
+		01FB86AC169E3CE700A0A1A8 /* ColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01FB86A9169E3CE700A0A1A8 /* ColorViewController.m */; };
+		01FB86AD169E3CE700A0A1A8 /* reveal-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 01FB86AA169E3CE700A0A1A8 /* reveal-icon.png */; };
+		01FB86AE169E3CE700A0A1A8 /* reveal-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01FB86AB169E3CE700A0A1A8 /* reveal-icon@2x.png */; };
+		01FB86B0169E42B600A0A1A8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01FB86AF169E42B600A0A1A8 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,8 +41,17 @@
 		01FB867D169E2D8B00A0A1A8 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		01FB867F169E2D8B00A0A1A8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		01FB8682169E2D8B00A0A1A8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		01FB8684169E2D8B00A0A1A8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		01FB8685169E2D8B00A0A1A8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		01FB868D169E2DA500A0A1A8 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		01FB868E169E2DA500A0A1A8 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		01FB869B169E364800A0A1A8 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		01FB869C169E364800A0A1A8 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		01FB86A2169E36FE00A0A1A8 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		01FB86A3169E36FE00A0A1A8 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		01FB86A8169E3CE700A0A1A8 /* ColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorViewController.h; sourceTree = "<group>"; };
+		01FB86A9169E3CE700A0A1A8 /* ColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorViewController.m; sourceTree = "<group>"; };
+		01FB86AA169E3CE700A0A1A8 /* reveal-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reveal-icon.png"; sourceTree = "<group>"; };
+		01FB86AB169E3CE700A0A1A8 /* reveal-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reveal-icon@2x.png"; sourceTree = "<group>"; };
+		01FB86AF169E42B600A0A1A8 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01FB86B0169E42B600A0A1A8 /* MapKit.framework in Frameworks */,
 				01FB866A169E2D8B00A0A1A8 /* UIKit.framework in Frameworks */,
 				01FB866C169E2D8B00A0A1A8 /* Foundation.framework in Frameworks */,
 				01FB866E169E2D8B00A0A1A8 /* CoreGraphics.framework in Frameworks */,
@@ -57,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				01FB866F169E2D8B00A0A1A8 /* RevealControllerStoryboardExample */,
+				01FB868C169E2DA500A0A1A8 /* SWRevealViewController */,
 				01FB8668169E2D8B00A0A1A8 /* Frameworks */,
 				01FB8666169E2D8B00A0A1A8 /* Products */,
 			);
@@ -73,6 +90,7 @@
 		01FB8668169E2D8B00A0A1A8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				01FB86AF169E42B600A0A1A8 /* MapKit.framework */,
 				01FB8669169E2D8B00A0A1A8 /* UIKit.framework */,
 				01FB866B169E2D8B00A0A1A8 /* Foundation.framework */,
 				01FB866D169E2D8B00A0A1A8 /* CoreGraphics.framework */,
@@ -86,8 +104,12 @@
 				01FB8678169E2D8B00A0A1A8 /* AppDelegate.h */,
 				01FB8679169E2D8B00A0A1A8 /* AppDelegate.m */,
 				01FB8681169E2D8B00A0A1A8 /* MainStoryboard.storyboard */,
-				01FB8684169E2D8B00A0A1A8 /* ViewController.h */,
-				01FB8685169E2D8B00A0A1A8 /* ViewController.m */,
+				01FB869B169E364800A0A1A8 /* MenuViewController.h */,
+				01FB869C169E364800A0A1A8 /* MenuViewController.m */,
+				01FB86A2169E36FE00A0A1A8 /* MapViewController.h */,
+				01FB86A3169E36FE00A0A1A8 /* MapViewController.m */,
+				01FB86A8169E3CE700A0A1A8 /* ColorViewController.h */,
+				01FB86A9169E3CE700A0A1A8 /* ColorViewController.m */,
 				01FB8670169E2D8B00A0A1A8 /* Supporting Files */,
 			);
 			path = RevealControllerStoryboardExample;
@@ -103,8 +125,20 @@
 				01FB867B169E2D8B00A0A1A8 /* Default.png */,
 				01FB867D169E2D8B00A0A1A8 /* Default@2x.png */,
 				01FB867F169E2D8B00A0A1A8 /* Default-568h@2x.png */,
+				01FB86AA169E3CE700A0A1A8 /* reveal-icon.png */,
+				01FB86AB169E3CE700A0A1A8 /* reveal-icon@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		01FB868C169E2DA500A0A1A8 /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				01FB868D169E2DA500A0A1A8 /* SWRevealViewController.h */,
+				01FB868E169E2DA500A0A1A8 /* SWRevealViewController.m */,
+			);
+			name = SWRevealViewController;
+			path = ../SWRevealViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,6 +197,8 @@
 				01FB867E169E2D8B00A0A1A8 /* Default@2x.png in Resources */,
 				01FB8680169E2D8B00A0A1A8 /* Default-568h@2x.png in Resources */,
 				01FB8683169E2D8B00A0A1A8 /* MainStoryboard.storyboard in Resources */,
+				01FB86AD169E3CE700A0A1A8 /* reveal-icon.png in Resources */,
+				01FB86AE169E3CE700A0A1A8 /* reveal-icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,7 +211,10 @@
 			files = (
 				01FB8676169E2D8B00A0A1A8 /* main.m in Sources */,
 				01FB867A169E2D8B00A0A1A8 /* AppDelegate.m in Sources */,
-				01FB8686169E2D8B00A0A1A8 /* ViewController.m in Sources */,
+				01FB868F169E2DA500A0A1A8 /* SWRevealViewController.m in Sources */,
+				01FB869D169E364800A0A1A8 /* MenuViewController.m in Sources */,
+				01FB86A4169E36FE00A0A1A8 /* MapViewController.m in Sources */,
+				01FB86AC169E3CE700A0A1A8 /* ColorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
