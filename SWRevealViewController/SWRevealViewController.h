@@ -163,3 +163,8 @@ typedef enum
 - (SWRevealViewController*)revealViewController;
 
 @end
+
+@interface SWRevealViewControllerSegue : UIStoryboardSegue
+
+@property (strong) void(^performBlock)( SWRevealViewControllerSegue* segue, UIViewController* svc, UIViewController* dvc ) ;
+@end
