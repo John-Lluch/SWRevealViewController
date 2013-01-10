@@ -910,6 +910,16 @@ const int FrontViewPositionNone = -1;
 
 - (void) prepareForSegue: (SWRevealViewControllerSegue *) segue sender:(id)sender
 {
+    // $ using a custom segue we can get access to the storyboard-loaded rear/front view controllers
+    // the trick is to define segues of type SWRevealViewControllerSegue on the storyboard
+    // connecting the SWRevealViewController to the desired front/rear controllers,
+    // and setting the identifiers to "sw_rear" and "sw_front"
+    
+    // $ these segues are invoked manually in the loadView method if a storyboard
+    // was used to instantiate the SWRevealViewController
+    
+    // $ none of this would be necessary if Apple exposed "relationship" segues for container view controllers.
+
     if ( [segue isKindOfClass: [SWRevealViewControllerSegue class] ] && sender == nil )
     {
         if ( [segue.identifier isEqualToString: @"sw_rear"] )

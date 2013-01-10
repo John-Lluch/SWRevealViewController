@@ -10,5 +10,5 @@
 
 @interface ColorViewController : UIViewController
 @property (nonatomic, strong) IBOutlet UILabel* label;
-@property (nonatomic, strong) IBOutlet UIColor* color;
+@property (nonatomic, strong) UIColor* color;
 @end
