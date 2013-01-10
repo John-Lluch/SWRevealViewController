@@ -261,6 +261,26 @@ const int FrontViewPositionNone = -1;
 
 #pragma mark - Init
 
+- (id) initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder: aDecoder];
+	if (nil != self)
+	{
+        _frontViewPosition = FrontViewPositionLeft;
+        _rearViewPosition = FrontViewPositionLeft;
+        _rearViewRevealWidth = 260.0f;
+        _rearViewRevealOverdraw = 60.0f;
+        _bounceBackOnOverdraw = YES;
+        _quickFlickVelocity = 250.0f;
+        _toggleAnimationDuration = 0.25;
+        _frontViewShadowRadius = 2.5f;
+        _frontViewShadowOffset = CGSizeMake(0.0f, 2.5f);
+        _animationQueue = [NSMutableArray array];
+	}
+    
+    return self;
+}
+
 - (id)initWithRearViewController:(UIViewController *)rearViewController frontViewController:(UIViewController *)frontViewController;
 {
     self = [super init];
@@ -299,6 +319,13 @@ const int FrontViewPositionNone = -1;
     _contentView = [[SWRevealView alloc] initWithFrame:frame controller:self];
      [_contentView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
     self.view = _contentView;
+    
+    // load any defined front/rear controllers from the storyboard
+    if ( nil != self.storyboard && nil == _rearViewController )
+    {
+        [self performSegueWithIdentifier: @"sw_rear" sender: nil];
+        [self performSegueWithIdentifier: @"sw_front" sender: nil];
+    }
     
     // Apple also tells us to do this:
     _contentView.backgroundColor = [UIColor blackColor];
@@ -881,6 +908,27 @@ const int FrontViewPositionNone = -1;
     return completionBlock;
 }
 
+- (void) prepareForSegue: (SWRevealViewControllerSegue *) segue sender:(id)sender
+{
+    if ( [segue isKindOfClass: [SWRevealViewControllerSegue class] ] && sender == nil )
+    {
+        if ( [segue.identifier isEqualToString: @"sw_rear"] )
+        {
+            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc) {
+                
+                _rearViewController = dvc;
+            };
+        }
+        else if ( [segue.identifier isEqualToString: @"sw_front"] )
+        {
+            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc) {
+                
+                _frontViewController = dvc;
+            };
+        }
+    }
+}
+
 @end
 
 
@@ -904,4 +952,17 @@ const int FrontViewPositionNone = -1;
 @end
 
 
+#pragma mark - SWRevealViewControllerSegue Class
+
+@implementation SWRevealViewControllerSegue
+
+- (void) perform
+{
+    if ( _performBlock != nil )
+    {
+        _performBlock( self, self.sourceViewController, self.destinationViewController );
+    }
+}
+
+@end
 
