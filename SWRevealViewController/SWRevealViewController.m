@@ -261,21 +261,27 @@ const int FrontViewPositionNone = -1;
 
 #pragma mark - Init
 
-- (id) initWithCoder:(NSCoder *)aDecoder
+
+- (void)_initDefaultProperties
 {
-    self = [super initWithCoder: aDecoder];
-	if (nil != self)
+    _frontViewPosition = FrontViewPositionLeft;
+    _rearViewPosition = FrontViewPositionLeft;
+    _rearViewRevealWidth = 260.0f;
+    _rearViewRevealOverdraw = 60.0f;
+    _bounceBackOnOverdraw = YES;
+    _quickFlickVelocity = 250.0f;
+    _toggleAnimationDuration = 0.25;
+    _frontViewShadowRadius = 2.5f;
+    _frontViewShadowOffset = CGSizeMake(0.0f, 2.5f);
+    _animationQueue = [NSMutableArray array];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+	if ( self )
 	{
-        _frontViewPosition = FrontViewPositionLeft;
-        _rearViewPosition = FrontViewPositionLeft;
-        _rearViewRevealWidth = 260.0f;
-        _rearViewRevealOverdraw = 60.0f;
-        _bounceBackOnOverdraw = YES;
-        _quickFlickVelocity = 250.0f;
-        _toggleAnimationDuration = 0.25;
-        _frontViewShadowRadius = 2.5f;
-        _frontViewShadowOffset = CGSizeMake(0.0f, 2.5f);
-        _animationQueue = [NSMutableArray array];
+        [self _initDefaultProperties];
 	}
     
     return self;
@@ -285,27 +291,57 @@ const int FrontViewPositionNone = -1;
 {
     self = [super init];
     
-    if (nil != self)
+    if ( self )
     {
         _frontViewController = frontViewController;
         _rearViewController = rearViewController;
-        _frontViewPosition = FrontViewPositionLeft;
-        _rearViewPosition = FrontViewPositionLeft;
-        _rearViewRevealWidth = 260.0f;
-        _rearViewRevealOverdraw = 60.0f;
-        _bounceBackOnOverdraw = YES;
-        _quickFlickVelocity = 250.0f;
-        _toggleAnimationDuration = 0.25;
-        _frontViewShadowRadius = 2.5f;
-        _frontViewShadowOffset = CGSizeMake(0.0f, 2.5f);
-        _animationQueue = [NSMutableArray array];
+        
+        [self _initDefaultProperties];
     }
     return self;
 }
 
 
-#pragma mark - View lifecycle
+#pragma mark storyboard support
 
+static NSString * const SWSegueRearIdentifier = @"sw_rear";
+static NSString * const SWSegueFrontIdentifier = @"sw_front";
+
+- (void)prepareForSegue:(SWRevealViewControllerSegue *)segue sender:(id)sender
+{
+    // $ using a custom segue we can get access to the storyboard-loaded rear/front view controllers
+    // the trick is to define segues of type SWRevealViewControllerSegue on the storyboard
+    // connecting the SWRevealViewController to the desired front/rear controllers,
+    // and setting the identifiers to "sw_rear" and "sw_front"
+    
+    // $ these segues are invoked manually in the loadView method if a storyboard
+    // was used to instantiate the SWRevealViewController
+    
+    // $ none of this would be necessary if Apple exposed "relationship" segues for container view controllers.
+
+    NSString *identifier = segue.identifier;
+    if ( [segue isKindOfClass: [SWRevealViewControllerSegue class] ] && sender == nil )
+    {
+        if ( [identifier isEqualToString:SWSegueRearIdentifier] )
+        {
+            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
+            {
+                _rearViewController = dvc;
+            };
+        }
+        else if ( [identifier isEqualToString:SWSegueFrontIdentifier] )
+        {
+            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
+            {
+                _frontViewController = dvc;
+            };
+        }
+    }
+}
+
+
+
+#pragma mark - View lifecycle
 
 - (void)loadView
 {
@@ -315,16 +351,20 @@ const int FrontViewPositionNone = -1;
     // with the modern view controller containment patterns, let's leave it for the sake of it!
     CGRect frame = [[UIScreen mainScreen] applicationFrame];
 
-    // create a custom content view for the controller and assign it to the controller's view
+    // create a custom content view for the controller
     _contentView = [[SWRevealView alloc] initWithFrame:frame controller:self];
+    
+    // set the content view to resize along with its superview
      [_contentView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+
+    // set our contentView to the controllers view
     self.view = _contentView;
     
     // load any defined front/rear controllers from the storyboard
-    if ( nil != self.storyboard && nil == _rearViewController )
+    if ( self.storyboard && _rearViewController == nil )
     {
-        [self performSegueWithIdentifier: @"sw_rear" sender: nil];
-        [self performSegueWithIdentifier: @"sw_front" sender: nil];
+        [self performSegueWithIdentifier:SWSegueRearIdentifier sender: nil];
+        [self performSegueWithIdentifier:SWSegueFrontIdentifier sender: nil];
     }
     
     // Apple also tells us to do this:
@@ -908,42 +948,13 @@ const int FrontViewPositionNone = -1;
     return completionBlock;
 }
 
-- (void) prepareForSegue: (SWRevealViewControllerSegue *) segue sender:(id)sender
-{
-    // $ using a custom segue we can get access to the storyboard-loaded rear/front view controllers
-    // the trick is to define segues of type SWRevealViewControllerSegue on the storyboard
-    // connecting the SWRevealViewController to the desired front/rear controllers,
-    // and setting the identifiers to "sw_rear" and "sw_front"
-    
-    // $ these segues are invoked manually in the loadView method if a storyboard
-    // was used to instantiate the SWRevealViewController
-    
-    // $ none of this would be necessary if Apple exposed "relationship" segues for container view controllers.
 
-    if ( [segue isKindOfClass: [SWRevealViewControllerSegue class] ] && sender == nil )
-    {
-        if ( [segue.identifier isEqualToString: @"sw_rear"] )
-        {
-            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc) {
-                
-                _rearViewController = dvc;
-            };
-        }
-        else if ( [segue.identifier isEqualToString: @"sw_front"] )
-        {
-            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc) {
-                
-                _frontViewController = dvc;
-            };
-        }
-    }
-}
 
 @end
 
 
-#pragma mark - UIViewController(SWRevealViewController) Category
 
+#pragma mark - UIViewController(SWRevealViewController) Category
 
 @implementation UIViewController(SWRevealViewController)
 
@@ -966,7 +977,7 @@ const int FrontViewPositionNone = -1;
 
 @implementation SWRevealViewControllerSegue
 
-- (void) perform
+- (void)perform
 {
     if ( _performBlock != nil )
     {

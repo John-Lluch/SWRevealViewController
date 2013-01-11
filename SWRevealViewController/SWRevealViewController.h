@@ -164,7 +164,14 @@ typedef enum
 
 @end
 
+
+// This will allow the class to be defined on a storyboard
+#pragma mark - SWRevealViewControllerSegue
+
 @interface SWRevealViewControllerSegue : UIStoryboardSegue
 
-@property (strong) void(^performBlock)( SWRevealViewControllerSegue* segue, UIViewController* svc, UIViewController* dvc ) ;
+@property (strong) void(^performBlock)( SWRevealViewControllerSegue* segue, UIViewController* svc, UIViewController* dvc );
+
 @end
+
+
