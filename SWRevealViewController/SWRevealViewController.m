@@ -136,16 +136,13 @@ typedef enum
 
         [self addSubview:_rearView];
         [self addSubview:_frontView];
-        
-        UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:_frontView.bounds];
-    
+
         CALayer *frontViewLayer = _frontView.layer;
         frontViewLayer.masksToBounds = NO;
         frontViewLayer.shadowColor = [UIColor blackColor].CGColor;
         frontViewLayer.shadowOpacity = 1.0f;
         frontViewLayer.shadowOffset = _c.frontViewShadowOffset;
         frontViewLayer.shadowRadius = _c.frontViewShadowRadius;
-        frontViewLayer.shadowPath = shadowPath.CGPath;
     }
     
     return self;
@@ -166,6 +163,9 @@ typedef enum
     
     _frontView.frame = CGRectMake(xLocation, 0.0f, bounds.size.width, bounds.size.height);
     _rearView.frame = CGRectMake(0.0f, 0.0f, rearWidth, bounds.size.height);
+    
+    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:_frontView.bounds];
+    _frontView.layer.shadowPath = shadowPath.CGPath;
 }
 
 
