@@ -114,6 +114,7 @@ typedef enum
 
 @property (nonatomic, readonly) UIView *rearView;
 @property (nonatomic, readonly) UIView *frontView;
+@property (nonatomic, assign) BOOL disableLayout;
 
 @end
 
@@ -151,6 +152,8 @@ typedef enum
 
 - (void)layoutSubviews
 {
+    if ( _disableLayout ) return;
+    
     CGRect bounds = self.bounds;
     CGFloat revealWidth = _c.rearViewRevealWidth;
     CGFloat revealOverdraw = _c.rearViewRevealOverdraw;
@@ -495,6 +498,7 @@ static NSString * const SWSegueFrontIdentifier = @"sw_front";
 {
     _userInteractionStore = _contentView.userInteractionEnabled;
     [_contentView setUserInteractionEnabled:NO];
+    [_contentView setDisableLayout:YES];
 }
 
 // restore userInteraction on the control
@@ -503,6 +507,7 @@ static NSString * const SWSegueFrontIdentifier = @"sw_front";
     // we use the stored userInteraction state just in case a developer decided
     // to have our view interaction disabled beforehand
     [_contentView setUserInteractionEnabled:_userInteractionStore];
+    [_contentView setDisableLayout:NO];
 }
 
 
@@ -644,9 +649,10 @@ static NSString * const SWSegueFrontIdentifier = @"sw_front";
 - (void)_dispatchSetFrontViewPosition:(FrontViewPosition)frontViewPosition animated:(BOOL)animated
 {
     NSTimeInterval duration = animated?_toggleAnimationDuration:0.0;
+    __weak SWRevealViewController *theSelf = self;
     [self _enqueueBlock:^
     {
-        [self _setFrontViewPosition:frontViewPosition withDuration:duration];
+        [theSelf _setFrontViewPosition:frontViewPosition withDuration:duration];
     }];
 }
 
@@ -661,28 +667,29 @@ static NSString * const SWSegueFrontIdentifier = @"sw_front";
 //    else if ( _frontViewPosition == FrontViewPositionRight )
 //        firstDuration = duration*0.5;
 
+    __weak SWRevealViewController *theSelf = self;
     if ( animated )
     {
         [self _enqueueBlock:^
         {
-            [self _setFrontViewPosition:FrontViewPositionRightMostRemoved withDuration:duration];
+            [theSelf _setFrontViewPosition:FrontViewPositionRightMostRemoved withDuration:duration];
         }];
     
         [self _enqueueBlock:^
         {
-            [self _setFrontViewController:newFrontViewController];
+            [theSelf _setFrontViewController:newFrontViewController];
         }];
     
         [self _enqueueBlock:^
         {
-            [self _setFrontViewPosition:FrontViewPositionLeft withDuration:duration];
+            [theSelf _setFrontViewPosition:FrontViewPositionLeft withDuration:duration];
         }];
     }
     else
     {
         [self _enqueueBlock:^
         {
-            [self _setFrontViewController:newFrontViewController];
+            [theSelf _setFrontViewController:newFrontViewController];
         }];
     }
 }
