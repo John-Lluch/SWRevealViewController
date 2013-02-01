@@ -14,8 +14,8 @@ A UIViewController subclass for presenting two view controllers inspired on the 
 * Light weight, Clean, Easy to read, self explaining code you will enjoy using in your projects.
 
 
-![Dynamic](https://raw.github.com/Joan-Lluch/SWRevealViewController/master/SWRevealViewController3.png)
-![Dynamic](https://raw.github.com/Joan-Lluch/SWRevealViewController/master/SWRevealViewController.png)
+![Dynamic](https://raw.github.com/John-Lluch/SWRevealViewController/master/SWRevealViewController3.png)
+![Dynamic](https://raw.github.com/John-Lluch/SWRevealViewController/master/SWRevealViewController.png)
 
 
 ## Requirements
