@@ -16,6 +16,8 @@
 		4EDE1D0C168F06A5005656D1 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDE1D0B168F06A5005656D1 /* SWRevealViewController.m */; };
 		4EDE1D0F168F06D6005656D1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EDE1D0E168F06D6005656D1 /* Default-568h@2x.png */; };
 		4EDE1D11168F06E3005656D1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDE1D10168F06E3005656D1 /* main.m */; };
+		4EE05DF116BE643D0046E135 /* RightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE05DEF16BE643D0046E135 /* RightViewController.m */; };
+		4EE05DF216BE643D0046E135 /* RightViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EE05DF016BE643D0046E135 /* RightViewController.xib */; };
 		5E1EFE1514A0BA4F008062C1 /* FrontViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E1EFE0E14A0BA4F008062C1 /* FrontViewController.xib */; };
 		5E1EFE1714A0BA4F008062C1 /* RearViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E1EFE1214A0BA4F008062C1 /* RearViewController.xib */; };
 		5E5A2D0014E0CD8D0042AE1E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E5A2CFF14E0CD8D0042AE1E /* MapKit.framework */; };
@@ -41,6 +43,9 @@
 		4EDE1D0D168F06AF005656D1 /* SWRevealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		4EDE1D0E168F06D6005656D1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		4EDE1D10168F06E3005656D1 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4EE05DEE16BE643D0046E135 /* RightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightViewController.h; sourceTree = "<group>"; };
+		4EE05DEF16BE643D0046E135 /* RightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightViewController.m; sourceTree = "<group>"; };
+		4EE05DF016BE643D0046E135 /* RightViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RightViewController.xib; sourceTree = "<group>"; };
 		5E1EFE0F14A0BA4F008062C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FrontViewController.xib; sourceTree = "<group>"; };
 		5E1EFE1314A0BA4F008062C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RearViewController.xib; sourceTree = "<group>"; };
 		5E5A2CFF14E0CD8D0042AE1E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -96,6 +101,16 @@
 				4ECAAEEF16904A84005862CE /* reveal-icon@2x.png */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		4EE05DEC16BE63ED0046E135 /* RightViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4EE05DEE16BE643D0046E135 /* RightViewController.h */,
+				4EE05DEF16BE643D0046E135 /* RightViewController.m */,
+				4EE05DF016BE643D0046E135 /* RightViewController.xib */,
+			);
+			name = RightViewController;
 			sourceTree = "<group>";
 		};
 		5E5A2CF314E0CB760042AE1E /* FrontViewController (Front) */ = {
@@ -164,6 +179,7 @@
 				5E605BB814A081F900853025 /* AppDelegate.h */,
 				4EDE1D02168F0648005656D1 /* AppDelegate.m */,
 				5E5A2CF414E0CB860042AE1E /* RearViewController (Rear) */,
+				4EE05DEC16BE63ED0046E135 /* RightViewController */,
 				5E5A2CF314E0CB760042AE1E /* FrontViewController (Front) */,
 				5E5A2CF514E0CB9E0042AE1E /* MapViewController (Front) */,
 				4ECAAEED16904A0F005862CE /* Resources */,
@@ -242,6 +258,7 @@
 				4EDE1D0F168F06D6005656D1 /* Default-568h@2x.png in Resources */,
 				4ECAAEF016904A85005862CE /* reveal-icon.png in Resources */,
 				4ECAAEF116904A85005862CE /* reveal-icon@2x.png in Resources */,
+				4EE05DF216BE643D0046E135 /* RightViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +275,7 @@
 				4ECAAEE5169049A1005862CE /* MapViewController.m in Sources */,
 				4ECAAEE9169049AD005862CE /* RearViewController.m in Sources */,
 				4ECAAEEC169049B7005862CE /* FrontViewController.m in Sources */,
+				4EE05DF116BE643D0046E135 /* RightViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

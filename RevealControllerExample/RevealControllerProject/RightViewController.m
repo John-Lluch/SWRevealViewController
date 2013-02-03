@@ -22,74 +22,77 @@
 
 */
 
-#import "FrontViewController.h"
+#import "RightViewController.h"
 #import "SWRevealViewController.h"
 
-@interface FrontViewController()
-
+@interface RightViewController ()
 // Private Methods:
-- (IBAction)pushExample:(id)sender;
-
+- (IBAction)replaceMe:(id)sender;
 @end
 
-@implementation FrontViewController
+@implementation RightViewController
 
-#pragma mark - View lifecycle
-
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
-	[super viewDidLoad];
-	
-	self.title = NSLocalizedString(@"Front View", nil);
+    [super viewDidLoad];
     
-    SWRevealViewController *revealController = [self revealViewController];
-    
-    [self.navigationController.navigationBar addGestureRecognizer:revealController.panGestureRecognizer];
-    
-    UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
-        style:UIBarButtonItemStyleBordered target:revealController action:@selector(revealToggle:)];
-    
-    self.navigationItem.leftBarButtonItem = revealButtonItem;
-    
-    UIBarButtonItem *rightRevealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
-        style:UIBarButtonItemStyleBordered target:revealController action:@selector(rightRevealToggle:)];
-    
-    self.navigationItem.rightBarButtonItem = rightRevealButtonItem;
+    // Set a random -not too dark- background color.
+    CGFloat r = 0.001f*(250+arc4random_uniform(750));
+    CGFloat g = 0.001f*(250+arc4random_uniform(750));
+    CGFloat b = 0.001f*(250+arc4random_uniform(750));
+    UIColor *color = [UIColor colorWithRed:r green:g blue:b alpha:1.0f];
+    self.view.backgroundColor = color;
 }
 
-#pragma mark - Example Code
-
-- (IBAction)pushExample:(id)sender
+- (void)didReceiveMemoryWarning
 {
-	UIViewController *stubController = [[UIViewController alloc] init];
-	stubController.view.backgroundColor = [UIColor whiteColor];
-	[self.navigationController pushViewController:stubController animated:YES];
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
+
+- (IBAction)replaceMe:(id)sender
+{
+    RightViewController *replacement = [[RightViewController alloc] init];
+    [self.revealViewController setRightViewController:replacement];
+}
+
+- (void)dealloc
+{
+    NSLog(@"RightController dealloc");
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog( @"%@: FRONT", NSStringFromSelector(_cmd));
+    NSLog( @"%@: RIGHT %@", NSStringFromSelector(_cmd), self);
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    NSLog( @"%@: FRONT", NSStringFromSelector(_cmd));
+    NSLog( @"%@: RIGHT %@", NSStringFromSelector(_cmd), self);
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSLog( @"%@: FRONT", NSStringFromSelector(_cmd));
+    NSLog( @"%@: RIGHT %@", NSStringFromSelector(_cmd), self);
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    NSLog( @"%@: FRONT", NSStringFromSelector(_cmd));
+    NSLog( @"%@: RIGHT %@", NSStringFromSelector(_cmd), self);
 }
 
 @end

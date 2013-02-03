@@ -1,35 +1,26 @@
-/* 
+/*
+
+ Copyright (c) 2013 Joan Lluch <joan.lluch@sweetwilliamsl.com>
  
- Copyright (c) 2012, John Lluch-Zorrilla (joan.lluch@sweetwilliamsl.com)
- Inspired on a similar class by Philip Kluz (Philip.Kluz@zuui.org)
- All rights reserved.
-
- Redistribution and use in source and binary forms, with or without
- modification, are permitted provided that the following conditions are met:
-
- * Redistributions of source code must retain the above copyright
- notice, this list of conditions and the following disclaimer.
-
- * Redistributions in binary form must reproduce the above copyright
- notice, this list of conditions and the following disclaimer in the
- documentation and/or other materials provided with the distribution.
-
- * Neither the name of John Lluch, 'sweetwilliamsl.com' nor the names of its contributors may
- be used to endorse or promote products derived from this software
- without specific prior written permission.
-
- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- DISCLAIMED. IN NO EVENT SHALL JOHN LLUCH BE LIABLE FOR ANY DIRECT,
- INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is furnished
+ to do so, subject to the following conditions:
  
- */
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+
+*/
 
 
 #import <UIKit/UIKit.h>
@@ -42,6 +33,10 @@
 // Enum values for setFrontViewPosition:animated:
 typedef enum
 {
+    FrontViewPositionLeftSideMostRemoved,
+    FrontViewPositionLeftSideMost,
+    FrontViewPositionLeftSide,
+
     // Left position, rear view is hidden behind front controller
 	FrontViewPositionLeft,
     
@@ -53,9 +48,7 @@ typedef enum
     
     // Front controller is removed from view. Animated transitioning from this state will cause the same
     // effect than animating from FrontViewPositionRightMost. Use this instead of FrontViewPositionRightMost when
-    // you intent to use a width equivalent to rearViewRevealWidth+rearViewRevealOverdraw on
-    // the SWRevealViewController view, this will force the front controller to be removed
-    // from the controller hierarchy.
+    // you intent to remove the front controller view to be removed from the view hierarchy.
     FrontViewPositionRightMostRemoved,
     
 } FrontViewPosition;
@@ -66,8 +59,11 @@ typedef enum
 // Object instance init and rear view setting
 - (id)initWithRearViewController:(UIViewController *)rearViewController frontViewController:(UIViewController *)frontViewController;
 
-// Rear view controller, can not be nil, passed on object initialization
+// Rear view controller, can be nil if not used
 @property (readonly, nonatomic) UIViewController *rearViewController;
+
+// Optional right view controller, can be nil if not used
+@property (strong, nonatomic) UIViewController *rightViewController;
 
 // Front view controller, can be nil on initialization but must be supplied by the time its view is loaded
 @property (strong, nonatomic) UIViewController *frontViewController;
@@ -78,17 +74,19 @@ typedef enum
 @property (assign, nonatomic) FrontViewPosition frontViewPosition;
 - (void)setFrontViewPosition:(FrontViewPosition)frontViewPosition animated:(BOOL)animated;
 
-// Toogles the current state of the controller between Left and Right, any right position becomes FrontViewPositionLeft,
-// left possition becomes FrontViewPositionRight. Use setFrontViewPosition for a more accurate control
+// Toogles the current state of the front controller between Left or Right and fully visible
+// Use setFrontViewPosition to set a particular position
 - (void)revealToggleAnimated:(BOOL)animated;
+- (void)rightRevealToggleAnimated:(BOOL)animated;
 
-// The following method is meant to be directly connected to the action method of a button
+// The following methods are meant to be directly connected to the action method of a button
 // to perform user triggered postion change of the controller views. This is ussually added to a
-// button on top-left of the frontViewController
+// button on top left or right of the frontViewController
 - (void)revealToggle:(id)sender;
+- (void)rightRevealToggle:(id)sender;
 
 // The following method will provide a panGestureRecognizer suitable to be added to any view on the frontController
-// in order to perform usual drag and swipe gestures on the frontViewController to reveal the rear view. This
+// in order to perform usual drag and swipe gestures on the frontViewController to reveal the rear views. This
 // is usually added on the top bar of a front controller.
 - (UIPanGestureRecognizer*)panGestureRecognizer;
 
@@ -97,20 +95,24 @@ typedef enum
 
 // Defines how much of the rear view is shown, default is 260.
 @property (assign, nonatomic) CGFloat rearViewRevealWidth;
+@property (assign, nonatomic) CGFloat rightViewRevealWidth;
 
 // Defines how much of an overdraw can occur when dragging further than 'rearViewRevealWidth', default is 60.
 @property (assign, nonatomic) CGFloat rearViewRevealOverdraw;
+@property (assign, nonatomic) CGFloat rightViewRevealOverdraw;
 
 // If YES (the default) the controller will bounce to the Left position when dragging further than 'rearViewRevealWidth'
 @property (assign, nonatomic) BOOL bounceBackOnOverdraw;
+@property (assign, nonatomic) BOOL bounceBackOnLeftOverdraw;
 
 // If YES (default is NO) the controller will allow permanent dragging up to the rightMostPosition
 @property (assign, nonatomic) BOOL stableDragOnOverdraw;
+@property (assign, nonatomic) BOOL stableDragOnLeftOverdraw;
 
 // Velocity required for the controller to toggle its state based on a swipe movement, default is 300
 @property (assign, nonatomic) CGFloat quickFlickVelocity;
 
-// Default duration for the revealToggle: animation, default is 0.25
+// Default duration for the revealToggle animation, default is 0.25
 @property (assign, nonatomic) NSTimeInterval toggleAnimationDuration;
 
 // Defines the radius of the front view's shadow, default is 2.5f
@@ -119,11 +121,11 @@ typedef enum
 // Defines the radius of the front view's shadow offset default is {0.0f,2.5f}
 @property (assign, nonatomic) CGSize frontViewShadowOffset;
 
-// The class properly handles all the relevant calls to appearance methods on the rearViewController
-// and frontViewController controllers. You can however assign a delegate to let the class inform you
-// of the same. Note that appearance method calls and delegate method calls may not occur at exactly
-// the same times or run loops, but they are all guaranteed to be consistent and to be always delivered
-// at the right order
+// The class properly handles all the relevant calls to appearance methods on the contained controllers.
+// Moreover you can assign a delegate to let the class inform you on positions and animation activity.
+// Note that appearance method calls and delegate method calls may not occur at
+// the same times because appearances take into account actual view visibility, while delegates
+// provide positioning or intended possitioning.
 
 // Delegate
 @property (weak, nonatomic) id<SWRevealViewControllerDelegate> delegate;
@@ -137,8 +139,9 @@ typedef enum
 @optional
 
 - (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position;
-- (void)revealController:(SWRevealViewController *)revealController animateToPosition:(FrontViewPosition)position;
 - (void)revealController:(SWRevealViewController *)revealController didMoveToPosition:(FrontViewPosition)position;
+
+- (void)revealController:(SWRevealViewController *)revealController animateToPosition:(FrontViewPosition)position;
 
 - (void)revealController:(SWRevealViewController *)revealController willRevealRearViewController:(UIViewController *)viewController;
 - (void)revealController:(SWRevealViewController *)revealController didRevealRearViewController:(UIViewController *)viewController;

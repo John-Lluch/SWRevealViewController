@@ -35,6 +35,7 @@
 #import "SWRevealViewController.h"
 #import "FrontViewController.h"
 #import "RearViewController.h"
+#import "RightViewController.h"
 
 @interface AppDelegate()<SWRevealViewControllerDelegate>
 @end
@@ -56,6 +57,16 @@
 	
 	SWRevealViewController *revealController = [[SWRevealViewController alloc] initWithRearViewController:rearViewController frontViewController:navigationController];
     revealController.delegate = self;
+    
+    
+    RightViewController *rightViewController = rightViewController = [[RightViewController alloc] init];
+    rightViewController.view.backgroundColor = [UIColor greenColor];
+    
+    revealController.rightViewController = rightViewController;
+    
+    
+    //revealController.bounceBackOnOverdraw=NO;
+    //revealController.stableDragOnOverdraw=YES;
     
 	self.viewController = revealController;
 	
