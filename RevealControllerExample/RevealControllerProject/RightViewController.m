@@ -66,33 +66,33 @@
     [self.revealViewController setRightViewController:replacement];
 }
 
-- (void)dealloc
-{
-    NSLog(@"RightController dealloc");
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    NSLog( @"%@: RIGHT %@", NSStringFromSelector(_cmd), self);
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    NSLog( @"%@: RIGHT %@", NSStringFromSelector(_cmd), self);
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    NSLog( @"%@: RIGHT %@", NSStringFromSelector(_cmd), self);
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    NSLog( @"%@: RIGHT %@", NSStringFromSelector(_cmd), self);
-}
+//- (void)dealloc
+//{
+//    NSLog(@"RightController dealloc");
+//}
+//
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    NSLog( @"%@: RIGHT %@", NSStringFromSelector(_cmd), self);
+//}
+//
+//- (void)viewWillDisappear:(BOOL)animated
+//{
+//    [super viewWillDisappear:animated];
+//    NSLog( @"%@: RIGHT %@", NSStringFromSelector(_cmd), self);
+//}
+//
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    [super viewDidAppear:animated];
+//    NSLog( @"%@: RIGHT %@", NSStringFromSelector(_cmd), self);
+//}
+//
+//- (void)viewDidDisappear:(BOOL)animated
+//{
+//    [super viewDidDisappear:animated];
+//    NSLog( @"%@: RIGHT %@", NSStringFromSelector(_cmd), self);
+//}
 
 @end
