@@ -129,28 +129,28 @@
 }
 
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    NSLog( @"%@: REAR", NSStringFromSelector(_cmd));
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    NSLog( @"%@: REAR", NSStringFromSelector(_cmd));
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    NSLog( @"%@: REAR", NSStringFromSelector(_cmd));
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    NSLog( @"%@: REAR", NSStringFromSelector(_cmd));
-}
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    NSLog( @"%@: REAR", NSStringFromSelector(_cmd));
+//}
+//
+//- (void)viewWillDisappear:(BOOL)animated
+//{
+//    [super viewWillDisappear:animated];
+//    NSLog( @"%@: REAR", NSStringFromSelector(_cmd));
+//}
+//
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    [super viewDidAppear:animated];
+//    NSLog( @"%@: REAR", NSStringFromSelector(_cmd));
+//}
+//
+//- (void)viewDidDisappear:(BOOL)animated
+//{
+//    [super viewDidDisappear:animated];
+//    NSLog( @"%@: REAR", NSStringFromSelector(_cmd));
+//}
 
 @end

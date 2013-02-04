@@ -68,28 +68,28 @@
 }
 
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    NSLog( @"%@: FRONT", NSStringFromSelector(_cmd));
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    NSLog( @"%@: FRONT", NSStringFromSelector(_cmd));
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    NSLog( @"%@: FRONT", NSStringFromSelector(_cmd));
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    NSLog( @"%@: FRONT", NSStringFromSelector(_cmd));
-}
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    NSLog( @"%@: FRONT", NSStringFromSelector(_cmd));
+//}
+//
+//- (void)viewWillDisappear:(BOOL)animated
+//{
+//    [super viewWillDisappear:animated];
+//    NSLog( @"%@: FRONT", NSStringFromSelector(_cmd));
+//}
+//
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    [super viewDidAppear:animated];
+//    NSLog( @"%@: FRONT", NSStringFromSelector(_cmd));
+//}
+//
+//- (void)viewDidDisappear:(BOOL)animated
+//{
+//    [super viewDidDisappear:animated];
+//    NSLog( @"%@: FRONT", NSStringFromSelector(_cmd));
+//}
 
 @end

@@ -64,7 +64,6 @@
     
     revealController.rightViewController = rightViewController;
     
-    
     //revealController.bounceBackOnOverdraw=NO;
     //revealController.stableDragOnOverdraw=YES;
     
@@ -76,66 +75,66 @@
 }
 
 
-- (NSString*)stringFromFrontViewPosition:(FrontViewPosition)position
-{
-    NSString *str = nil;
-    if ( position == FrontViewPositionLeft ) str = @"FrontViewPositionLeft";
-    if ( position == FrontViewPositionRight ) str = @"FrontViewPositionRight";
-    if ( position == FrontViewPositionRightMost ) str = @"FrontViewPositionRightMost";
-    if ( position == FrontViewPositionRightMostRemoved ) str = @"FrontViewPositionRightMostRemoved";
-    return str;
-}
-
-
-- (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position
-{
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), [self stringFromFrontViewPosition:position]);
-}
-
-- (void)revealController:(SWRevealViewController *)revealController didMoveToPosition:(FrontViewPosition)position
-{
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), [self stringFromFrontViewPosition:position]);
-}
-
-- (void)revealController:(SWRevealViewController *)revealController willRevealRearViewController:(UIViewController *)viewController
-{
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
-}
-
-- (void)revealController:(SWRevealViewController *)revealController didRevealRearViewController:(UIViewController *)viewController
-{
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
-}
-
-- (void)revealController:(SWRevealViewController *)revealController willHideRearViewController:(UIViewController *)viewController
-{
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
-}
-
-- (void)revealController:(SWRevealViewController *)revealController didHideRearViewController:(UIViewController *)viewController
-{
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
-}
-
-- (void)revealController:(SWRevealViewController *)revealController willShowFrontViewController:(UIViewController *)viewController
-{
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
-}
-
-- (void)revealController:(SWRevealViewController *)revealController didShowFrontViewController:(UIViewController *)viewController
-{
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
-}
-
-- (void)revealController:(SWRevealViewController *)revealController willHideFrontViewController:(UIViewController *)viewController
-{
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
-}
-
-- (void)revealController:(SWRevealViewController *)revealController didHideFrontViewController:(UIViewController *)viewController
-{
-    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
-}
+//- (NSString*)stringFromFrontViewPosition:(FrontViewPosition)position
+//{
+//    NSString *str = nil;
+//    if ( position == FrontViewPositionLeft ) str = @"FrontViewPositionLeft";
+//    if ( position == FrontViewPositionRight ) str = @"FrontViewPositionRight";
+//    if ( position == FrontViewPositionRightMost ) str = @"FrontViewPositionRightMost";
+//    if ( position == FrontViewPositionRightMostRemoved ) str = @"FrontViewPositionRightMostRemoved";
+//    return str;
+//}
+//
+//
+//- (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position
+//{
+//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), [self stringFromFrontViewPosition:position]);
+//}
+//
+//- (void)revealController:(SWRevealViewController *)revealController didMoveToPosition:(FrontViewPosition)position
+//{
+//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), [self stringFromFrontViewPosition:position]);
+//}
+//
+//- (void)revealController:(SWRevealViewController *)revealController willRevealRearViewController:(UIViewController *)viewController
+//{
+//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
+//}
+//
+//- (void)revealController:(SWRevealViewController *)revealController didRevealRearViewController:(UIViewController *)viewController
+//{
+//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
+//}
+//
+//- (void)revealController:(SWRevealViewController *)revealController willHideRearViewController:(UIViewController *)viewController
+//{
+//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
+//}
+//
+//- (void)revealController:(SWRevealViewController *)revealController didHideRearViewController:(UIViewController *)viewController
+//{
+//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
+//}
+//
+//- (void)revealController:(SWRevealViewController *)revealController willShowFrontViewController:(UIViewController *)viewController
+//{
+//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
+//}
+//
+//- (void)revealController:(SWRevealViewController *)revealController didShowFrontViewController:(UIViewController *)viewController
+//{
+//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
+//}
+//
+//- (void)revealController:(SWRevealViewController *)revealController willHideFrontViewController:(UIViewController *)viewController
+//{
+//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
+//}
+//
+//- (void)revealController:(SWRevealViewController *)revealController didHideFrontViewController:(UIViewController *)viewController
+//{
+//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
+//}
 
 
 
