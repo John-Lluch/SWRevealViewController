@@ -300,10 +300,7 @@ typedef enum
 
 @implementation SWRevealViewController
 {
-    //void (^_panRearCompletion)(void);
-    //void (^_panRightCompletion)(void);
     FrontViewPosition _panInitialFrontPosition;
-    //FrontViewPosition _panTargetFrontPosition;
     NSMutableArray *_animationQueue;
     BOOL _userInteractionStore;
 }
@@ -628,6 +625,37 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 }
 
 
+#pragma mark - Deferred block execution queue
+
+// Define a convenience macro to enqueue single statements
+#define _enqueue(code) [self _enqueueBlock:^{code;}];
+
+// Defers the execution of the passed in block until a paired _dequeue call is received,
+// or executes the block right away if no pending requests are present.
+- (void)_enqueueBlock:(void (^)(void))block
+{
+    [_animationQueue insertObject:block atIndex:0];
+    if ( _animationQueue.count == 1)
+    {
+        block();
+    }
+}
+
+// Removes the top most block in the queue and executes the following one if any.
+// Calls to this method must be paired with calls to _enqueueBlock, particularly it may be called
+// from within a block passed to _enqueueBlock to remove itself when done with animations.  
+- (void)_dequeue
+{
+    [_animationQueue removeLastObject];
+
+    if ( _animationQueue.count > 0 )
+    {
+        void (^block)(void) = [_animationQueue lastObject];
+        block();
+    }
+}
+
+
 #pragma mark - Gesture Delegate
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
@@ -706,18 +734,12 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     }
     
     if ( allowDragging )
-    {
-       // [_contentView dragFrontViewFromPosition:_panInitialFrontPosition withTranslation:translation];
         [_contentView dragFrontViewToXPosition:xPosition];
-    }
 }
 
 
 - (void)_handleRevealGestureStateEndedWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {
-//    if (_panRearCompletion) _panRearCompletion();
-//        _panRearCompletion = nil;
-    
     UIView *frontView = _contentView.frontView;
     
     CGFloat xPosition = frontView.frame.origin.x;
@@ -793,28 +815,19 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 
 - (void)_handleRevealGestureStateCancelledWithRecognizer:(UIPanGestureRecognizer *)recognizer
-{
-//    if (_panRearCompletion) _panRearCompletion();
-//    _panRearCompletion = nil;
-//    
-//    if (_panRightCompletion) _panRightCompletion();
-//    _panRightCompletion = nil;
-    
+{    
     [self _restoreUserInteraction];
     [self _dequeue];
 }
 
 
-#pragma mark enqueued position and controller setup
+#pragma mark Enqueued position and controller setup
 
 - (void)_dispatchSetFrontViewPosition:(FrontViewPosition)frontViewPosition animated:(BOOL)animated
 {
     NSTimeInterval duration = animated?_toggleAnimationDuration:0.0;
     __weak SWRevealViewController *theSelf = self;
-    [self _enqueueBlock:^
-    {
-        [theSelf _setFrontViewPosition:frontViewPosition withDuration:duration];
-    }];
+    _enqueue( [theSelf _setFrontViewPosition:frontViewPosition withDuration:duration] );
 }
 
 
@@ -831,27 +844,13 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     __weak SWRevealViewController *theSelf = self;
     if ( animated )
     {
-        [self _enqueueBlock:^
-        {
-            [theSelf _setFrontViewPosition:FrontViewPositionRightMost withDuration:duration];
-        }];
-    
-        [self _enqueueBlock:^
-        {
-            [theSelf _setFrontViewController:newFrontViewController];
-        }];
-    
-        [self _enqueueBlock:^
-        {
-            [theSelf _setFrontViewPosition:FrontViewPositionLeft withDuration:duration];
-        }];
+        _enqueue( [theSelf _setFrontViewPosition:FrontViewPositionRightMost withDuration:duration] );
+        _enqueue( [theSelf _setFrontViewController:newFrontViewController] );
+        _enqueue( [theSelf _setFrontViewPosition:FrontViewPositionLeft withDuration:duration] );
     }
     else
     {
-        [self _enqueueBlock:^
-        {
-            [theSelf _setFrontViewController:newFrontViewController];
-        }];
+        _enqueue( [theSelf _setFrontViewController:newFrontViewController] );
     }
 }
 
@@ -859,47 +858,14 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 - (void)_dispatchSetRearViewController:(UIViewController *)newRearViewController
 {
     __weak SWRevealViewController *theSelf = self;
-    [self _enqueueBlock:^{
-        [theSelf _setRearViewController:newRearViewController];
-    }];
+    _enqueue( [theSelf _setRearViewController:newRearViewController] );
 }
 
 
 - (void)_dispatchSetRightViewController:(UIViewController *)newRightViewController
 {
     __weak SWRevealViewController *theSelf = self;
-    [self _enqueueBlock:^
-    {
-        [theSelf _setRightViewController:newRightViewController];
-    }];
-}
-
-
-#pragma mark - deferred block execution queue
-
-// Defers the execution of the passed in block until a paired _dequeue call is received,
-// or executes the block right away if no pending requests are present.
-- (void)_enqueueBlock:(void (^)(void))block
-{
-    [_animationQueue insertObject:block atIndex:0];
-    if ( _animationQueue.count == 1)
-    {
-        block();
-    }
-}
-
-// Removes the top most block in the queue and executes the following one if any.
-// Calls to this method must be paired with calls to _enqueueBlock, particularly it may be called
-// from within a block passed to _enqueueBlock to remove itself when done with animations.  
-- (void)_dequeue
-{
-    [_animationQueue removeLastObject];
-
-    if ( _animationQueue.count > 0 )
-    {
-        void (^block)(void) = [_animationQueue lastObject];
-        block();
-    }
+    _enqueue( [theSelf _setRightViewController:newRightViewController] );
 }
 
 
@@ -914,7 +880,10 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     
     void (^animations)() = ^()
     {
-        [self _layoutControllerViews];
+        [_contentView layoutSubviews];
+    
+        if ([_delegate respondsToSelector:@selector(revealController:animateToPosition:)])
+            [_delegate revealController:self animateToPosition:_frontViewPosition];
     };
     
     void (^completion)(BOOL) = ^(BOOL finished)
@@ -943,7 +912,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 {
     UIViewController *old = _frontViewController;
     _frontViewController = newFrontViewController;
-    [self _transitionFrontController:old toController:newFrontViewController inView:_contentView.frontView]();    
+    [self _transitionFromViewController:old toViewController:newFrontViewController inView:_contentView.frontView]();
     [self _dequeue];
 }
 
@@ -953,7 +922,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 {
     UIViewController *old = _rearViewController;
     _rearViewController = newRearViewController;
-    [self _transitionRearController:old toController:newRearViewController inView:_contentView.frontView]();
+    [self _transitionFromViewController:old toViewController:newRearViewController inView:_contentView.frontView]();
     [self _dequeue];
 }
 
@@ -962,7 +931,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 {
     UIViewController *old = _rightViewController;
     _rightViewController = newRightViewController;
-    [self _transitionRearController:old toController:newRightViewController inView:_contentView.rightView]();
+    [self _transitionFromViewController:old toViewController:newRightViewController inView:_contentView.rightView]();
     [self _dequeue];
     
 //    UIViewController *old = _rightViewController;
@@ -1002,25 +971,19 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 // that must be invoked on animation completion in order to finish deployment
 - (void (^)(void))_frontViewDeploymentForNewFrontViewPosition:(FrontViewPosition)newPosition
 {
-    if ( _rightViewController == nil && newPosition < FrontViewPositionLeft )
+    if ( (_rightViewController == nil && newPosition < FrontViewPositionLeft) ||
+         (_rearViewController == nil && newPosition > FrontViewPositionLeft) )
         newPosition = FrontViewPositionLeft;
     
-    if ( _rearViewController == nil && newPosition > FrontViewPositionLeft )
-        newPosition = FrontViewPositionLeft;
-
     BOOL positionIsChanging = (_frontViewPosition != newPosition);
     
-    BOOL frontIsAppearing =
+    BOOL appear =
         (_frontViewPosition >= FrontViewPositionRightMostRemoved || _frontViewPosition <= FrontViewPositionLeftSideMostRemoved) &&
         (newPosition < FrontViewPositionRightMostRemoved && newPosition > FrontViewPositionLeftSideMostRemoved);
     
-    BOOL frontIsDisappearing =
+    BOOL disappear =
         (newPosition >= FrontViewPositionRightMostRemoved || newPosition <= FrontViewPositionLeftSideMostRemoved ) &&
         (_frontViewPosition < FrontViewPositionRightMostRemoved && _frontViewPosition > FrontViewPositionLeftSideMostRemoved);
-    
-    void (^deployCompletion)() = nil;
-    void (^undeployCompletion)() = nil;
-    UIViewController *viewController = _frontViewController;
     
     if ( positionIsChanging )
     {
@@ -1030,20 +993,12 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     
     _frontViewPosition = newPosition;
     
-    if ( frontIsAppearing )
-        deployCompletion = [self _deployFrontController:_frontViewController inView:_contentView.frontView];
-    
-    else if ( frontIsDisappearing )
-        undeployCompletion = [self _undeployFrontController:viewController];
+    void (^deploymentCompletion)() =
+        [self _deploymentForController:_frontViewController inView:_contentView.frontView appear:appear disappear:disappear];
     
     void (^completion)() = ^()
     {
-        if ( frontIsAppearing )
-            deployCompletion();
-        
-        else if ( frontIsDisappearing )
-            undeployCompletion();
-        
+        deploymentCompletion();
         if ( positionIsChanging )
         {
             if ( [_delegate respondsToSelector:@selector(revealController:didMoveToPosition:)] )
@@ -1061,23 +1016,15 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     if ( _rearViewController == nil && newPosition > FrontViewPositionLeft )
         newPosition = FrontViewPositionLeft;
 
-    BOOL rearIsAppearing = (_rearViewPosition <= FrontViewPositionLeft || _rearViewPosition == FrontViewPositionNone) && newPosition > FrontViewPositionLeft;
-    BOOL rearIsDisappearing = (newPosition <= FrontViewPositionLeft || newPosition == FrontViewPositionNone) && _rearViewPosition > FrontViewPositionLeft;
+    BOOL appear = (_rearViewPosition <= FrontViewPositionLeft || _rearViewPosition == FrontViewPositionNone) && newPosition > FrontViewPositionLeft;
+    BOOL disappear = (newPosition <= FrontViewPositionLeft || newPosition == FrontViewPositionNone) && _rearViewPosition > FrontViewPositionLeft;
     
-    if ( rearIsAppearing )
+    if ( appear )
         [_contentView prepareRearViewForPosition:newPosition];
     
     _rearViewPosition = newPosition;
     
-    void (^completion)() = ^{};
-    
-    if ( rearIsAppearing )
-        completion = [self _deployRearController:_rearViewController inView:_contentView.rearView];
-    
-    if ( rearIsDisappearing )
-        completion = [self _undeployRearController:_rearViewController];
-    
-    return completion;
+    return [self _deploymentForController:_rearViewController inView:_contentView.rearView appear:appear disappear:disappear];
 }
 
 // Deploy/Undeploy of the right view controller following the containment principles. Returns a block
@@ -1087,122 +1034,23 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     if ( _rightViewController == nil && newPosition < FrontViewPositionLeft )
         newPosition = FrontViewPositionLeft;
 
-    BOOL rightIsAppearing = _rightViewPosition >= FrontViewPositionLeft && newPosition < FrontViewPositionLeft ;
-    BOOL rightIsDisappearing = newPosition >= FrontViewPositionLeft && _rightViewPosition < FrontViewPositionLeft;
+    BOOL appear = _rightViewPosition >= FrontViewPositionLeft && newPosition < FrontViewPositionLeft ;
+    BOOL disappear = newPosition >= FrontViewPositionLeft && _rightViewPosition < FrontViewPositionLeft;
     
-    if ( rightIsAppearing )
+    if ( appear )
         [_contentView prepareRightViewForPosition:newPosition];
     
     _rightViewPosition = newPosition;
-   
-    void (^completion)() = ^{};
     
-    if ( rightIsAppearing )
-        completion = [self _deployRearController:_rightViewController inView:_contentView.rightView];
-    
-    if (rightIsDisappearing )
-        completion = [self _undeployRearController:_rightViewController];
-    
-    return completion;
-}
-
-// Front deploy
-- (void (^)(void))_deployFrontController:(UIViewController*)frontController inView:(UIView*)view
-{
-    if ([_delegate respondsToSelector:@selector(revealController:willShowFrontViewController:)])
-        [_delegate revealController:self willShowFrontViewController:frontController];
-        
-    void (^completion)() = [self _deployViewController:frontController inView:view];
-    
-    void (^frontCompletionBlock)() = ^()
-    {
-        completion();
-        if ([_delegate respondsToSelector:@selector(revealController:didShowFrontViewController:)])
-            [_delegate revealController:self didShowFrontViewController:frontController];
-    };
-
-    return frontCompletionBlock;
-}
-
-// Front undeploy
-- (void (^)(void))_undeployFrontController:(UIViewController*)frontController
-{
-    if ([_delegate respondsToSelector:@selector(revealController:willHideFrontViewController:)])
-        [_delegate revealController:self willHideFrontViewController:frontController];
-        
-    void (^completion)() = [self _undeployViewController:frontController];
-    
-    void (^frontCompletionBlock)() = ^()
-    {
-        completion();
-        if ([_delegate respondsToSelector:@selector(revealController:didHideRearViewController:)])
-            [_delegate revealController:self didHideFrontViewController:frontController];
-    };
-
-    return frontCompletionBlock;
-}
-
-// Rear deploy
-- (void (^)(void))_deployRearController:(UIViewController*)rearController inView:(UIView*)view
-{
-    if ([_delegate respondsToSelector:@selector(revealController:willRevealRearViewController:)])
-            [_delegate revealController:self willRevealRearViewController:rearController];
-        
-    void (^completion)() = [self _deployViewController:rearController inView:view];
-    
-    void (^rearCompletionBlock)() = ^()
-    {
-        completion();
-        if ([_delegate respondsToSelector:@selector(revealController:didRevealRearViewController:)])
-                [_delegate revealController:self didRevealRearViewController:rearController];
-    };
-
-    return rearCompletionBlock;
-}
-
-// Rear undeploy
-- (void (^)(void))_undeployRearController:(UIViewController*)rearController
-{
-    if ([_delegate respondsToSelector:@selector(revealController:willHideRearViewController:)])
-        [_delegate revealController:self willHideRearViewController:rearController];
-        
-    void (^completion)() = [self _undeployViewController:rearController];
-    
-    void (^rearCompletionBlock)() = ^()
-    {
-        completion();
-        if ([_delegate respondsToSelector:@selector(revealController:didHideRearViewController:)])
-                [_delegate revealController:self didHideRearViewController:rearController];
-    };
-
-    return rearCompletionBlock;
+    return [self _deploymentForController:_rightViewController inView:_contentView.rightView appear:appear disappear:disappear];
 }
 
 
-#pragma mark View controller transition
-
-// Front Transition method.
-- (void(^)(void))_transitionFrontController:(UIViewController*)fromController toController:(UIViewController*)toController inView:(UIView*)view
+- (void (^)(void)) _deploymentForController:(UIViewController*)controller inView:(UIView*)view appear:(BOOL)appear disappear:(BOOL)disappear
 {
-    SEL deploy = @selector(_deployFrontController:inView:);
-    SEL undeploy = @selector(_undeployFrontController:);
-    
-    void (^completionBlock)(void) = [self _transitionFromViewController:fromController toViewController:toController inView:view
-        deploySelector:deploy undeploySelector:undeploy];
-    
-    return completionBlock;
-}
-
-// Rear Transition method.
-- (void(^)(void))_transitionRearController:(UIViewController*)fromController toController:(UIViewController*)toController inView:(UIView*)view
-{
-    SEL deploy = @selector(_deployRearController:inView:);
-    SEL undeploy = @selector(_undeployRearController:);
-    
-    void (^completionBlock)(void) = [self _transitionFromViewController:fromController toViewController:toController inView:view
-        deploySelector:deploy undeploySelector:undeploy];
-    
-    return completionBlock;
+    if ( appear ) return [self _deployViewController:controller inView:view];
+    if ( disappear ) return [self _undeployViewController:controller];
+    return ^{};
 }
 
 
@@ -1248,25 +1096,18 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 // Containment Transition method. Returns a block to be invoked at the
 // animation completion, or right after return in case of non-animated transition.
-- (void(^)(void))_transitionFromViewController:(UIViewController*)fromController toViewController:(UIViewController*)toController inView:(UIView*)view deploySelector:(SEL)deploy undeploySelector:(SEL)undeploy
+- (void(^)(void))_transitionFromViewController:(UIViewController*)fromController toViewController:(UIViewController*)toController inView:(UIView*)view
 {
     if ( fromController == toController )
         return ^(void){};
     
     if ( toController ) [self addChildViewController:toController];
     
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    
-    if ( deploy == NULL ) deploy = @selector(_deployViewController:inView:);
-    void (^deployCompletion)() = [self performSelector:deploy withObject:toController withObject:view];
+    void (^deployCompletion)() = [self _deployViewController:toController inView:view];
     
     [fromController willMoveToParentViewController:nil];
     
-    if ( undeploy == NULL ) undeploy = @selector(_undeployViewController:);
-    void (^undeployCompletion)() = [self performSelector:undeploy withObject:fromController];
-    
-    #pragma clang diagnostic pop
+    void (^undeployCompletion)() = [self _undeployViewController:fromController];
     
     void (^completionBlock)(void) = ^(void)
     {
@@ -1278,6 +1119,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     };
     return completionBlock;
 }
+
 
 @end
 

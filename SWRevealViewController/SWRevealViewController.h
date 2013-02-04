@@ -123,9 +123,6 @@ typedef enum
 
 // The class properly handles all the relevant calls to appearance methods on the contained controllers.
 // Moreover you can assign a delegate to let the class inform you on positions and animation activity.
-// Note that appearance method calls and delegate method calls may not occur at
-// the same times because appearances take into account actual view visibility, while delegates
-// provide positioning or intended possitioning.
 
 // Delegate
 @property (weak, nonatomic) id<SWRevealViewControllerDelegate> delegate;
@@ -142,15 +139,6 @@ typedef enum
 - (void)revealController:(SWRevealViewController *)revealController didMoveToPosition:(FrontViewPosition)position;
 
 - (void)revealController:(SWRevealViewController *)revealController animateToPosition:(FrontViewPosition)position;
-
-// DEPRECATED METHODS, will be removed in the futrue, use the above or the appearance calls on the child controllers instead
-//- (void)revealController:(SWRevealViewController *)revealController willRevealRearViewController:(UIViewController *)viewController; - (void)revealController:(SWRevealViewController *)revealController didRevealRearViewController:(UIViewController *)viewController;
-//- (void)revealController:(SWRevealViewController *)revealController willHideRearViewController:(UIViewController *)viewController;
-//- (void)revealController:(SWRevealViewController *)revealController didHideRearViewController:(UIViewController *)viewController;
-//- (void)revealController:(SWRevealViewController *)revealController willShowFrontViewController:(UIViewController *)viewController;
-//- (void)revealController:(SWRevealViewController *)revealController didShowFrontViewController:(UIViewController *)viewController;
-//- (void)revealController:(SWRevealViewController *)revealController willHideFrontViewController:(UIViewController *)viewController;
-//- (void)revealController:(SWRevealViewController *)revealController didHideFrontViewController:(UIViewController *)viewController;
 
 @end
 
