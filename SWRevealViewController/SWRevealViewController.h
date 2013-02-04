@@ -144,13 +144,13 @@ typedef enum
 - (void)revealController:(SWRevealViewController *)revealController animateToPosition:(FrontViewPosition)position;
 
 // DEPRECATED METHODS, will be removed in the futrue, use the above or the appearance calls on the child controllers instead
-- (void)revealController:(SWRevealViewController *)revealController willRevealRearViewController:(UIViewController *)viewController; - (void)revealController:(SWRevealViewController *)revealController didRevealRearViewController:(UIViewController *)viewController;
-- (void)revealController:(SWRevealViewController *)revealController willHideRearViewController:(UIViewController *)viewController;
-- (void)revealController:(SWRevealViewController *)revealController didHideRearViewController:(UIViewController *)viewController;
-- (void)revealController:(SWRevealViewController *)revealController willShowFrontViewController:(UIViewController *)viewController;
-- (void)revealController:(SWRevealViewController *)revealController didShowFrontViewController:(UIViewController *)viewController;
-- (void)revealController:(SWRevealViewController *)revealController willHideFrontViewController:(UIViewController *)viewController;
-- (void)revealController:(SWRevealViewController *)revealController didHideFrontViewController:(UIViewController *)viewController;
+//- (void)revealController:(SWRevealViewController *)revealController willRevealRearViewController:(UIViewController *)viewController; - (void)revealController:(SWRevealViewController *)revealController didRevealRearViewController:(UIViewController *)viewController;
+//- (void)revealController:(SWRevealViewController *)revealController willHideRearViewController:(UIViewController *)viewController;
+//- (void)revealController:(SWRevealViewController *)revealController didHideRearViewController:(UIViewController *)viewController;
+//- (void)revealController:(SWRevealViewController *)revealController willShowFrontViewController:(UIViewController *)viewController;
+//- (void)revealController:(SWRevealViewController *)revealController didShowFrontViewController:(UIViewController *)viewController;
+//- (void)revealController:(SWRevealViewController *)revealController willHideFrontViewController:(UIViewController *)viewController;
+//- (void)revealController:(SWRevealViewController *)revealController didHideFrontViewController:(UIViewController *)viewController;
 
 @end
 
