@@ -833,18 +833,19 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 - (void)_dispatchSetFrontViewController:(UIViewController *)newFrontViewController animated:(BOOL)animated
 {
-    NSTimeInterval duration = animated?_toggleAnimationDuration:0.0;
+    int initialPosDif = FrontViewPositionRightMost - _frontViewPosition;
+
+    NSTimeInterval firstDuration ;
+    if ( initialPosDif <= 0 ) firstDuration = 0.0;
+    else if ( initialPosDif == 1 ) firstDuration = _toggleAnimationDuration*0.5;
+    else firstDuration = _toggleAnimationDuration;
     
-//    NSTimeInterval firstDuration = 0.0;
-//    if ( _frontViewPosition == FrontViewPositionLeft )
-//        firstDuration = duration;
-//    else if ( _frontViewPosition == FrontViewPositionRight )
-//        firstDuration = duration*0.5;
+    NSTimeInterval duration = animated?_toggleAnimationDuration:0.0;
 
     __weak SWRevealViewController *theSelf = self;
     if ( animated )
     {
-        _enqueue( [theSelf _setFrontViewPosition:FrontViewPositionRightMost withDuration:duration] );
+        _enqueue( [theSelf _setFrontViewPosition:FrontViewPositionRightMost withDuration:firstDuration] );
         _enqueue( [theSelf _setFrontViewController:newFrontViewController] );
         _enqueue( [theSelf _setFrontViewPosition:FrontViewPositionLeft withDuration:duration] );
     }
