@@ -129,7 +129,7 @@ typedef enum
         CGRect bounds = self.bounds;
     
         _frontView = [[UIView alloc] initWithFrame:bounds];
-        _frontView.autoresizingMask = UIViewAutoresizingNone;
+        _frontView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 
         [self addSubview:_frontView];
 
@@ -166,7 +166,7 @@ typedef enum
     if ( _rearView == nil )
     {
         _rearView = [[UIView alloc] initWithFrame:self.bounds];
-        _rearView.autoresizingMask = UIViewAutoresizingNone;
+        _rearView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         [self insertSubview:_rearView belowSubview:_frontView];
     }
     [self _layoutRearViews];
@@ -208,7 +208,7 @@ typedef enum
     if ( _rightView == nil )
     {
         _rightView = [[UIView alloc] initWithFrame:self.bounds];
-        _rightView.autoresizingMask = UIViewAutoresizingNone;
+        _rightView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         [self insertSubview:_rightView belowSubview:_frontView];
     }
     [self _layoutRearViews];
@@ -429,9 +429,16 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     // load any defined front/rear controllers from the storyboard
     if ( self.storyboard && _rearViewController == nil )
     {
-        [self performSegueWithIdentifier:SWSegueRearIdentifier sender: nil];
-        [self performSegueWithIdentifier:SWSegueFrontIdentifier sender: nil];
+        [self performSegueWithIdentifier:SWSegueRearIdentifier sender:nil];
+        [self performSegueWithIdentifier:SWSegueFrontIdentifier sender:nil];
     }
+    
+    // load any defined right controllers from the storyboard
+    if ( self.storyboard && _rightViewController == nil )
+    {
+        [self performSegueWithIdentifier:SWSegueRightIdentifier sender:nil];
+    }
+
     
     // Apple also tells us to do this:
     _contentView.backgroundColor = [UIColor blackColor];
@@ -472,6 +479,13 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 {
     return UIInterfaceOrientationMaskAll;
 }
+
+// Support for earlier than iOS 6.0
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
+
 
 
 #pragma mark - Public methods and property accessors
@@ -672,10 +686,9 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     switch ( recognizer.state )
     {
         case UIGestureRecognizerStateBegan:
-        {
             [self _handleRevealGestureStateBeganWithRecognizer:recognizer];
             break;
-        }
+            
         case UIGestureRecognizerStateChanged:
             [self _handleRevealGestureStateChangedWithRecognizer:recognizer];
             break;
@@ -685,7 +698,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
             break;
             
         case UIGestureRecognizerStateCancelled:
-        case UIGestureRecognizerStateFailed:
+        //case UIGestureRecognizerStateFailed:
             [self _handleRevealGestureStateCancelledWithRecognizer:recognizer];
             break;
             
