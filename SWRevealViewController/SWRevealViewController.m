@@ -441,6 +441,12 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
         }
     }
     
+    // load any defined right controllers from the storyboard
+    if ( self.storyboard && _rightViewController == nil )
+    {
+        [self performSegueWithIdentifier:SWSegueRightIdentifier sender: nil];
+    }
+    
     // Apple also tells us to do this:
     _contentView.backgroundColor = [UIColor blackColor];
     
