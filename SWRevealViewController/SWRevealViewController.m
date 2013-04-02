@@ -429,16 +429,17 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     // load any defined front/rear controllers from the storyboard
     if ( self.storyboard && _rearViewController == nil )
     {
-        [self performSegueWithIdentifier:SWSegueRearIdentifier sender:nil];
-        [self performSegueWithIdentifier:SWSegueFrontIdentifier sender:nil];
+        @try
+        {
+            [self performSegueWithIdentifier:SWSegueRearIdentifier sender:nil];
+            [self performSegueWithIdentifier:SWSegueFrontIdentifier sender:nil];
+            [self performSegueWithIdentifier:SWSegueRightIdentifier sender:nil];
+        }
+        @catch(NSException *exception)
+        {
+            //NSLog(@"Caught %@: %@", [exception name], [exception reason]);
+        }
     }
-    
-    // load any defined right controllers from the storyboard
-    if ( self.storyboard && _rightViewController == nil )
-    {
-        [self performSegueWithIdentifier:SWSegueRightIdentifier sender:nil];
-    }
-
     
     // Apple also tells us to do this:
     _contentView.backgroundColor = [UIColor blackColor];
@@ -472,6 +473,11 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
         
 //  [_frontViewController view];
 //  [_rearViewController view];
+
+    // we store at this point the view's user interaction state as we may temporarily disable it
+    // and resume it back to the previous state, it is possible to override this behaviour by
+    // intercepting it on the panGestureBegan and panGestureEnded delegates
+    _userInteractionStore = _contentView.userInteractionEnabled;
 }
 
 
@@ -604,9 +610,12 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 // disable userInteraction on the entire control
 - (void)_disableUserInteraction
 {
-    _userInteractionStore = _contentView.userInteractionEnabled;
+    //_userInteractionStore = _contentView.userInteractionEnabled;
     [_contentView setUserInteractionEnabled:NO];
     [_contentView setDisableLayout:YES];
+    
+    if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureBegan:)] )
+        [_delegate revealControllerPanGestureBegan:self];
 }
 
 // restore userInteraction on the control
@@ -616,6 +625,9 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     // to have our view interaction disabled beforehand
     [_contentView setUserInteractionEnabled:_userInteractionStore];
     [_contentView setDisableLayout:NO];
+    
+    if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureEnded:) ] )
+        [_delegate revealControllerPanGestureEnded:self];
 }
 
 
@@ -894,6 +906,8 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     
     void (^animations)() = ^()
     {
+        // We call the layoutSubviews method on the contentView view and send a delegate, which will
+        // occur inside of an animation block if any animated transition is being performed
         [_contentView layoutSubviews];
     
         if ([_delegate respondsToSelector:@selector(revealController:animateToPosition:)])
@@ -962,20 +976,6 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 //        completion();
 //        [self _dequeue];
 //    }];
-}
-
-
-#pragma mark view controller deployment and layout
-
-// Calls the layoutSubviews method on the contentView view and sends a delegate call, which will
-// occur inside of an animation block if any animated transition is being performed
-- (void)_layoutControllerViews
-{
-    [_contentView layoutSubviews];
-    
-    if ([_delegate respondsToSelector:@selector(revealController:animateToPosition:)])
-            [_delegate revealController:self animateToPosition:_frontViewPosition];
-
 }
 
 
