@@ -358,6 +358,7 @@ const int FrontViewPositionNone = 0xff;
     _frontViewShadowRadius = 2.5f;
     _frontViewShadowOffset = CGSizeMake(0.0f, 2.5f);
     _animationQueue = [NSMutableArray array];
+    _userInteractionStore = YES;
 }
 
 
