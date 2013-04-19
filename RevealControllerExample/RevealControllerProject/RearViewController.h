@@ -20,6 +20,8 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
 
+ Original code:
+ Copyright (c) 2011, Philip Kluz (Philip.Kluz@zuui.org)
 */
 
 #import <UIKit/UIKit.h>

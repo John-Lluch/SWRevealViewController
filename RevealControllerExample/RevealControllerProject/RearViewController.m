@@ -20,7 +20,10 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
-
+ 
+ Original code:
+ Copyright (c) 2011, Philip Kluz (Philip.Kluz@zuui.org)
+ 
 */
 
 #import "RearViewController.h"
