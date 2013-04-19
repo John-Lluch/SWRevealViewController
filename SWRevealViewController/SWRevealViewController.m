@@ -359,6 +359,7 @@ const int FrontViewPositionNone = 0xff;
     _frontViewShadowOffset = CGSizeMake(0.0f, 2.5f);
     _userInteractionStore = YES;
     _animationQueue = [NSMutableArray array];
+    _userInteractionStore = YES;
 }
 
 
