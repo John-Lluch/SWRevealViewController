@@ -357,6 +357,7 @@ const int FrontViewPositionNone = 0xff;
     _toggleAnimationDuration = 0.25;
     _frontViewShadowRadius = 2.5f;
     _frontViewShadowOffset = CGSizeMake(0.0f, 2.5f);
+    _userInteractionStore = YES;
     _animationQueue = [NSMutableArray array];
 }
 
@@ -750,11 +751,13 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     {
         allowDragging = (_rightViewController != nil);
         [self _rightViewDeploymentForNewFrontViewPosition:FrontViewPositionLeftSide]();
+        [self _rearViewDeploymentForNewFrontViewPosition:FrontViewPositionLeftSide]();
     }
     
     if ( xPosition > 0 )
     {
         allowDragging = (_rearViewController != nil);
+        [self _rightViewDeploymentForNewFrontViewPosition:FrontViewPositionRight]();
         [self _rearViewDeploymentForNewFrontViewPosition:FrontViewPositionRight]();
     }
     
