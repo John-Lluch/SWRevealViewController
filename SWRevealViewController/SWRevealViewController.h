@@ -62,18 +62,24 @@ typedef enum
 - (id)initWithRearViewController:(UIViewController *)rearViewController frontViewController:(UIViewController *)frontViewController;
 
 // Rear view controller, can be nil if not used
-@property (readonly, nonatomic) UIViewController *rearViewController;
+@property (strong, nonatomic) UIViewController *rearViewController;
 
 // Optional right view controller, can be nil if not used
 @property (strong, nonatomic) UIViewController *rightViewController;
 
 // Front view controller, can be nil on initialization but must be supplied by the time its view is loaded
 @property (strong, nonatomic) UIViewController *frontViewController;
+
+// Sets the frontViewController using a default set of chained animations consisting on moving the
+// presented frontViewController to the top most right, replacing it, and moving it back to the left position
 - (void)setFrontViewController:(UIViewController *)frontViewController animated:(BOOL)animated;
 
 // Front view position, use this to set a particular position state on the controller
 // On initialization it is set to FrontViewPositionLeft
 @property (assign, nonatomic) FrontViewPosition frontViewPosition;
+
+// Chained animation of the frontViewController position. You can call it several times in a row to achieve
+// any set of animations you wish. Animations will be chained and performed one after the other.
 - (void)setFrontViewPosition:(FrontViewPosition)frontViewPosition animated:(BOOL)animated;
 
 // Toogles the current state of the front controller between Left or Right and fully visible

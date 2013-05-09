@@ -9,7 +9,8 @@ A UIViewController subclass for presenting two view controllers inspired on the 
 * Supports any combination of Left/Right rear controllers.
 * Correctly handles appearance methods on its child controllers that you can rely on.
 * Correctly handles rotations.
-* Can be embedded as a child view controller of other controllers, it just works, no glitches, no interface artifacts, no initialization issues, no rotation or resizing problems.
+* Can be embedded as a child view controller of other controllers or deployed as the rootViewController.
+* Plays nicely with any child view controllers or parent controllers.
 * Can be deployed as a child of itself to create cascade like, hierarchical interfaces.
 * Seamless integration of pan gesture recognizer, behaving as smooth as silk.
 * Includes a category method of UIViewController 'revealViewController' to get the parent SWRevealViewController of any child controller. Similar to the UIViewController's property 'navigationController'.
@@ -43,12 +44,16 @@ A UIViewController subclass for presenting two view controllers inspired on the 
 Initializing a SWRevealViewController:
 
     - (id)initWithRearViewController:(UIViewController *)rearViewController frontViewController:(UIViewController *)frontViewController;
+
+Setting the right view controller
+
+	@property (strong, nonatomic) UIViewController *rightViewController;
 	
-Setting or changing the front view controller:
+Animated setting of the front view controller:
 
     - (void)setFrontViewController:(UIViewController *)frontViewController animated:(BOOL)animated;
 
-Setting the position of the front view controller. Position can be FrontViewPositionLeft, FrontViewPositionRight, FrontViewPositionRightMost or FrontViewPositionRightMostRemoved:
+Animating the position of the front view controller. Position can be: FrontViewPositionLeftSideMostRemoved, FrontViewPositionLeftSideMost, FrontViewPositionLeftSide, FrontViewPositionLeft, FrontViewPositionRight, FrontViewPositionRightMost or FrontViewPositionRightMostRemoved
 
 	- (void)setFrontViewPosition:(FrontViewPosition)frontViewPosition animated:(BOOL)animated;
 	
