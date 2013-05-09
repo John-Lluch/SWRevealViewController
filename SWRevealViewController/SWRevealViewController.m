@@ -743,28 +743,25 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 - (void)_handleRevealGestureStateChangedWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {
     CGFloat translation = [recognizer translationInView:_contentView].x;
-        
-    BOOL allowDragging = YES;
     
     CGFloat baseLocation = [_contentView frontLocationForPosition:_panInitialFrontPosition];
     CGFloat xPosition = baseLocation + translation;
     
     if ( xPosition < 0 )
     {
-        allowDragging = (_rightViewController != nil);
+        if ( _rightViewController == nil ) xPosition = 0;
         [self _rightViewDeploymentForNewFrontViewPosition:FrontViewPositionLeftSide]();
         [self _rearViewDeploymentForNewFrontViewPosition:FrontViewPositionLeftSide]();
     }
     
     if ( xPosition > 0 )
     {
-        allowDragging = (_rearViewController != nil);
+        if ( _rearViewController == nil ) xPosition = 0;
         [self _rightViewDeploymentForNewFrontViewPosition:FrontViewPositionRight]();
         [self _rearViewDeploymentForNewFrontViewPosition:FrontViewPositionRight]();
     }
     
-    if ( allowDragging )
-        [_contentView dragFrontViewToXPosition:xPosition];
+    [_contentView dragFrontViewToXPosition:xPosition];
 }
 
 
