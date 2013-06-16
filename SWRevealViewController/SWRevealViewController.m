@@ -490,10 +490,12 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 }
 
 // Support for earlier than iOS 6.0
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
 }
+#endif
 
 
 
