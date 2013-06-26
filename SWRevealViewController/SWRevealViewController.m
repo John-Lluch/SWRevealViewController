@@ -141,6 +141,7 @@ typedef enum
         frontViewLayer.shadowOpacity = 1.0f;
         frontViewLayer.shadowOffset = _c.frontViewShadowOffset;
         frontViewLayer.shadowRadius = _c.frontViewShadowRadius;
+        frontViewLayer.shadowOpacity = _c.frontViewShadowOpacity;
     }
     
     return self;
@@ -359,6 +360,7 @@ const int FrontViewPositionNone = 0xff;
     _toggleAnimationDuration = 0.25;
     _frontViewShadowRadius = 2.5f;
     _frontViewShadowOffset = CGSizeMake(0.0f, 2.5f);
+    _frontViewShadowOpacity = 1.0f;
     _userInteractionStore = YES;
     _animationQueue = [NSMutableArray array];
 }

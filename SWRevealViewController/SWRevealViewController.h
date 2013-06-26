@@ -129,6 +129,9 @@ typedef enum
 // Defines the radius of the front view's shadow offset default is {0.0f,2.5f}
 @property (assign, nonatomic) CGSize frontViewShadowOffset;
 
+// Defines the radius of the front view's shadow opacity default is 1.0f
+@property (assign, nonatomic) CGFloat frontViewShadowOpacity;
+
 // The class properly handles all the relevant calls to appearance methods on the contained controllers.
 // Moreover you can assign a delegate to let the class inform you on positions and animation activity.
 
