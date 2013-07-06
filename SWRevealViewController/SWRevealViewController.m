@@ -1010,7 +1010,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     _frontViewPosition = newPosition;
     
     void (^deploymentCompletion)() =
-        [self _deploymentForController:_frontViewController inView:_contentView.frontView appear:appear disappear:disappear];
+        [self _deploymentForView:_frontViewController.view inView:_contentView.frontView appear:appear disappear:disappear];
     
     void (^completion)() = ^()
     {
@@ -1040,7 +1040,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     
     _rearViewPosition = newPosition;
     
-    return [self _deploymentForController:_rearViewController inView:_contentView.rearView appear:appear disappear:disappear];
+    return [self _deploymentForView:_rearViewController.view inView:_contentView.rearView appear:appear disappear:disappear];
 }
 
 // Deploy/Undeploy of the right view controller following the containment principles. Returns a block
@@ -1058,14 +1058,14 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     
     _rightViewPosition = newPosition;
     
-    return [self _deploymentForController:_rightViewController inView:_contentView.rightView appear:appear disappear:disappear];
+    return [self _deploymentForView:_rightViewController.view inView:_contentView.rightView appear:appear disappear:disappear];
 }
 
 
-- (void (^)(void)) _deploymentForController:(UIViewController*)controller inView:(UIView*)view appear:(BOOL)appear disappear:(BOOL)disappear
+- (void (^)(void)) _deploymentForView:(UIView*)controllerView inView:(UIView*)view appear:(BOOL)appear disappear:(BOOL)disappear
 {
-    if ( appear ) return [self _deployViewController:controller inView:view];
-    if ( disappear ) return [self _undeployViewController:controller];
+    if ( appear ) return [self _deployView:controllerView inView:view];
+    if ( disappear ) return [self _undeployView:controllerView];
     return ^{};
 }
 
@@ -1074,12 +1074,11 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 // Containment Deploy method. Returns a block to be invoked at the
 // animation completion, or right after return in case of non-animated deployment.
-- (void (^)(void))_deployViewController:(UIViewController*)viewController inView:(UIView*)view
+- (void (^)(void))_deployView:(UIView*)controllerView inView:(UIView*)view
 {
-    if ( !viewController || !view )
+    if ( !controllerView || !view )
         return ^(void){};
     
-    UIView *controllerView = viewController.view;
     controllerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     controllerView.frame = view.bounds;
     
@@ -1095,16 +1094,16 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 // Containment Undeploy method. Returns a block to be invoked at the
 // animation completion, or right after return in case of non-animated deployment.
-- (void (^)(void))_undeployViewController:(UIViewController*)viewController
+- (void (^)(void))_undeployView:(UIView*)controllerView
 {
-    if (!viewController)
+    if (!controllerView)
         return ^(void){};
 
     // nothing to do before completion at this stage
     
     void (^completionBlock)(void) = ^(void)
     {
-        [viewController.view removeFromSuperview];
+        [controllerView removeFromSuperview];
     };
     
     return completionBlock;
@@ -1119,11 +1118,11 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     
     if ( toController ) [self addChildViewController:toController];
     
-    void (^deployCompletion)() = [self _deployViewController:toController inView:view];
+    void (^deployCompletion)() = [self _deployView:toController.view inView:view];
     
     [fromController willMoveToParentViewController:nil];
     
-    void (^undeployCompletion)() = [self _undeployViewController:fromController];
+    void (^undeployCompletion)() = [self _undeployView:fromController.view];
     
     void (^completionBlock)(void) = ^(void)
     {
