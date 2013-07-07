@@ -1,6 +1,6 @@
 # SWRevealViewController
 
-A UIViewController subclass for presenting two view controllers inspired on the FaceBook app, done right!
+A UIViewController subclass for revealing a rear (left) or/and a right view controller behind a front controller, inspired on the FaceBook app, done right!
 
 ## Features
 
@@ -25,6 +25,13 @@ A UIViewController subclass for presenting two view controllers inspired on the 
 
 * iOS 6.0 or later, tested to work fine on iOS 5.1 as well.
 * ARC memory management.
+
+## IOS7 Compatibility
+
+* As of 7-July-2013 the SWRevealViewController class has been updated to run both with iOS6 and iOS7-beta-2. 
+* Particularly, the SWRevealViewController now works fine on iOS7 with Apple provided child controllers such as UINavigationControllers.
+* The RevealControllerExample and RevealControllerExample2 examples have been updated to use UINavigationControllers instead of a navigation bar on top a view. Thus all child controller layout is now correctly handled by the Apple implementation of the UINavigationController.
+* According to Apple iOS7 transition guidelines developers are responsible to manage the required view offsets and bar heigh extensions on custom viewControllers depending on the actual iOS version. The RevealControllerExample3 is not yet updated to take into account iOS7 layouts and the new Status Bar, and it still defaults to iOS6 layout.
 
 ## Usage
 

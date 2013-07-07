@@ -21,7 +21,6 @@
 		5E1EFE1514A0BA4F008062C1 /* FrontViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E1EFE0E14A0BA4F008062C1 /* FrontViewController.xib */; };
 		5E1EFE1714A0BA4F008062C1 /* RearViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E1EFE1214A0BA4F008062C1 /* RearViewController.xib */; };
 		5E5A2D0014E0CD8D0042AE1E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E5A2CFF14E0CD8D0042AE1E /* MapKit.framework */; };
-		5E5A2D0814E0D1600042AE1E /* MapViewController~iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E5A2D0414E0D1600042AE1E /* MapViewController~iPad.xib */; };
 		5E5A2D0914E0D1600042AE1E /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E5A2D0614E0D1600042AE1E /* MapViewController.xib */; };
 		5E605BAA14A081F900853025 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E605BA914A081F900853025 /* UIKit.framework */; };
 		5E605BAC14A081F900853025 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E605BAB14A081F900853025 /* Foundation.framework */; };
@@ -49,7 +48,6 @@
 		5E1EFE0F14A0BA4F008062C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FrontViewController.xib; sourceTree = "<group>"; };
 		5E1EFE1314A0BA4F008062C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RearViewController.xib; sourceTree = "<group>"; };
 		5E5A2CFF14E0CD8D0042AE1E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		5E5A2D0514E0D1600042AE1E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/MapViewController~iPad.xib"; sourceTree = "<group>"; };
 		5E5A2D0714E0D1600042AE1E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MapViewController.xib; sourceTree = "<group>"; };
 		5E605BA514A081F900853025 /* RevealControllerProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RevealControllerProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E605BA914A081F900853025 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -138,7 +136,6 @@
 			children = (
 				4ECAAEE3169049A1005862CE /* MapViewController.h */,
 				4ECAAEE4169049A1005862CE /* MapViewController.m */,
-				5E5A2D0414E0D1600042AE1E /* MapViewController~iPad.xib */,
 				5E5A2D0614E0D1600042AE1E /* MapViewController.xib */,
 			);
 			name = "MapViewController (Front)";
@@ -253,7 +250,6 @@
 				5E605BB414A081F900853025 /* InfoPlist.strings in Resources */,
 				5E1EFE1514A0BA4F008062C1 /* FrontViewController.xib in Resources */,
 				5E1EFE1714A0BA4F008062C1 /* RearViewController.xib in Resources */,
-				5E5A2D0814E0D1600042AE1E /* MapViewController~iPad.xib in Resources */,
 				5E5A2D0914E0D1600042AE1E /* MapViewController.xib in Resources */,
 				4EDE1D0F168F06D6005656D1 /* Default-568h@2x.png in Resources */,
 				4ECAAEF016904A85005862CE /* reveal-icon.png in Resources */,
@@ -296,14 +292,6 @@
 				5E1EFE1314A0BA4F008062C1 /* en */,
 			);
 			name = RearViewController.xib;
-			sourceTree = "<group>";
-		};
-		5E5A2D0414E0D1600042AE1E /* MapViewController~iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5E5A2D0514E0D1600042AE1E /* en */,
-			);
-			name = "MapViewController~iPad.xib";
 			sourceTree = "<group>";
 		};
 		5E5A2D0614E0D1600042AE1E /* MapViewController.xib */ = {
