@@ -80,7 +80,11 @@
 }
 
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = self.tableView.backgroundColor;
 
+}
 
 #pragma mark - Table view delegate
 

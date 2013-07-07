@@ -53,9 +53,10 @@
 	FrontViewController *frontViewController = [[FrontViewController alloc] init];
 	RearViewController *rearViewController = [[RearViewController alloc] init];
 	
-	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:frontViewController];
+	UINavigationController *frontNavigationController = [[UINavigationController alloc] initWithRootViewController:frontViewController];
+    UINavigationController *rearNavigationController = [[UINavigationController alloc] initWithRootViewController:rearViewController];
 	
-	SWRevealViewController *revealController = [[SWRevealViewController alloc] initWithRearViewController:rearViewController frontViewController:navigationController];
+	SWRevealViewController *revealController = [[SWRevealViewController alloc] initWithRearViewController:rearNavigationController frontViewController:frontNavigationController];
     revealController.delegate = self;
     
     

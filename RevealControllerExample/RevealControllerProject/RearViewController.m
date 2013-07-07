@@ -40,6 +40,18 @@
 
 @synthesize rearTableView = _rearTableView;
 
+
+#pragma mark - View lifecycle
+
+
+- (void)viewDidLoad
+{
+	[super viewDidLoad];
+	
+	self.title = NSLocalizedString(@"Rear View", nil);
+}
+
+
 #pragma marl - UITableView Data Source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

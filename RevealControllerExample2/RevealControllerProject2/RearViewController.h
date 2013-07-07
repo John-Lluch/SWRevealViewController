@@ -27,7 +27,7 @@
 @interface RearViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, retain) IBOutlet UITableView *rearTableView;
-@property (nonatomic, retain) IBOutlet UIToolbar *rearToolBar;
+//@property (nonatomic, retain) IBOutlet UIToolbar *rearToolBar;
 
 
 @end

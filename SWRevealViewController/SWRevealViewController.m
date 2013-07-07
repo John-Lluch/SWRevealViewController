@@ -1079,14 +1079,15 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     if ( !controller || !view )
         return ^(void){};
     
+    CGRect tmpFrame = view.frame;
+    view.frame = _contentView.bounds;
+    
     UIView *controllerView = controller.view;
     controllerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     controllerView.frame = view.bounds;
     
-    //CGRect tmpFrame = view.frame;
-    //view.frame = _contentView.bounds;
     [view addSubview:controllerView];
-    //view.frame = tmpFrame;
+    view.frame = tmpFrame;
     
     void (^completionBlock)(void) = ^(void)
     {

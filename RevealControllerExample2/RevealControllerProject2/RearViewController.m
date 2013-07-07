@@ -47,30 +47,32 @@
  * following hierarchy is created:
  *
  * - SWRevealController is parent of:
- * - - UINavigationController is parent of:
- * - - - FrontViewController
+ * - 1 UINavigationController is parent of:
+ * - - 1.1 RearViewController
+ * - 2 UINavigationController is parent of:
+ * - - 2.1 FrontViewController
  *
  * In the second scenario a MapViewController is contained inside of a UINavigationController.
  * And the UINavigationController is contained inside of a SWRevealController. Thus the
  * following hierarchy is created:
  *
  * - SWRevealController is parent of:
- * - - UINavigationController is parent of:
- * - - - MapViewController
+ * - 1 UINavigationController is parent of:
+ * - - 1.1 RearViewController
+ * - 2 UINavigationController is parent of:
+ * - - 1.2 MapViewController
  *
  * In the third scenario a SWRevealViewController is contained directly inside of another.
- * SWRevealController. The second SWRevealController can in turn contain anything.
- * contain any of the above Thus the
- * following hierarchy is created:
+ * SWRevealController. Thus the following hierarchy is created:
  *
  * - SWRevealController is parent of:
- * - - SWRevealController
+ * - 1 UINavigationController is parent of:
+ * - - 1.1 RearViewController
+ * - 2 SWRevealController
  *
- * If you set ShouldContainRevealControllerInNavigator to true, a UINavigationController will be used to
- * contain child SWRevealControllers, thus producing a vertical cascade effect on the user interface
+ * The second SWRevealController on the third scenario can in turn contain anything. 
+ * On this example it may recursively contain any of the above, including again the third one
  */
-
-#define ShouldContainRevealControllerInNavigator false
 
 - (void)viewDidLoad
 {
@@ -80,14 +82,12 @@
     SWRevealViewController *parentRevealController = self.revealViewController;
     SWRevealViewController *grandParentRevealController = parentRevealController.revealViewController;
     
-    UIBarButtonItem *titleButtonItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStylePlain target:nil action:0];
-    UIBarButtonItem *spaceButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:0];
     UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
             style:UIBarButtonItemStyleBordered target:grandParentRevealController action:@selector(revealToggle:)];
     
     // if we have a reveal controller as a grand parent, this means we are are being added as a
     // child of a detail (child) reveal controller, so we add a gesture recognizer provided by our grand parent to our
-    // toolbar as well as a "reveal" button
+    // navigation bar as well as a "reveal" button
     if ( grandParentRevealController )
     {
         // to present a title, we count the number of ancestor reveal controllers we have, this is of course
@@ -98,31 +98,16 @@
             level++;
         
         NSString *title = [NSString stringWithFormat:@"Detail Level %d", level];
-        
-        // if our parent reveal controller was contained in a navigation controller we set the title, gesture, and button
-        // on its navigation bar
-        if ([parentRevealController navigationController])
-        {
-            [parentRevealController.navigationController.navigationBar addGestureRecognizer:grandParentRevealController.panGestureRecognizer];
-            parentRevealController.navigationItem.leftBarButtonItem = revealButtonItem;
-            parentRevealController.navigationItem.title = title;
-        }
-        
-        // otherwise, our reveal controller was directly inserted in the hierarchy so we use our toolbar to set the
-        // controls
-        else
-        {
-            [_rearToolBar addGestureRecognizer:grandParentRevealController.panGestureRecognizer];
-            [titleButtonItem setTitle:title];
-            [_rearToolBar setItems:@[revealButtonItem,spaceButtonItem,titleButtonItem,spaceButtonItem]];
-        }
+            
+        [self.navigationController.navigationBar addGestureRecognizer:grandParentRevealController.panGestureRecognizer];
+        self.navigationItem.leftBarButtonItem = revealButtonItem;
+        self.navigationItem.title = title;
     }
     
     // otherwise, we are in the top reveal controller, so we just add a title
     else
     {
-        [titleButtonItem setTitle:@"Master"];
-        [_rearToolBar setItems:@[spaceButtonItem,titleButtonItem,spaceButtonItem]];
+        self.navigationItem.title = @"Master";
     }
 }
 
@@ -173,14 +158,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	// Grab a handle to the reveal controller, as if you'd do with a navigtion controller via self.navigationController.
     SWRevealViewController *revealController = [self revealViewController];
     UIViewController *frontViewController = revealController.frontViewController;
     UINavigationController *frontNavigationController =nil;
     
     if ( [frontViewController isKindOfClass:[UINavigationController class]] )
         frontNavigationController = (id)frontViewController;
-    
     
     NSInteger row = indexPath.row;
 
@@ -234,18 +217,18 @@
         {
             FrontViewController *frontViewController = [[FrontViewController alloc] init];
             RearViewController *rearViewController = [[RearViewController alloc] init];
-            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:frontViewController];
-            SWRevealViewController *childRevealController = [[SWRevealViewController alloc]
-                initWithRearViewController:rearViewController frontViewController:navigationController];
             
+            UINavigationController *frontNavigationController = [[UINavigationController alloc] initWithRootViewController:frontViewController];
+            UINavigationController *rearNavigationController = [[UINavigationController alloc] initWithRootViewController:rearViewController];
+            
+            SWRevealViewController *childRevealController = [[SWRevealViewController alloc]
+                initWithRearViewController:rearNavigationController frontViewController:frontNavigationController];
+            
+            revealController.bounceBackOnOverdraw = NO;
             [childRevealController setFrontViewPosition:FrontViewPositionRight animated:NO];
             
-#if ShouldContainRevealControllerInNavigator == false
+            // at this point we simply set the front view controller of our revealController to the next revealController
             [revealController setFrontViewController:childRevealController animated:YES];
-#else
-            UINavigationController *revealNavController = [[UINavigationController alloc] initWithRootViewController:childRevealController];
-            [revealController setFrontViewController:revealNavController animated:YES];
-#endif
         }
         else
         {
