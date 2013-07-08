@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = "SWRevealViewController"
-  s.version       = "1.0.2"
+  s.version       = "1.0.3"
   s.summary       = "A UIViewController subclass for presenting two view controllers inspired in the FaceBook app, done right."
   s.homepage      = "https://github.com/John-Lluch/SWRevealViewController"
   s.license       = "MIT"
