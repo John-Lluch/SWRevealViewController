@@ -495,7 +495,17 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     return YES;
 }
 
-
+-(void) didReceiveMemoryWarning
+{
+	[super didReceiveMemoryWarning];
+	if (self.isViewLoaded && self.view.window)
+	{
+		return;
+	}
+	
+	_contentView = nil;
+	self.view = nil;
+}
 
 #pragma mark - Public methods and property accessors
 
