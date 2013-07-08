@@ -85,13 +85,13 @@ typedef enum
 // Toogles the current state of the front controller between Left or Right and fully visible
 // Use setFrontViewPosition to set a particular position
 - (void)revealToggleAnimated:(BOOL)animated;
-- (void)rightRevealToggleAnimated:(BOOL)animated;
+- (void)rightRevealToggleAnimated:(BOOL)animated; // <-- simetric implementation of the above for the rightViewController
 
 // The following methods are meant to be directly connected to the action method of a button
 // to perform user triggered postion change of the controller views. This is ussually added to a
 // button on top left or right of the frontViewController
 - (void)revealToggle:(id)sender;
-- (void)rightRevealToggle:(id)sender;
+- (void)rightRevealToggle:(id)sender; // <-- simetric implementation of the above for the rightViewController
 
 // The following method will provide a panGestureRecognizer suitable to be added to any view on the frontController
 // in order to perform usual drag and swipe gestures on the frontViewController to reveal the rear views. This
@@ -101,13 +101,17 @@ typedef enum
 // The following properties are provided for further customization, they are set to default values on initialization,
 // you should not generally have to set them
 
-// Defines how much of the rear view is shown, default is 260.
+// Defines how much of the rear or right view is shown, default is 260.
 @property (assign, nonatomic) CGFloat rearViewRevealWidth;
-@property (assign, nonatomic) CGFloat rightViewRevealWidth;
+@property (assign, nonatomic) CGFloat rightViewRevealWidth; // <-- simetric implementation of the above for the rightViewController
 
 // Defines how much of an overdraw can occur when dragging further than 'rearViewRevealWidth', default is 60.
 @property (assign, nonatomic) CGFloat rearViewRevealOverdraw;
-@property (assign, nonatomic) CGFloat rightViewRevealOverdraw;
+@property (assign, nonatomic) CGFloat rightViewRevealOverdraw;   // <-- simetric implementation of the above for the rightViewController
+
+// Defines how much displacement is applied to the rear view when animating or dragging the front view, default is 40.
+@property (assign, nonatomic) CGFloat rearViewRevealDisplacement;
+@property (assign, nonatomic) CGFloat rightViewRevealDisplacement;
 
 // If YES (the default) the controller will bounce to the Left position when dragging further than 'rearViewRevealWidth'
 @property (assign, nonatomic) BOOL bounceBackOnOverdraw;
@@ -115,7 +119,7 @@ typedef enum
 
 // If YES (default is NO) the controller will allow permanent dragging up to the rightMostPosition
 @property (assign, nonatomic) BOOL stableDragOnOverdraw;
-@property (assign, nonatomic) BOOL stableDragOnLeftOverdraw;
+@property (assign, nonatomic) BOOL stableDragOnLeftOverdraw; // <-- simetric implementation of the above for the rightViewController
 
 // Velocity required for the controller to toggle its state based on a swipe movement, default is 300
 @property (assign, nonatomic) CGFloat quickFlickVelocity;
@@ -128,6 +132,9 @@ typedef enum
 
 // Defines the radius of the front view's shadow offset default is {0.0f,2.5f}
 @property (assign, nonatomic) CGSize frontViewShadowOffset;
+
+//Defines the front view's shadow opacity, default is 1.0f
+@property (assign, nonatomic) CGFloat frontViewShadowOpacity;
 
 // The class properly handles all the relevant calls to appearance methods on the contained controllers.
 // Moreover you can assign a delegate to let the class inform you on positions and animation activity.

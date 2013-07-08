@@ -122,6 +122,16 @@ typedef enum
 
 @implementation SWRevealView
 
+
+static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1, CGFloat max1)
+{
+    CGFloat result = min2 + (v1-min1)*((max2-min2)/(max1-min1));
+    if ( result != result ) return min2;  // nan
+    if ( result < min2 ) return min2;
+    if ( result > max2 ) return max2;
+    return result;
+}
+
 - (id)initWithFrame:(CGRect)frame controller:(SWRevealViewController*)controller
 {
     self = [super initWithFrame:frame];
@@ -138,7 +148,8 @@ typedef enum
         CALayer *frontViewLayer = _frontView.layer;
         frontViewLayer.masksToBounds = NO;
         frontViewLayer.shadowColor = [UIColor blackColor].CGColor;
-        frontViewLayer.shadowOpacity = 1.0f;
+        //frontViewLayer.shadowOpacity = 1.0f;
+        frontViewLayer.shadowOpacity = _c.frontViewShadowOpacity;
         frontViewLayer.shadowOffset = _c.frontViewShadowOffset;
         frontViewLayer.shadowRadius = _c.frontViewShadowRadius;
     }
@@ -151,12 +162,13 @@ typedef enum
 {
     if ( _disableLayout ) return;
 
-    [self _layoutRearViews];
-
     CGRect bounds = self.bounds;
     
-    CGFloat xPosition = [self frontLocationForPosition:_c.frontViewPosition];
-    _frontView.frame = CGRectMake(xPosition, 0.0f, bounds.size.width, bounds.size.height);
+    CGFloat xLocation = [self frontLocationForPosition:_c.frontViewPosition];
+    
+    [self _layoutRearViewsForLocation:xLocation];
+    
+    _frontView.frame = CGRectMake(xLocation, 0.0f, bounds.size.width, bounds.size.height);
     
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:_frontView.bounds];
     _frontView.layer.shadowPath = shadowPath.CGPath;
@@ -171,7 +183,24 @@ typedef enum
         _rearView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         [self insertSubview:_rearView belowSubview:_frontView];
     }
-    [self _layoutRearViews];
+    
+    CGFloat xLocation = [self frontLocationForPosition:_c.frontViewPosition];
+    [self _layoutRearViewsForLocation:xLocation];
+    [self _prepareForNewPosition:newPosition];
+}
+
+
+- (void)prepareRightViewForPosition:(FrontViewPosition)newPosition
+{
+    if ( _rightView == nil )
+    {
+        _rightView = [[UIView alloc] initWithFrame:self.bounds];
+        _rightView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        [self insertSubview:_rightView belowSubview:_frontView];
+    }
+    
+    CGFloat xLocation = [self frontLocationForPosition:_c.frontViewPosition];
+    [self _layoutRearViewsForLocation:xLocation];
     [self _prepareForNewPosition:newPosition];
 }
 
@@ -197,38 +226,47 @@ typedef enum
 }
 
 
-- (void)dragFrontViewToXPosition:(CGFloat)xPosition
+- (void)dragFrontViewToXLocation:(CGFloat)xLocation
 {
     CGRect bounds = self.bounds;
-    xPosition = [self _adjustedDragLocationForLocation:xPosition];
-    _frontView.frame = CGRectMake(xPosition, 0.0f, bounds.size.width, bounds.size.height);
-}
-
-
-- (void)prepareRightViewForPosition:(FrontViewPosition)newPosition
-{
-    if ( _rightView == nil )
-    {
-        _rightView = [[UIView alloc] initWithFrame:self.bounds];
-        _rightView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        [self insertSubview:_rightView belowSubview:_frontView];
-    }
-    [self _layoutRearViews];
-    [self _prepareForNewPosition:newPosition];
+    
+    xLocation = [self _adjustedDragLocationForLocation:xLocation];
+    [self _layoutRearViewsForLocation:xLocation];
+    
+    _frontView.frame = CGRectMake(xLocation, 0.0f, bounds.size.width, bounds.size.height);
 }
 
 
 # pragma mark private
 
-- (void)_layoutRearViews
+//- (void)_layoutRearViews
+//{
+//    CGRect bounds = self.bounds;
+//    
+//    CGFloat rearWidth = _c.rearViewRevealWidth + _c.rearViewRevealOverdraw;
+//    _rearView.frame = CGRectMake(0.0, 0.0, rearWidth, bounds.size.height);
+//    
+//    CGFloat rightWidth = _c.rightViewRevealWidth + _c.rightViewRevealOverdraw;
+//    _rightView.frame = CGRectMake(bounds.size.width-rightWidth, 0.0f, rightWidth, bounds.size.height);
+//}
+
+
+
+- (void)_layoutRearViewsForLocation:(CGFloat)xLocation
 {
     CGRect bounds = self.bounds;
     
-    CGFloat rearWidth = _c.rearViewRevealWidth + _c.rearViewRevealOverdraw;
-    _rearView.frame = CGRectMake(0.0, 0.0, rearWidth, bounds.size.height);
+    CGFloat rearRevealWidth = _c.rearViewRevealWidth;
+    CGFloat rearXLocation = scaledValue(xLocation, -_c.rearViewRevealDisplacement, 0, 0, rearRevealWidth);
     
-    CGFloat rightWidth = _c.rightViewRevealWidth + _c.rightViewRevealOverdraw;
-    _rightView.frame = CGRectMake(bounds.size.width-rightWidth, 0.0f, rightWidth, bounds.size.height);
+    CGFloat rearWidth = rearRevealWidth + _c.rearViewRevealOverdraw;
+    _rearView.frame = CGRectMake(rearXLocation, 0.0, rearWidth, bounds.size.height);
+    
+    CGFloat rightRevealWidth = _c.rightViewRevealWidth;
+    CGFloat rightXLocation = scaledValue(xLocation, 0, _c.rightViewRevealDisplacement, -rightRevealWidth, 0);
+    
+    CGFloat rightWidth = rightRevealWidth + _c.rightViewRevealOverdraw;
+    _rightView.frame = CGRectMake(bounds.size.width-rightWidth+rightXLocation, 0.0f, rightWidth, bounds.size.height);
 }
 
 
@@ -349,8 +387,10 @@ const int FrontViewPositionNone = 0xff;
     _rightViewPosition = FrontViewPositionLeft;
     _rearViewRevealWidth = 260.0f;
     _rearViewRevealOverdraw = 60.0f;
+    _rearViewRevealDisplacement = 40.0f;
     _rightViewRevealWidth = 260.0f;
     _rightViewRevealOverdraw = 60.0f;
+    _rightViewRevealDisplacement = 40.0f;
     _bounceBackOnOverdraw = YES;
     _bounceBackOnLeftOverdraw = YES;
     _stableDragOnOverdraw = NO;
@@ -359,6 +399,7 @@ const int FrontViewPositionNone = 0xff;
     _toggleAnimationDuration = 0.25;
     _frontViewShadowRadius = 2.5f;
     _frontViewShadowOffset = CGSizeMake(0.0f, 2.5f);
+    _frontViewShadowOpacity = 1.0f;
     _userInteractionStore = YES;
     _animationQueue = [NSMutableArray array];
 }
@@ -490,11 +531,12 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 }
 
 // Support for earlier than iOS 6.0
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
 }
-
+#endif
 
 
 #pragma mark - Public methods and property accessors
@@ -745,23 +787,23 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     CGFloat translation = [recognizer translationInView:_contentView].x;
     
     CGFloat baseLocation = [_contentView frontLocationForPosition:_panInitialFrontPosition];
-    CGFloat xPosition = baseLocation + translation;
+    CGFloat xLocation = baseLocation + translation;
     
-    if ( xPosition < 0 )
+    if ( xLocation < 0 )
     {
-        if ( _rightViewController == nil ) xPosition = 0;
+        if ( _rightViewController == nil ) xLocation = 0;
         [self _rightViewDeploymentForNewFrontViewPosition:FrontViewPositionLeftSide]();
         [self _rearViewDeploymentForNewFrontViewPosition:FrontViewPositionLeftSide]();
     }
     
-    if ( xPosition > 0 )
+    if ( xLocation > 0 )
     {
-        if ( _rearViewController == nil ) xPosition = 0;
+        if ( _rearViewController == nil ) xLocation = 0;
         [self _rightViewDeploymentForNewFrontViewPosition:FrontViewPositionRight]();
         [self _rearViewDeploymentForNewFrontViewPosition:FrontViewPositionRight]();
     }
     
-    [_contentView dragFrontViewToXPosition:xPosition];
+    [_contentView dragFrontViewToXLocation:xLocation];
 }
 
 
