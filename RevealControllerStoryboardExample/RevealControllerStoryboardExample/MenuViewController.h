@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@interface SWUITableViewCell : UITableViewCell
+@property (readonly) IBOutlet UILabel *label;
+@end
+
 @interface MenuViewController : UITableViewController
 
 @end

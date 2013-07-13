@@ -35,7 +35,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="map" id="FIf-d1-XxK">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="map" id="FIf-d1-XxK" customClass="SWUITableViewCell">
                                 <rect key="frame" x="0.0" y="22" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FIf-d1-XxK" id="kGo-hG-QRa">
@@ -52,10 +52,11 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="label" destination="671-vW-Qho" id="rNp-xD-sGg"/>
                                     <segue destination="dN4-6k-5wY" kind="custom" customClass="SWRevealViewControllerSegue" id="Nuu-DN-gGV"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="blue" id="uko-Kv-4gI">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="blue" id="uko-Kv-4gI" customClass="SWUITableViewCell">
                                 <rect key="frame" x="0.0" y="66" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uko-Kv-4gI" id="zVH-6k-zJe">
@@ -72,10 +73,11 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="label" destination="teH-t3-obm" id="dHB-X6-4mt"/>
                                     <segue destination="ziO-d3-BPQ" kind="custom" customClass="SWRevealViewControllerSegue" id="7S2-In-cSv"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="red" id="GNy-If-ain">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="red" id="GNy-If-ain" customClass="SWUITableViewCell">
                                 <rect key="frame" x="0.0" y="110" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GNy-If-ain" id="L0O-s1-Y5e">
@@ -92,6 +94,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="label" destination="59s-6h-Haj" id="nsd-Qh-LME"/>
                                     <segue destination="ziO-d3-BPQ" kind="custom" customClass="SWRevealViewControllerSegue" id="o9o-iA-1b0"/>
                                 </connections>
                             </tableViewCell>
@@ -202,7 +205,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="TZ3-Up-Dx6"/>
+        <segue reference="Nuu-DN-gGV"/>
         <segue reference="o9o-iA-1b0"/>
     </inferredMetricsTieBreakers>
 </document>
