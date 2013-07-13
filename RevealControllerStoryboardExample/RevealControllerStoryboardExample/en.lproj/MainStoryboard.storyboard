@@ -53,7 +53,7 @@
             </objects>
             <point key="canvasLocation" x="1375" y="512"/>
         </scene>
-        <!--Color View Controller - Map-->
+        <!--Color View Controller - Color-->
         <scene sceneID="vqL-qd-ja9">
             <objects>
                 <viewController id="7k1-p9-rbO" customClass="ColorViewController" sceneMemberID="viewController">
@@ -77,7 +77,7 @@
                             <constraint firstItem="ucw-mr-e6b" firstAttribute="centerX" secondItem="1vp-Fq-dvB" secondAttribute="centerX" type="default" id="jNA-5t-6W9"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Map" id="KbI-f5-Z2j">
+                    <navigationItem key="navigationItem" title="Color" id="KbI-f5-Z2j">
                         <barButtonItem key="leftBarButtonItem" image="reveal-icon.png" id="Inx-Wl-XPE"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -191,7 +191,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="xPp-Ho-rIG"/>
         <segue reference="rf8-LM-xC2"/>
+        <segue reference="tyv-dn-gmv"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -114,7 +114,7 @@
             </objects>
             <point key="canvasLocation" x="683" y="-748"/>
         </scene>
-        <!--Color View Controller-->
+        <!--Color View Controller - iPad Color-->
         <scene sceneID="a2e-Aa-0Nf">
             <objects>
                 <viewController id="ziO-d3-BPQ" customClass="ColorViewController" sceneMemberID="viewController">
@@ -135,8 +135,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="iPad Color" id="8uR-aH-2Ws">
+                        <barButtonItem key="leftBarButtonItem" image="reveal-icon.png" id="3Sl-96-8SJ"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="label" destination="o1O-Cu-zau" id="Wb9-OW-lD7"/>
+                        <outlet property="revealButtonItem" destination="3Sl-96-8SJ" id="LGi-mA-mjD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GOw-3a-qgw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -158,7 +162,7 @@
             </objects>
             <point key="canvasLocation" x="739" y="820"/>
         </scene>
-        <!--Map View Controller - Map-->
+        <!--Map View Controller - iPad Map-->
         <scene sceneID="hHE-Es-ToG">
             <objects>
                 <viewController id="dN4-6k-5wY" customClass="MapViewController" sceneMemberID="viewController">
@@ -177,7 +181,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Map" id="ULc-LT-BNa">
+                    <navigationItem key="navigationItem" title="iPad Map" id="ULc-LT-BNa">
                         <barButtonItem key="leftBarButtonItem" image="reveal-icon.png" id="zbi-fc-K6e"/>
                     </navigationItem>
                     <connections>
