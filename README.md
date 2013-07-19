@@ -29,6 +29,7 @@ A UIViewController subclass for revealing a rear (left) or/and a right view cont
 ## IOS7 Compatibility
 
 * As of 7-July-2013 the SWRevealViewController class has been updated to run both with iOS6 and iOS7-beta-2. 
+* On 19-July-2013 the SWRevealViewController has been tested on iOS7-beta-3. It turned out that the hack introduced to run on beta-2 is no longer necesary, so it has been removed. The rest of the class remains intact.
 * Particularly, the SWRevealViewController now works fine on iOS7 with Apple provided child controllers such as UINavigationControllers.
 * The RevealControllerExample and RevealControllerExample2 examples have been updated to use UINavigationControllers instead of a navigation bar on top a view. Thus all child controller layout is now correctly handled by the Apple implementation of the UINavigationController.
 * According to Apple iOS7 transition guidelines developers are responsible to manage the required view offsets and bar heigh extensions on custom viewControllers depending on the actual iOS version. The RevealControllerExample3 is not yet updated to take into account iOS7 layouts and the new Status Bar, and it still defaults to iOS6 layout.
