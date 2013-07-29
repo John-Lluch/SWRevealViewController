@@ -101,6 +101,8 @@ typedef enum
 // The following properties are provided for further customization, they are set to default values on initialization,
 // you should not generally have to set them
 
+@property (assign, nonatomic) CGFloat frontViewLocation;
+
 // Defines how much of the rear or right view is shown, default is 260.
 @property (assign, nonatomic) CGFloat rearViewRevealWidth;
 @property (assign, nonatomic) CGFloat rightViewRevealWidth; // <-- simetric implementation of the above for the rightViewController
