@@ -24,7 +24,7 @@ A UIViewController subclass for revealing a rear (left and/or right) view contro
 
 ## Requirements
 
-* iOS 6.0 or later.
+* iOS 5.1 or later.
 * ARC memory management.
 
 ## Usage
