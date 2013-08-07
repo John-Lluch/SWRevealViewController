@@ -1,21 +1,22 @@
 # SWRevealViewController
 
-A UIViewController subclass for revealing a rear (left) or/and a right view controller behind a front controller, inspired on the FaceBook app, done right!
+A UIViewController subclass for revealing a rear (left and/or right) view controller behind a front controller, inspired by the Facebook app, done right!
 
 ## Features
 
-* A Reveal view controller implemented using view controller containment, done right!.
-* API is easier than a UINavigationController.
-* Supports any combination of Left/Right rear controllers.
-* Correctly handles appearance methods on its child controllers that you can rely on.
-* Correctly handles rotations.
+* A Reveal view controller implemented using view controller containment.
+* API easier than a UINavigationController.
+* Support for any combination of left/right rear controllers.
+* Correct handling of appearance methods on its child controllers that you can rely on.
+* Correct handling of rotations.
 * Can be embedded as a child view controller of other controllers or deployed as the rootViewController.
 * Plays nicely with any child view controllers or parent controllers.
-* Can be deployed as a child of itself to create cascade like, hierarchical interfaces.
+* Can be deployed as a child of itself to create cascade-like, hierarchical interfaces.
 * Seamless integration of pan gesture recognizer, behaving as smooth as silk.
-* Includes a category method of UIViewController 'revealViewController' to get the parent SWRevealViewController of any child controller. Similar to the UIViewController's property 'navigationController'.
-* Light weight, Clean, Easy to read, self explaining code you will enjoy using in your projects.
+* A category method on UIViewController, `revealViewController`, to get the parent `SWRevealViewController` of any child controller, similar to the UIViewController's property `navigationController`.
+* Lightweight, clean, easy-to-read, self-documenting code that you will enjoy using in your projects.
 
+## Examples
 
 ![Dynamic](https://raw.github.com/John-Lluch/SWRevealViewController/master/SWRevealViewController3.png)
 ![Dynamic](https://raw.github.com/John-Lluch/SWRevealViewController/master/SWRevealViewController.png)
@@ -23,23 +24,14 @@ A UIViewController subclass for revealing a rear (left) or/and a right view cont
 
 ## Requirements
 
-* iOS 6.0 or later, tested to work fine on iOS 5.1 as well.
+* iOS 5.1 or later.
 * ARC memory management.
-
-## IOS7 Compatibility Status
-
-* As of 7-July-2013 the SWRevealViewController class has been updated to run both with iOS6 and iOS7-beta-2. 
-* Particularly, the SWRevealViewController now works fine on iOS7 with Apple provided child controllers such as UINavigationControllers.
-* The RevealControllerExample and RevealControllerExample2 examples have been updated to use UINavigationControllers instead of a navigation bar on top a view. Thus all child controller layout is now correctly handled by the Apple implementation of the UINavigationController.
-* According to Apple iOS7 transition guidelines developers are responsible to manage the required view offsets and bar heigh extensions on custom viewControllers depending on the actual iOS version. The RevealControllerExample3 is not yet updated to take into account iOS7 layouts and the new Status Bar, and it still defaults to iOS6 layout.
-* On 19-July-2013 the SWRevealViewController has been tested on iOS7-beta-3. It turned out that the hack introduced to run on beta-2 is no longer necesary, so it has been removed. The rest of the class remains intact.
 
 ## Usage
 
-* Copy the following to your project:
-   * SWRevealViewController.h
-   * SWRevealViewController.m
-
+`SWRevealViewController` can either be installed in your project using [CocoaPods](http://cocoapods.org/) or by copying the following to your project:
+* SWRevealViewController.h
+* SWRevealViewController.m
 
 * Initialize an instance of a SWRevealViewController passing in a "rear" and a "front" view controllers.
 * Use the SWRevealViewController instance in your code as you would use any view controller.
@@ -47,13 +39,13 @@ A UIViewController subclass for revealing a rear (left) or/and a right view cont
 * Add the panGestureRecognized provided by the SWRevealViewController to a suitable view of your "front" view controller, for example use the viewDidLoad method of your controller to add the gesture recognizer to a navigationBar.
 * At any time, you can reveal, conceal the "rear" view or replace the "front" view controller, programmatically or based on user actions, with or without animations enabled
 
-## Basic API description
+## Basic API Description
 
 Initializing a SWRevealViewController:
 
     - (id)initWithRearViewController:(UIViewController *)rearViewController frontViewController:(UIViewController *)frontViewController;
 
-Setting the right view controller
+Setting the right view controller:
 
 	@property (strong, nonatomic) UIViewController *rightViewController;
 	
@@ -61,7 +53,7 @@ Animated setting of the front view controller:
 
     - (void)setFrontViewController:(UIViewController *)frontViewController animated:(BOOL)animated;
 
-Animating the position of the front view controller. Position can be: FrontViewPositionLeftSideMostRemoved, FrontViewPositionLeftSideMost, FrontViewPositionLeftSide, FrontViewPositionLeft, FrontViewPositionRight, FrontViewPositionRightMost or FrontViewPositionRightMostRemoved
+Animating the position of the front view controller. Position can be: `FrontViewPositionLeftSideMostRemoved`, `FrontViewPositionLeftSideMost`, `FrontViewPositionLeftSide`, `FrontViewPositionLeft`, `FrontViewPositionRight`, `FrontViewPositionRightMost` or `FrontViewPositionRightMostRemoved`
 
 	- (void)setFrontViewPosition:(FrontViewPosition)frontViewPosition animated:(BOOL)animated;
 	
@@ -70,6 +62,14 @@ Obtaining a gesture recognizer to add to your front view controller:
 	- (UIPanGestureRecognizer*)panGestureRecognizer;
 	
 Other methods are documented in the SWRevealViewController.h header file. 
+
+
+## iOS 7 Compatibility Status
+
+* As of July 19th, 2013, the `SWRevealViewController` has been tested on iOS 7 beta 3.
+* The `SWRevealViewController` now works fine on iOS 7 with Apple-provided child view controllers such as `UINavigationController`.
+* The *RevealControllerExample* and *RevealControllerExample2* examples have been updated to use `UINavigationController`s instead of a navigation bar on top of a view. Thus, all child view controller layouts are now correctly handled by the Apple implemented of the `UINavigationController`.
+* According to Apple, iOS 7 transition guidelines, developers are responsible for managing the required view offsets and bar height extensions on custom view controllers depending on the version of iOS. *RevealControllerExample3* has not yet been updated to take iOS 7 layouts and the new status bar into account, so it still defaults to the iOS 6 layout.
 	
 ## License
 
