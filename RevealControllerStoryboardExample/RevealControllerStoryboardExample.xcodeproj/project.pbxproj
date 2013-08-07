@@ -24,6 +24,7 @@
 		01FB86AD169E3CE700A0A1A8 /* reveal-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 01FB86AA169E3CE700A0A1A8 /* reveal-icon.png */; };
 		01FB86AE169E3CE700A0A1A8 /* reveal-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01FB86AB169E3CE700A0A1A8 /* reveal-icon@2x.png */; };
 		01FB86B0169E42B600A0A1A8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01FB86AF169E42B600A0A1A8 /* MapKit.framework */; };
+		91090B7D1790ED680090B501 /* MainStoryboard-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91090B7B1790ED680090B501 /* MainStoryboard-iPad.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		01FB86AA169E3CE700A0A1A8 /* reveal-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reveal-icon.png"; sourceTree = "<group>"; };
 		01FB86AB169E3CE700A0A1A8 /* reveal-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reveal-icon@2x.png"; sourceTree = "<group>"; };
 		01FB86AF169E42B600A0A1A8 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		91090B7C1790ED680090B501 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = "en.lproj/MainStoryboard-iPad.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,9 +103,11 @@
 		01FB866F169E2D8B00A0A1A8 /* RevealControllerStoryboardExample */ = {
 			isa = PBXGroup;
 			children = (
+				91090B7A1790ED0B0090B501 /* iPad */,
 				01FB8678169E2D8B00A0A1A8 /* AppDelegate.h */,
 				01FB8679169E2D8B00A0A1A8 /* AppDelegate.m */,
 				01FB8681169E2D8B00A0A1A8 /* MainStoryboard.storyboard */,
+				91090B7B1790ED680090B501 /* MainStoryboard-iPad.storyboard */,
 				01FB869B169E364800A0A1A8 /* MenuViewController.h */,
 				01FB869C169E364800A0A1A8 /* MenuViewController.m */,
 				01FB86A2169E36FE00A0A1A8 /* MapViewController.h */,
@@ -139,6 +143,13 @@
 			);
 			name = SWRevealViewController;
 			path = ../SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		91090B7A1790ED0B0090B501 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = iPad;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +209,7 @@
 				01FB8680169E2D8B00A0A1A8 /* Default-568h@2x.png in Resources */,
 				01FB8683169E2D8B00A0A1A8 /* MainStoryboard.storyboard in Resources */,
 				01FB86AD169E3CE700A0A1A8 /* reveal-icon.png in Resources */,
+				91090B7D1790ED680090B501 /* MainStoryboard-iPad.storyboard in Resources */,
 				01FB86AE169E3CE700A0A1A8 /* reveal-icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,6 +247,14 @@
 				01FB8682169E2D8B00A0A1A8 /* en */,
 			);
 			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+		91090B7B1790ED680090B501 /* MainStoryboard-iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				91090B7C1790ED680090B501 /* en */,
+			);
+			name = "MainStoryboard-iPad.storyboard";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -296,7 +316,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RevealControllerStoryboardExample/RevealControllerStoryboardExample-Prefix.pch";
 				INFOPLIST_FILE = "RevealControllerStoryboardExample/RevealControllerStoryboardExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -307,7 +329,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RevealControllerStoryboardExample/RevealControllerStoryboardExample-Prefix.pch";
 				INFOPLIST_FILE = "RevealControllerStoryboardExample/RevealControllerStoryboardExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -331,6 +355,7 @@
 				01FB868B169E2D8B00A0A1A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
