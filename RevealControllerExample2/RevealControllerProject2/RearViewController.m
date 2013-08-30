@@ -224,6 +224,7 @@
             SWRevealViewController *childRevealController = [[SWRevealViewController alloc]
                 initWithRearViewController:rearNavigationController frontViewController:frontNavigationController];
             
+            childRevealController.rearViewRevealDisplacement = 0.0f;
             revealController.bounceBackOnOverdraw = NO;
             [childRevealController setFrontViewPosition:FrontViewPositionRight animated:NO];
             

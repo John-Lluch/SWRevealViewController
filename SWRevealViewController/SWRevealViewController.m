@@ -269,18 +269,6 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 
 # pragma mark private
 
-//- (void)_layoutRearViews
-//{
-//    CGRect bounds = self.bounds;
-//    
-//    CGFloat rearWidth = _c.rearViewRevealWidth + _c.rearViewRevealOverdraw;
-//    _rearView.frame = CGRectMake(0.0, 0.0, rearWidth, bounds.size.height);
-//    
-//    CGFloat rightWidth = _c.rightViewRevealWidth + _c.rightViewRevealOverdraw;
-//    _rightView.frame = CGRectMake(bounds.size.width-rightWidth, 0.0f, rightWidth, bounds.size.height);
-//}
-
-
 
 - (void)_layoutRearViewsForLocation:(CGFloat)xLocation
 {
@@ -491,6 +479,9 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     // This is what Apple tells us to set as the initial frame, which is of course totally irrelevant
     // with the modern view controller containment patterns, let's leave it for the sake of it!
     //CGRect frame = [[UIScreen mainScreen] applicationFrame];
+    
+    // On iOS7 the applicationFrame does not return the whole screen. This is possibly a bug.
+    // As a workaround we use the screen bounds, this still works on iOS6
     CGRect frame = [[UIScreen mainScreen] bounds];
 
     // create a custom content view for the controller
@@ -1020,7 +1011,6 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     [self _dequeue];
 }
 
-
 // Primitive method for rear controller transition
 - (void)_setRearViewController:(UIViewController*)newRearViewController
 {
@@ -1149,30 +1139,6 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 #pragma mark Containment view controller deployment and transition
 
-//// Containment Deploy method. Returns a block to be invoked at the
-//// animation completion, or right after return in case of non-animated deployment.
-//- (void (^)(void))_deployForViewController:(UIViewController*)controller inView:(UIView*)view
-//{
-//    if ( !controller || !view )
-//        return ^(void){};
-//    
-//    UIView *controllerView = controller.view;
-//    controllerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//    controllerView.frame = view.bounds;
-//    
-//    [view addSubview:controllerView];
-//    
-//    void (^completionBlock)(void) = ^(void)
-//    {
-//        // nothing to do on completion at this stage
-//    };
-//    
-//    return completionBlock;
-//}
-
-
-
-
 // Containment Deploy method. Returns a block to be invoked at the
 // animation completion, or right after return in case of non-animated deployment.
 - (void (^)(void))_deployForViewController:(UIViewController*)controller inView:(UIView*)view
@@ -1205,7 +1171,6 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     
     return completionBlock;
 }
-
 
 // Containment Undeploy method. Returns a block to be invoked at the
 // animation completion, or right after return in case of non-animated deployment.
