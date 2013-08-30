@@ -496,15 +496,29 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     // load any defined front/rear controllers from the storyboard
     if ( self.storyboard && _rearViewController == nil )
     {
+        //Try each segue separately so it doesn't break prematurely if either Rear or Right views are not used.
         @try
         {
             [self performSegueWithIdentifier:SWSegueRearIdentifier sender:nil];
+        }
+        @catch(NSException *exception)
+        {
+        }
+        
+        @try
+        {
             [self performSegueWithIdentifier:SWSegueFrontIdentifier sender:nil];
+        }
+        @catch(NSException *exception)
+        {
+        }
+        
+        @try
+        {
             [self performSegueWithIdentifier:SWSegueRightIdentifier sender:nil];
         }
         @catch(NSException *exception)
         {
-            //NSLog(@"Caught %@: %@", [exception name], [exception reason]);
         }
     }
     
