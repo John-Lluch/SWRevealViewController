@@ -64,7 +64,15 @@ Obtaining a gesture recognizer to add to your front view controller:
 Other methods are documented in the SWRevealViewController.h header file. 
 
 
-## iOS 7 Compatibility Status
+## Release Notes (Including iOS 7 Compatibility Status)
+
+Version 1.0.5 (August 30th)
+
+* Added enhanced support for iOS7 (beta 6) by automatically adjusting insets of child controllers which main view is a UIScrollView -such as UITableViewController-. This seems to contradict the iOS7 transition guidelines because child controllers are supposed to deal with their own layout and offsets, however this is consistent with what a UINavigatorController does when it contains a UITableViewController. Now the SWRevealViewController attempts to mimic the behavior of a UINavigationController on this. 
+
+* Added a new property 'presentFrontViewHierarchically'. You can set it to YES on iOS7 when you add a RevealViewController as a child of a UINavigationController (or another SWRevealViewController) and you want the front view controller to be presented below the navigation bar of its UINavigationController grand parent. The rearViewController will still appear full size and blurred behind the navigation bar of its UINavigationController grand parent.
+
+Previous Notes
 
 * As of July 19th, 2013, the `SWRevealViewController` has been tested on iOS 7 beta 3.
 * The `SWRevealViewController` now works fine on iOS 7 with Apple-provided child view controllers such as `UINavigationController`.
