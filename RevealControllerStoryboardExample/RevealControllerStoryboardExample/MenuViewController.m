@@ -42,10 +42,12 @@
 
         rvcs.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc) {
 
-            UINavigationController* nc = (UINavigationController*)rvc.frontViewController;
-            [nc setViewControllers: @[ dvc ] animated: YES ];
+//            UINavigationController* nc = (UINavigationController*)rvc.frontViewController;
+//            [nc setViewControllers: @[ dvc ] animated: NO ];
+//            [rvc setFrontViewPosition: FrontViewPositionLeft animated: YES];
             
-            [rvc setFrontViewPosition: FrontViewPositionLeft animated: YES];
+            UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:dvc];
+            [rvc setFrontViewController:nc animated:YES];
         };
     }
 }

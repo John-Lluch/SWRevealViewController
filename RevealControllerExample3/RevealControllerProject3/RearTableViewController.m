@@ -40,6 +40,11 @@
     SWRevealViewController *grandParentRevealController = revealController.revealViewController;
     
     [self.view addGestureRecognizer:grandParentRevealController.panGestureRecognizer];
+    
+    
+   // self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
+    
+    
     //[_button addTarget:revealController action:@selector(revealToggle:) forControlEvents:UIControlEventTouchUpInside];
 }
 

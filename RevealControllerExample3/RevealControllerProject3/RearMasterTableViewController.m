@@ -36,8 +36,13 @@
     self.clearsSelectionOnViewWillAppear = NO;
     self.tableView.backgroundColor = [UIColor colorWithWhite:0.3 alpha:1.0];
     self.tableView.separatorColor = [UIColor colorWithWhite:0.5 alpha:1.0];
+    
+    //self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+}
 
 #pragma mark - Table view data source
 
@@ -156,6 +161,7 @@
             
             
             childRevealController.rearViewRevealWidth = 200;
+            childRevealController.rearViewRevealDisplacement = 0;
             [childRevealController setFrontViewPosition:FrontViewPositionRight animated:NO];
             frontController = childRevealController;
             break;
