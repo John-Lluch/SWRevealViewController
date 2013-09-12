@@ -1030,7 +1030,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 {
     UIViewController *old = _rearViewController;
     _rearViewController = newRearViewController;
-    [self _transitionFromViewController:old toViewController:newRearViewController inView:_contentView.frontView]();
+    [self _transitionFromViewController:old toViewController:newRearViewController inView:_contentView.rearView]();
     [self _dequeue];
 }
 
