@@ -113,6 +113,9 @@ typedef enum
 @property (assign, nonatomic) CGFloat rearViewRevealDisplacement;
 @property (assign, nonatomic) CGFloat rightViewRevealDisplacement;
 
+// Defines a width on the borders where the pan gesture can work, default is 0 (disabled).
+@property (assign, nonatomic) CGFloat draggableBorderWidth;
+
 // If YES (the default) the controller will bounce to the Left position when dragging further than 'rearViewRevealWidth'
 @property (assign, nonatomic) BOOL bounceBackOnOverdraw;
 @property (assign, nonatomic) BOOL bounceBackOnLeftOverdraw;

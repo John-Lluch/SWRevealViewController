@@ -352,6 +352,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     FrontViewPosition _frontViewPosition;
     FrontViewPosition _rearViewPosition;
     FrontViewPosition _rightViewPosition;
+    BOOL _panGestureAllowed;
 }
 @end
 
@@ -421,6 +422,8 @@ const int FrontViewPositionNone = 0xff;
     _frontViewShadowOpacity = 1.0f;
     _userInteractionStore = YES;
     _animationQueue = [NSMutableArray array];
+    _panGestureAllowed = YES;
+    _draggableBorderWidth = 0.0f;
 }
 
 
@@ -804,6 +807,10 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 - (void)_handleRevealGestureStateBeganWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {
+    CGPoint touch = [recognizer locationInView:_contentView];
+    _panGestureAllowed = (_draggableBorderWidth == 0.0f || _frontViewPosition != FrontViewPositionLeft || touch.x <= _draggableBorderWidth || touch.x >= (_contentView.bounds.size.width - _draggableBorderWidth));
+    if (!_panGestureAllowed) return;
+    
     // we know that we will not get here unless the animationQueue is empty because the recognizer
     // delegate prevents it, however we do not want any forthcoming programatic actions to disturb
     // the gesture, so we just enqueue a dummy block to ensure any programatic acctions will be
@@ -821,6 +828,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 - (void)_handleRevealGestureStateChangedWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {
+    if (!_panGestureAllowed) return;
     CGFloat translation = [recognizer translationInView:_contentView].x;
     
     CGFloat baseLocation = [_contentView frontLocationForPosition:_panInitialFrontPosition];
@@ -846,6 +854,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 - (void)_handleRevealGestureStateEndedWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {
+    if (!_panGestureAllowed) return;
     UIView *frontView = _contentView.frontView;
     
     CGFloat xPosition = frontView.frame.origin.x;
