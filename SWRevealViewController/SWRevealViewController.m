@@ -274,13 +274,27 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 {
     CGRect bounds = self.bounds;
     
-    CGFloat rearRevealWidth = _c.rearViewRevealWidth;
+    CGFloat rearRevealWidth;
+    if (_c.rearViewRevealWidth < 0)
+    {
+        rearRevealWidth = bounds.size.width + _c.rearViewRevealWidth;
+    }
+    else {
+        rearRevealWidth = _c.rearViewRevealWidth;
+    }
     CGFloat rearXLocation = scaledValue(xLocation, -_c.rearViewRevealDisplacement, 0, 0, rearRevealWidth);
     
     CGFloat rearWidth = rearRevealWidth + _c.rearViewRevealOverdraw;
     _rearView.frame = CGRectMake(rearXLocation, 0.0, rearWidth, bounds.size.height);
     
-    CGFloat rightRevealWidth = _c.rightViewRevealWidth;
+    CGFloat rightRevealWidth;
+    if (_c.rearViewRevealWidth < 0)
+    {
+        rightRevealWidth = bounds.size.width + _c.rightViewRevealWidth;
+    }
+    else {
+        rightRevealWidth = _c.rightViewRevealWidth;
+    }
     CGFloat rightXLocation = scaledValue(xLocation, 0, _c.rightViewRevealDisplacement, -rightRevealWidth, 0);
     
     CGFloat rightWidth = rightRevealWidth + _c.rightViewRevealOverdraw;
@@ -719,6 +733,9 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 {
     if ( symetry < 0 ) *pRevealWidth = _rightViewRevealWidth, *pRevealOverdraw = _rightViewRevealOverdraw;
     else *pRevealWidth = _rearViewRevealWidth, *pRevealOverdraw = _rearViewRevealOverdraw;
+    if (*pRevealWidth < 0) {
+        *pRevealWidth = _contentView.bounds.size.width + *pRevealWidth;
+    }
 }
 
 - (void)_getBounceBack:(BOOL*)pBounceBack pStableDrag:(BOOL*)pStableDrag forSymetry:(int)symetry
