@@ -704,15 +704,15 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 }
 
 // restore userInteraction on the control
-- (void)_restoreUserInteraction
+- (void)_restoreUserInteraction:(CGFloat) xPosition
 {
     // we use the stored userInteraction state just in case a developer decided
     // to have our view interaction disabled beforehand
     [_contentView setUserInteractionEnabled:_userInteractionStore];
     [_contentView setDisableLayout:NO];
     
-    if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureEnded:) ] )
-        [_delegate revealControllerPanGestureEnded:self];
+    if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureEnded:withOffset:) ] )
+        [_delegate revealControllerPanGestureEnded:self withOffset:xPosition];
 }
 
 
@@ -849,6 +849,8 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     }
     
     [_contentView dragFrontViewToXLocation:xLocation];
+    if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureChanged:withOffset:) ] )
+        [_delegate revealControllerPanGestureChanged:self withOffset:_contentView.frontView.frame.origin.x];
 }
 
 
@@ -924,14 +926,14 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     [self _getAdjustedFrontViewPosition:&frontViewPosition forSymetry:symetry];
     
     // restore user interaction and animate to the final position
-    [self _restoreUserInteraction];
+    [self _restoreUserInteraction:xPosition];
     [self _setFrontViewPosition:frontViewPosition withDuration:duration];
 }
 
 
 - (void)_handleRevealGestureStateCancelledWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {    
-    [self _restoreUserInteraction];
+    [self _restoreUserInteraction:_contentView.frontView.frame.origin.x];
     [self _dequeue];
 }
 

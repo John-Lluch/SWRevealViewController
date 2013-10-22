@@ -165,7 +165,8 @@ typedef enum
 - (void)revealController:(SWRevealViewController *)revealController animateToPosition:(FrontViewPosition)position;
 
 - (void)revealControllerPanGestureBegan:(SWRevealViewController *)revealController;
-- (void)revealControllerPanGestureEnded:(SWRevealViewController *)revealController;
+- (void)revealControllerPanGestureChanged:(SWRevealViewController *)revealController withOffset:(CGFloat) xPosition;
+- (void)revealControllerPanGestureEnded:(SWRevealViewController *)revealController withOffset:(CGFloat) xPosition;
 
 @end
 
