@@ -275,12 +275,16 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     CGRect bounds = self.bounds;
     
     CGFloat rearRevealWidth = _c.rearViewRevealWidth;
+    if ( rearRevealWidth < 0) rearRevealWidth = bounds.size.width + _c.rearViewRevealWidth;
+    
     CGFloat rearXLocation = scaledValue(xLocation, -_c.rearViewRevealDisplacement, 0, 0, rearRevealWidth);
     
     CGFloat rearWidth = rearRevealWidth + _c.rearViewRevealOverdraw;
     _rearView.frame = CGRectMake(rearXLocation, 0.0, rearWidth, bounds.size.height);
     
     CGFloat rightRevealWidth = _c.rightViewRevealWidth;
+    if ( rightRevealWidth < 0) rightRevealWidth = bounds.size.width + _c.rightViewRevealWidth;
+    
     CGFloat rightXLocation = scaledValue(xLocation, 0, _c.rightViewRevealDisplacement, -rightRevealWidth, 0);
     
     CGFloat rightWidth = rightRevealWidth + _c.rightViewRevealOverdraw;
@@ -352,7 +356,6 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     FrontViewPosition _frontViewPosition;
     FrontViewPosition _rearViewPosition;
     FrontViewPosition _rightViewPosition;
-    BOOL _panGestureAllowed;
 }
 @end
 
@@ -422,7 +425,6 @@ const int FrontViewPositionNone = 0xff;
     _frontViewShadowOpacity = 1.0f;
     _userInteractionStore = YES;
     _animationQueue = [NSMutableArray array];
-    _panGestureAllowed = YES;
     _draggableBorderWidth = 0.0f;
 }
 
@@ -695,12 +697,8 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 // disable userInteraction on the entire control
 - (void)_disableUserInteraction
 {
-    //_userInteractionStore = _contentView.userInteractionEnabled;
     [_contentView setUserInteractionEnabled:NO];
     [_contentView setDisableLayout:YES];
-    
-    if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureBegan:)] )
-        [_delegate revealControllerPanGestureBegan:self];
 }
 
 // restore userInteraction on the control
@@ -710,8 +708,37 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     // to have our view interaction disabled beforehand
     [_contentView setUserInteractionEnabled:_userInteractionStore];
     [_contentView setDisableLayout:NO];
+}
+
+#pragma mark - PanGesture progress notification
+
+- (void)_notifyPanGestureBegan
+{
+    if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureBegan:)] )
+        [_delegate revealControllerPanGestureBegan:self];
     
-    if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureEnded:) ] )
+    CGFloat xLocation, dragProgress;
+    [self _getDragLocation:&xLocation progress:&dragProgress];
+    if ( [_delegate respondsToSelector:@selector(revealController:panGestureBeganFromLocation:progress:)] )
+        [_delegate revealController:self panGestureBeganFromLocation:xLocation progress:dragProgress];
+}
+
+- (void)_notifyPanGestureMoved
+{
+    CGFloat xLocation, dragProgress;
+    [self _getDragLocation:&xLocation progress:&dragProgress];
+    if ( [_delegate respondsToSelector:@selector(revealController:panGestureMovedToLocation:progress:)] )
+        [_delegate revealController:self panGestureMovedToLocation:xLocation progress:dragProgress];
+}
+
+- (void)_notifyPanGestureEnded
+{
+    CGFloat xLocation, dragProgress;
+    [self _getDragLocation:&xLocation progress:&dragProgress];
+    if ( [_delegate respondsToSelector:@selector(revealController:panGestureEndedToLocation:progress:)] )
+        [_delegate revealController:self panGestureEndedToLocation:xLocation progress:dragProgress];
+    
+    if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureEnded:)] )
         [_delegate revealControllerPanGestureEnded:self];
 }
 
@@ -722,6 +749,8 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 {
     if ( symetry < 0 ) *pRevealWidth = _rightViewRevealWidth, *pRevealOverdraw = _rightViewRevealOverdraw;
     else *pRevealWidth = _rearViewRevealWidth, *pRevealOverdraw = _rearViewRevealOverdraw;
+    
+    if (*pRevealWidth < 0) *pRevealWidth = _contentView.bounds.size.width + *pRevealWidth;
 }
 
 - (void)_getBounceBack:(BOOL*)pBounceBack pStableDrag:(BOOL*)pStableDrag forSymetry:(int)symetry
@@ -733,6 +762,19 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 - (void)_getAdjustedFrontViewPosition:(FrontViewPosition*)frontViewPosition forSymetry:(int)symetry
 {
     if ( symetry < 0 ) *frontViewPosition = FrontViewPositionLeft + symetry*(*frontViewPosition-FrontViewPositionLeft);
+}
+
+- (void)_getDragLocation:(CGFloat*)xLocation progress:(CGFloat*)progress
+{
+    UIView *frontView = _contentView.frontView;
+    *xLocation = frontView.frame.origin.x;
+
+    int symetry = *xLocation<0 ? -1 : 1;
+    
+    CGFloat xWidth = symetry < 0 ? _rightViewRevealWidth : _rearViewRevealWidth;
+    if ( xWidth < 0 ) xWidth = _contentView.bounds.size.width + xWidth;
+    
+    *progress = *xLocation/xWidth * symetry;
 }
 
 
@@ -769,10 +811,27 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 #pragma mark - Gesture Delegate
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)recognizer
 {
     // only allow gesture if no previous request is in process
-    return ( gestureRecognizer == _panGestureRecognizer && _animationQueue.count == 0) ;
+    if ( recognizer != _panGestureRecognizer || _animationQueue.count != 0 )
+        return NO;
+    
+    // forbid gesture if the following delegate is implemented and returns NO
+    if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureShouldBegin:)] )
+        if ( [_delegate revealControllerPanGestureShouldBegin:self] == NO )
+            return NO;
+
+    UIView *recognizerView = recognizer.view;
+    CGFloat xLocation = [recognizer locationInView:recognizerView].x;
+    CGFloat width = recognizerView.bounds.size.width;
+    
+    BOOL draggableBorderAllowing = (
+        _frontViewPosition != FrontViewPositionLeft || _draggableBorderWidth == 0.0f ||
+        xLocation <= _draggableBorderWidth || xLocation >= (width - _draggableBorderWidth) );
+
+    // allow gesture only within the bounds defined by the draggableBorderWidth property
+    return draggableBorderAllowing ;
 }
 
 
@@ -807,10 +866,6 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 - (void)_handleRevealGestureStateBeganWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {
-    CGPoint touch = [recognizer locationInView:_contentView];
-    _panGestureAllowed = (_draggableBorderWidth == 0.0f || _frontViewPosition != FrontViewPositionLeft || touch.x <= _draggableBorderWidth || touch.x >= (_contentView.bounds.size.width - _draggableBorderWidth));
-    if (!_panGestureAllowed) return;
-    
     // we know that we will not get here unless the animationQueue is empty because the recognizer
     // delegate prevents it, however we do not want any forthcoming programatic actions to disturb
     // the gesture, so we just enqueue a dummy block to ensure any programatic acctions will be
@@ -823,12 +878,12 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     // we disable user interactions on the views, however programatic accions will still be
     // enqueued to be performed after the gesture completes
     [self _disableUserInteraction];
+    [self _notifyPanGestureBegan];
 }
 
 
 - (void)_handleRevealGestureStateChangedWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {
-    if (!_panGestureAllowed) return;
     CGFloat translation = [recognizer translationInView:_contentView].x;
     
     CGFloat baseLocation = [_contentView frontLocationForPosition:_panInitialFrontPosition];
@@ -849,20 +904,20 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     }
     
     [_contentView dragFrontViewToXLocation:xLocation];
+    [self _notifyPanGestureMoved];
 }
 
 
 - (void)_handleRevealGestureStateEndedWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {
-    if (!_panGestureAllowed) return;
     UIView *frontView = _contentView.frontView;
     
-    CGFloat xPosition = frontView.frame.origin.x;
+    CGFloat xLocation = frontView.frame.origin.x;
     CGFloat velocity = [recognizer velocityInView:_contentView].x;
     //NSLog( @"Velocity:%1.4f", velocity);
     
     // depending on position we compute a simetric replacement of widths and positions
-    int symetry = xPosition<0 ? -1 : 1;
+    int symetry = xLocation<0 ? -1 : 1;
     
     // simetring computing of widths
     CGFloat revealWidth ;
@@ -874,7 +929,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     [self _getBounceBack:&bounceBack pStableDrag:&stableDrag forSymetry:symetry];
     
     // simetric replacement of position
-    xPosition = xPosition * symetry;
+    xLocation = xLocation * symetry;
     
     // initially we assume drag to left and default duration
     FrontViewPosition frontViewPosition = FrontViewPositionLeft;
@@ -884,17 +939,17 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     if (fabsf(velocity) > _quickFlickVelocity)
     {
         // we may need to set the drag position and to adjust the animation duration
-        CGFloat journey = xPosition;
+        CGFloat journey = xLocation;
         if (velocity*symetry > 0.0f)
         {
             frontViewPosition = FrontViewPositionRight;
-            journey = revealWidth - xPosition;
-            if (xPosition > revealWidth)
+            journey = revealWidth - xLocation;
+            if (xLocation > revealWidth)
             {
                 if (!bounceBack && stableDrag /*&& xPosition > _rearViewRevealWidth+_rearViewRevealOverdraw*0.5f*/)
                 {
                     frontViewPosition = FrontViewPositionRightMost;
-                    journey = revealWidth+revealOverdraw - xPosition;
+                    journey = revealWidth+revealOverdraw - xLocation;
                 }
             }
         }
@@ -906,15 +961,15 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     else
     {    
         // we may need to set the drag position        
-        if (xPosition > revealWidth*0.5f)
+        if (xLocation > revealWidth*0.5f)
         {
             frontViewPosition = FrontViewPositionRight;
-            if (xPosition > revealWidth)
+            if (xLocation > revealWidth)
             {
                 if (bounceBack)
                     frontViewPosition = FrontViewPositionLeft;
 
-                else if (stableDrag && xPosition > revealWidth+revealOverdraw*0.5f)
+                else if (stableDrag && xLocation > revealWidth+revealOverdraw*0.5f)
                     frontViewPosition = FrontViewPositionRightMost;
             }
         }
@@ -925,6 +980,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     
     // restore user interaction and animate to the final position
     [self _restoreUserInteraction];
+    [self _notifyPanGestureEnded];
     [self _setFrontViewPosition:frontViewPosition withDuration:duration];
 }
 
@@ -932,6 +988,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 - (void)_handleRevealGestureStateCancelledWithRecognizer:(UIPanGestureRecognizer *)recognizer
 {    
     [self _restoreUserInteraction];
+    [self _notifyPanGestureEnded];
     [self _dequeue];
 }
 

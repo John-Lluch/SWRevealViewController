@@ -75,68 +75,64 @@
 	return YES;
 }
 
+#define LogDelegates 1
 
-//- (NSString*)stringFromFrontViewPosition:(FrontViewPosition)position
-//{
-//    NSString *str = nil;
-//    if ( position == FrontViewPositionLeft ) str = @"FrontViewPositionLeft";
-//    if ( position == FrontViewPositionRight ) str = @"FrontViewPositionRight";
-//    if ( position == FrontViewPositionRightMost ) str = @"FrontViewPositionRightMost";
-//    if ( position == FrontViewPositionRightMostRemoved ) str = @"FrontViewPositionRightMostRemoved";
-//    return str;
-//}
-//
-//
-//- (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position
-//{
-//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), [self stringFromFrontViewPosition:position]);
-//}
-//
-//- (void)revealController:(SWRevealViewController *)revealController didMoveToPosition:(FrontViewPosition)position
-//{
-//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), [self stringFromFrontViewPosition:position]);
-//}
-//
-//- (void)revealController:(SWRevealViewController *)revealController willRevealRearViewController:(UIViewController *)viewController
-//{
-//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
-//}
-//
-//- (void)revealController:(SWRevealViewController *)revealController didRevealRearViewController:(UIViewController *)viewController
-//{
-//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
-//}
-//
-//- (void)revealController:(SWRevealViewController *)revealController willHideRearViewController:(UIViewController *)viewController
-//{
-//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
-//}
-//
-//- (void)revealController:(SWRevealViewController *)revealController didHideRearViewController:(UIViewController *)viewController
-//{
-//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
-//}
-//
-//- (void)revealController:(SWRevealViewController *)revealController willShowFrontViewController:(UIViewController *)viewController
-//{
-//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
-//}
-//
-//- (void)revealController:(SWRevealViewController *)revealController didShowFrontViewController:(UIViewController *)viewController
-//{
-//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
-//}
-//
-//- (void)revealController:(SWRevealViewController *)revealController willHideFrontViewController:(UIViewController *)viewController
-//{
-//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
-//}
-//
-//- (void)revealController:(SWRevealViewController *)revealController didHideFrontViewController:(UIViewController *)viewController
-//{
-//    NSLog( @"%@: %@", NSStringFromSelector(_cmd), viewController);
-//}
+#if LogDelegates
+- (NSString*)stringFromFrontViewPosition:(FrontViewPosition)position
+{
+    NSString *str = nil;
+    if ( position == FrontViewPositionLeftSideMostRemoved ) str = @"FrontViewPositionLeftSideMostRemoved";
+    if ( position == FrontViewPositionLeftSideMost) str = @"FrontViewPositionLeftSideMost";
+    if ( position == FrontViewPositionLeftSide) str = @"FrontViewPositionLeftSide";
+    if ( position == FrontViewPositionLeft ) str = @"FrontViewPositionLeft";
+    if ( position == FrontViewPositionRight ) str = @"FrontViewPositionRight";
+    if ( position == FrontViewPositionRightMost ) str = @"FrontViewPositionRightMost";
+    if ( position == FrontViewPositionRightMostRemoved ) str = @"FrontViewPositionRightMostRemoved";
+    return str;
+}
 
+
+- (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position
+{
+    NSLog( @"%@: %@", NSStringFromSelector(_cmd), [self stringFromFrontViewPosition:position]);
+}
+
+- (void)revealController:(SWRevealViewController *)revealController didMoveToPosition:(FrontViewPosition)position
+{
+    NSLog( @"%@: %@", NSStringFromSelector(_cmd), [self stringFromFrontViewPosition:position]);
+}
+
+- (void)revealController:(SWRevealViewController *)revealController animateToPosition:(FrontViewPosition)position
+{
+    NSLog( @"%@: %@", NSStringFromSelector(_cmd), [self stringFromFrontViewPosition:position]);
+}
+
+- (void)revealControllerPanGestureBegan:(SWRevealViewController *)revealController;
+{
+    NSLog( @"%@", NSStringFromSelector(_cmd) );
+}
+
+- (void)revealControllerPanGestureEnded:(SWRevealViewController *)revealController;
+{
+    NSLog( @"%@", NSStringFromSelector(_cmd) );
+}
+
+- (void)revealController:(SWRevealViewController *)revealController panGestureBeganFromLocation:(CGFloat)location progress:(CGFloat)progress
+{
+    NSLog( @"%@: %f, %f", NSStringFromSelector(_cmd), location, progress);
+}
+
+- (void)revealController:(SWRevealViewController *)revealController panGestureMovedToLocation:(CGFloat)location progress:(CGFloat)progress
+{
+    NSLog( @"%@: %f, %f", NSStringFromSelector(_cmd), location, progress);
+}
+
+- (void)revealController:(SWRevealViewController *)revealController panGestureEndedToLocation:(CGFloat)location progress:(CGFloat)progress
+{
+    NSLog( @"%@: %f, %f", NSStringFromSelector(_cmd), location, progress);
+}
+
+#endif
 
 
 

@@ -101,7 +101,8 @@ typedef enum
 // The following properties are provided for further customization, they are set to default values on initialization,
 // you should not generally have to set them
 
-// Defines how much of the rear or right view is shown, default is 260.
+// Defines how much of the rear or right view is shown, default is 260. A negative value indicates that the reveal width should be
+// computed by substracting the full front view width, so the revealed frontView width is constant.
 @property (assign, nonatomic) CGFloat rearViewRevealWidth;
 @property (assign, nonatomic) CGFloat rightViewRevealWidth; // <-- simetric implementation of the above for the rightViewController
 
@@ -113,7 +114,8 @@ typedef enum
 @property (assign, nonatomic) CGFloat rearViewRevealDisplacement;
 @property (assign, nonatomic) CGFloat rightViewRevealDisplacement;
 
-// Defines a width on the borders where the pan gesture can work, default is 0 (disabled).
+// Defines a width on the border of the view attached to the panGesturRecognizer where the gesture is allowed,
+// default is 0 which means no restriction.
 @property (assign, nonatomic) CGFloat draggableBorderWidth;
 
 // If YES (the default) the controller will bounce to the Left position when dragging further than 'rearViewRevealWidth'
@@ -159,13 +161,27 @@ typedef enum
 
 @optional
 
+// The following delegate methods will be called before and after the front view moves to a position
 - (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position;
 - (void)revealController:(SWRevealViewController *)revealController didMoveToPosition:(FrontViewPosition)position;
 
+// This will be called inside the reveal animation, thus you can use it to place your own code that will be animated in sync
 - (void)revealController:(SWRevealViewController *)revealController animateToPosition:(FrontViewPosition)position;
 
+// Implement this to return NO when you want the pan gesture recognizer to be ignored
+- (BOOL)revealControllerPanGestureShouldBegin:(SWRevealViewController *)revealController;
+
+// Called when the gestureRecognizer began and ended
 - (void)revealControllerPanGestureBegan:(SWRevealViewController *)revealController;
 - (void)revealControllerPanGestureEnded:(SWRevealViewController *)revealController;
+
+// The following methods provide a means to track the evolution of the gesture recognizer.
+// The 'location' parameter is the X origin coordinate of the front view as the user drags it
+// The 'progress' parameter is a positive value from 0 to 1 indicating the front view location relative to the
+// rearRevealWidth or rightRevealWidth. 1 is fully revealed, dragging ocurring in the overDraw region will result in values above 1.
+- (void)revealController:(SWRevealViewController *)revealController panGestureBeganFromLocation:(CGFloat)location progress:(CGFloat)progress;
+- (void)revealController:(SWRevealViewController *)revealController panGestureMovedToLocation:(CGFloat)location progress:(CGFloat)progress;
+- (void)revealController:(SWRevealViewController *)revealController panGestureEndedToLocation:(CGFloat)location progress:(CGFloat)progress;
 
 @end
 
