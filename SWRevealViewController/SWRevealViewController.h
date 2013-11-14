@@ -24,6 +24,36 @@
  
 */
 
+/*
+
+ RELEASE NOTES
+
+ Version 1.1.0 (Current Version)
+
+ - The method setFrontViewController:animated now performs the right animations both for left and right controllers.
+
+ - The class now automatically handles the status bar appearance depending on the currently shown child controller.
+
+ Version 1.0.8
+ 
+ - Support for constant width frontView by setting a negative value to reveal widths. See properties rearViewRevealWidth and rightViewRevealWidth
+ 
+ - Support for draggableBorderWidth. See property of the same name.
+ 
+ - The Pan gesture recongnizer can be disabled by implementing the following delegate method and returning NO
+    revealControllerPanGestureShouldBegin:
+
+ - Added the ability to track pan gesture reveal progress through the following new delegate methods
+    revealController:panGestureBeganFromLocation:progress:
+    revealController:panGestureMovedToLocation:progress:
+    revealController:panGestureEndedToLocation:progress:
+ 
+ Previous Versions
+ 
+ - No release notes were updated for previous versions.
+
+*/
+
 
 #import <UIKit/UIKit.h>
 
@@ -35,11 +65,18 @@
 // Enum values for setFrontViewPosition:animated:
 typedef enum
 {
+    // Front controller is removed from view. Animated transitioning from this state will cause the same
+    // effect than animating from FrontViewPositionLeftSideMost. Use this instead of FrontViewPositionLeftSideMost when
+    // you want to remove the front view controller view from the view hierarchy.
     FrontViewPositionLeftSideMostRemoved,
+    
+    // Left most position, front view is presented left-offseted by rightViewRevealWidth+rigthViewRevealOverdraw
     FrontViewPositionLeftSideMost,
+    
+    // Left position, front view is presented left-offseted by rightViewRevealWidth
     FrontViewPositionLeftSide,
 
-    // Left position, rear view is hidden behind front controller
+    // Center position, rear view is hidden behind front controller
 	FrontViewPositionLeft,
     
     // Right possition, front view is presented right-offseted by rearViewRevealWidth
@@ -50,7 +87,7 @@ typedef enum
     
     // Front controller is removed from view. Animated transitioning from this state will cause the same
     // effect than animating from FrontViewPositionRightMost. Use this instead of FrontViewPositionRightMost when
-    // you intent to remove the front controller view to be removed from the view hierarchy.
+    // you intent to remove the front controller view from the view hierarchy.
     FrontViewPositionRightMostRemoved,
     
 } FrontViewPosition;

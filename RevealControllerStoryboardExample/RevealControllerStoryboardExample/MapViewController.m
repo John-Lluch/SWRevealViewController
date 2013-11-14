@@ -9,7 +9,7 @@
 #import "MapViewController.h"
 
 @interface MapViewController ()
-@property (readonly) IBOutlet UIBarButtonItem* revealButtonItem;
+@property (nonatomic) IBOutlet UIBarButtonItem* revealButtonItem;
 @end
 
 @implementation MapViewController

@@ -429,7 +429,7 @@ const int FrontViewPositionNone = 0xff;
 }
 
 
-#pragma mark storyboard support
+#pragma mark Storyboard support
 
 static NSString * const SWSegueRearIdentifier = @"sw_rear";
 static NSString * const SWSegueFrontIdentifier = @"sw_front";
@@ -472,6 +472,20 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
             };
         }
     }
+}
+
+
+#pragma mark - StatusBar
+
+- (UIViewController *)childViewControllerForStatusBarStyle
+{
+    int positionDif =  _frontViewPosition - FrontViewPositionLeft;
+    
+    UIViewController *controller = _frontViewController;
+    if ( positionDif > 0 ) controller = _rearViewController;
+    else if ( positionDif < 0 ) controller = _rightViewController;
+    
+    return controller;
 }
 
 
@@ -1005,19 +1019,20 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 - (void)_dispatchSetFrontViewController:(UIViewController *)newFrontViewController animated:(BOOL)animated
 {
-    int initialPosDif = FrontViewPositionRightMost - _frontViewPosition;
-
-    NSTimeInterval firstDuration ;
-    if ( initialPosDif <= 0 ) firstDuration = 0.0;
-    else if ( initialPosDif == 1 ) firstDuration = _toggleAnimationDuration*0.5;
-    else firstDuration = _toggleAnimationDuration;
+    FrontViewPosition preReplacementPosition = FrontViewPositionLeft;
+    if ( _frontViewPosition > FrontViewPositionLeft ) preReplacementPosition = FrontViewPositionRightMost;
+    if ( _frontViewPosition < FrontViewPositionLeft ) preReplacementPosition = FrontViewPositionLeftSideMost;
     
     NSTimeInterval duration = animated?_toggleAnimationDuration:0.0;
-
+    NSTimeInterval firstDuration = duration;
+    int initialPosDif = abs( _frontViewPosition - preReplacementPosition );
+    if ( initialPosDif == 1 ) firstDuration *= 0.8;
+    else if ( initialPosDif == 0 ) firstDuration = 0;
+    
     __weak SWRevealViewController *theSelf = self;
     if ( animated )
     {
-        _enqueue( [theSelf _setFrontViewPosition:FrontViewPositionRightMost withDuration:firstDuration] );
+        _enqueue( [theSelf _setFrontViewPosition:preReplacementPosition withDuration:firstDuration] );
         _enqueue( [theSelf _setFrontViewController:newFrontViewController] );
         _enqueue( [theSelf _setFrontViewPosition:FrontViewPositionLeft withDuration:duration] );
     }
@@ -1050,6 +1065,8 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     void (^rearDeploymentCompletion)() = [self _rearViewDeploymentForNewFrontViewPosition:newPosition];
     void (^rightDeploymentCompletion)() = [self _rightViewDeploymentForNewFrontViewPosition:newPosition];
     void (^frontDeploymentCompletion)() = [self _frontViewDeploymentForNewFrontViewPosition:newPosition];
+    
+    [self setNeedsStatusBarAppearanceUpdate];
     
     void (^animations)() = ^()
     {

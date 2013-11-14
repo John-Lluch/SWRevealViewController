@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface SWUITableViewCell : UITableViewCell
-@property (readonly) IBOutlet UILabel *label;
+@property (nonatomic) IBOutlet UILabel *label;
 @end
 
 @interface MenuViewController : UITableViewController

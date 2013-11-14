@@ -24,12 +24,14 @@ A UIViewController subclass for revealing a rear (left and/or right) view contro
 
 ## Requirements
 
-* iOS 5.1 or later.
+* iOS 5.1 through iOS 7.0 or later.
 * ARC memory management.
 
 ## Usage
 
-`SWRevealViewController` can either be installed in your project using [CocoaPods](http://cocoapods.org/) or by copying the following to your project:
+`SWRevealViewController` attempts to provide an updated cocoaPods file and consistent tag versioning, but it is not actively updated on the cocoapods-specs repository.
+
+The easier way to install it is by copying the following to your project:
 * SWRevealViewController.h
 * SWRevealViewController.m
 
@@ -64,20 +66,10 @@ Obtaining a gesture recognizer to add to your front view controller:
 Other methods are documented in the SWRevealViewController.h header file. 
 
 
-## Release Notes (Including iOS 7 Compatibility Status)
+## Release Notes
 
-Version 1.0.5 (August 30th)
+As of November 15, 2013 Release Notes are updated on the class main header file. Please see `SWRevealViewController.h`
 
-* Added enhanced support for iOS7 (beta 6) by automatically adjusting insets of child controllers which main view is a UIScrollView -such as UITableViewController-. This seems to contradict the iOS7 transition guidelines because child controllers are supposed to deal with their own layout and offsets, however this is consistent with what a UINavigatorController does when it contains a UITableViewController. Now the SWRevealViewController attempts to mimic the behavior of a UINavigationController on this. 
-
-* Added a new property `presentFrontViewHierarchically`. You can set it to YES on iOS7 when you add a SWRevealViewController as a child of a UINavigationController (or another SWRevealViewController) and you want the front view controller to be presented below the navigation bar of its UINavigationController grand parent. The rearViewController will still appear full size and blurred behind the navigation bar of its UINavigationController grand parent.
-
-Previous Notes
-
-* As of July 19th, 2013, the `SWRevealViewController` has been tested on iOS 7 beta 3.
-* The `SWRevealViewController` now works fine on iOS 7 with Apple-provided child view controllers such as `UINavigationController`.
-* The *RevealControllerExample* and *RevealControllerExample2* examples have been updated to use `UINavigationController`s instead of a navigation bar on top of a view. Thus, all child view controller layouts are now correctly handled by the Apple implemented of the `UINavigationController`.
-* According to Apple, iOS 7 transition guidelines, developers are responsible for managing the required view offsets and bar height extensions on custom view controllers depending on the version of iOS. *RevealControllerExample3* has not yet been updated to take iOS 7 layouts and the new status bar into account, so it still defaults to the iOS 6 layout.
 	
 ## License
 

@@ -9,7 +9,7 @@
 #import "ColorViewController.h"
 
 @interface ColorViewController ()
-@property (readonly) IBOutlet UIBarButtonItem* revealButtonItem;
+@property (nonatomic) IBOutlet UIBarButtonItem* revealButtonItem;
 @end
 
 @implementation ColorViewController
@@ -21,6 +21,9 @@
     [self.revealButtonItem setTarget: self.revealViewController];
     [self.revealButtonItem setAction: @selector( revealToggle: )];
     [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+    
+    _label.text = _text;
+    _label.textColor = _color;
 }
 
 @end
