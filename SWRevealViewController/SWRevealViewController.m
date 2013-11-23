@@ -848,6 +848,9 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     return draggableBorderAllowing ;
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
 
 #pragma mark - Gesture Based Reveal
 
