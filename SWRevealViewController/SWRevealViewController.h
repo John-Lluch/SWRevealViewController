@@ -27,10 +27,20 @@
 /*
 
  RELEASE NOTES
+ 
+ Version 1.1.1 (Current Version)
+ 
+ - You can now get a tapGestureRecognizer from the class. See the tapGestureRecognizer method for more information.
+ 
+ - Both the panGestureRecognizer and the tapGestureRecognizer are now attached to the revealViewController's front content view
+    by default, so they will start working just by calling their access methods even if you do not attach them to any of your views.
+    This enables you to dissable interactions on your views -for example based on position- without breaking normal gesture behavior.
+ 
+ - Corrected a bug that caused a crash on iOS6 and earlier.
+ 
+ Version 1.1.0
 
- Version 1.1.0 (Current Version)
-
- - The method setFrontViewController:animated now performs the right animations both for left and right controllers.
+ - The method setFrontViewController:animated now performs the correct animations both for left and right controllers.
 
  - The class now automatically handles the status bar appearance depending on the currently shown child controller.
 
@@ -130,10 +140,18 @@ typedef enum
 - (void)revealToggle:(id)sender;
 - (void)rightRevealToggle:(id)sender; // <-- simetric implementation of the above for the rightViewController
 
-// The following method will provide a panGestureRecognizer suitable to be added to any view on the frontController
-// in order to perform usual drag and swipe gestures on the frontViewController to reveal the rear views. This
-// is usually added on the top bar of a front controller.
+// The following method will provide a panGestureRecognizer suitable to be added to any view
+// in order to perform usual drag and swipe gestures to reveal the rear views. This is usually added to the top bar
+// of a front controller, but it can be added to your frontViewController view or to the reveal controller view to provide full screen panning.
+// The provided panGestureRecognizer is initially added to the reveal controller's front container view, so you can dissable
+// user interactions on your controllers views and the recognizer will continue working. 
 - (UIPanGestureRecognizer*)panGestureRecognizer;
+
+// The following method will provide a tapGestureRecognizer suitable to be added to any view on the frontController
+// for concealing the rear views. By default no tap recognizer is created or added to any view, however if you call this method after
+// the controller's view has been loaded the recognizer is added to the reveal controller's front container view.
+// Thus, you can disable user interactions on your frontViewController view without affecting the tap recognizer.
+- (UITapGestureRecognizer*)tapGestureRecognizer;
 
 // The following properties are provided for further customization, they are set to default values on initialization,
 // you should not generally have to set them
@@ -207,6 +225,9 @@ typedef enum
 
 // Implement this to return NO when you want the pan gesture recognizer to be ignored
 - (BOOL)revealControllerPanGestureShouldBegin:(SWRevealViewController *)revealController;
+
+// Implement this to return NO when you want the tap gesture recognizer to be ignored
+- (BOOL)revealControllerTapGestureShouldBegin:(SWRevealViewController *)revealController;
 
 // Called when the gestureRecognizer began and ended
 - (void)revealControllerPanGestureBegan:(SWRevealViewController *)revealController;

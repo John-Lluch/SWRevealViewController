@@ -353,6 +353,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 {
     SWRevealView *_contentView;
     UIPanGestureRecognizer *_panGestureRecognizer;
+    UITapGestureRecognizer *_tapGestureRecognizer;
     FrontViewPosition _frontViewPosition;
     FrontViewPosition _rearViewPosition;
     FrontViewPosition _rightViewPosition;
@@ -682,14 +683,30 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 {
     if ( _panGestureRecognizer == nil )
     {
-        SWDirectionPanGestureRecognizer *customRecognizer =
+        SWDirectionPanGestureRecognizer *panRecognizer =
             [[SWDirectionPanGestureRecognizer alloc] initWithTarget:self action:@selector(_handleRevealGesture:)];
         
-        customRecognizer.direction = SWDirectionPanGestureRecognizerHorizontal;
-        customRecognizer.delegate = self;
-        _panGestureRecognizer = customRecognizer ;
+        panRecognizer.direction = SWDirectionPanGestureRecognizerHorizontal;
+        panRecognizer.delegate = self;
+        [_contentView.frontView addGestureRecognizer:panRecognizer];
+        _panGestureRecognizer = panRecognizer ;
     }
     return _panGestureRecognizer;
+}
+
+
+- (UITapGestureRecognizer*)tapGestureRecognizer
+{
+    if ( _tapGestureRecognizer == nil )
+    {
+        UITapGestureRecognizer *tapRecognizer =
+            [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_handleTapGesture:)];
+        
+        tapRecognizer.delegate = self;
+        [_contentView.frontView addGestureRecognizer:tapRecognizer];
+        _tapGestureRecognizer = tapRecognizer ;
+    }
+    return _tapGestureRecognizer;
 }
 
 
@@ -825,19 +842,52 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 #pragma mark - Gesture Delegate
 
+
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)recognizer
 {
     // only allow gesture if no previous request is in process
-    if ( recognizer != _panGestureRecognizer || _animationQueue.count != 0 )
-        return NO;
+    if ( _animationQueue.count == 0 )
+    {
+        if ( recognizer == _panGestureRecognizer )
+            return [self _panGestureShouldBegin];
+        
+        if ( recognizer == _tapGestureRecognizer )
+            return [self _tapGestureShouldBegin];
+    }
+
+    return NO;
+}
+
+
+- (BOOL)_tapGestureShouldBegin
+{
+    if ( _frontViewPosition == FrontViewPositionLeft ||
+        _frontViewPosition == FrontViewPositionRightMostRemoved ||
+        _frontViewPosition ==FrontViewPositionLeftSideMostRemoved )
+            return NO;
+    
+    // forbid gesture if the following delegate is implemented and returns NO
+    if ( [_delegate respondsToSelector:@selector(revealControllerTapGestureShouldBegin:)] )
+        if ( [_delegate revealControllerTapGestureShouldBegin:self] == NO )
+            return NO;
+    
+    return YES;
+}
+
+
+- (BOOL)_panGestureShouldBegin
+{
+//    // only allow gesture if no previous request is in process
+//    if ( recognizer != _panGestureRecognizer || _animationQueue.count != 0 )
+//        return NO;
     
     // forbid gesture if the following delegate is implemented and returns NO
     if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureShouldBegin:)] )
         if ( [_delegate revealControllerPanGestureShouldBegin:self] == NO )
             return NO;
 
-    UIView *recognizerView = recognizer.view;
-    CGFloat xLocation = [recognizer locationInView:recognizerView].x;
+    UIView *recognizerView = _panGestureRecognizer.view;
+    CGFloat xLocation = [_panGestureRecognizer locationInView:recognizerView].x;
     CGFloat width = recognizerView.bounds.size.width;
     
     BOOL draggableBorderAllowing = (
@@ -850,6 +900,15 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 
 #pragma mark - Gesture Based Reveal
+
+
+- (void)_handleTapGesture:(UITapGestureRecognizer *)recognizer
+{
+    NSTimeInterval duration = _toggleAnimationDuration;
+    [self _setFrontViewPosition:FrontViewPositionLeft withDuration:duration];
+}
+
+
 
 - (void)_handleRevealGesture:(UIPanGestureRecognizer *)recognizer
 {
@@ -1066,7 +1125,8 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     void (^rightDeploymentCompletion)() = [self _rightViewDeploymentForNewFrontViewPosition:newPosition];
     void (^frontDeploymentCompletion)() = [self _frontViewDeploymentForNewFrontViewPosition:newPosition];
     
-    [self setNeedsStatusBarAppearanceUpdate];
+    if ( [self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
+        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate) withObject:nil];
     
     void (^animations)() = ^()
     {
