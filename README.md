@@ -70,6 +70,10 @@ Other methods are documented in the SWRevealViewController.h header file.
 
 As of November 15, 2013 Release Notes are updated on the class main header file. Please see `SWRevealViewController.h`
 
+## Special Mentions
+
+A Xamarin Binding project of this controller is available for download at (https://github.com/Vandborg/SWRevealViewController-XamarinBinding)
+Thanks to Jesper Vandborg for having contributed to this.
 	
 ## License
 
