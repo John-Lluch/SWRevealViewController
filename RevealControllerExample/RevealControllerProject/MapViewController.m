@@ -37,7 +37,7 @@
     
     SWRevealViewController *revealController = [self revealViewController];
     
-    [self.navigationController.navigationBar addGestureRecognizer:revealController.panGestureRecognizer];
+    //[self.navigationController.navigationBar addGestureRecognizer:revealController.panGestureRecognizer];
     
     UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
         style:UIBarButtonItemStyleBordered target:revealController action:@selector(revealToggle:)];
