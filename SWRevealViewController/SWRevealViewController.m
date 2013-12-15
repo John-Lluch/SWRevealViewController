@@ -1089,6 +1089,10 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     _frontViewController = newFrontViewController;
     [self _transitionFromViewController:old toViewController:newFrontViewController inView:_contentView.frontView]();
     [self _dequeue];
+    
+    [old removeFromParentViewController];
+    if ( _frontViewController )
+        [self addChildViewController:_frontViewController];
 }
 
 // Primitive method for rear controller transition
@@ -1098,6 +1102,10 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     _rearViewController = newRearViewController;
     [self _transitionFromViewController:old toViewController:newRearViewController inView:_contentView.rearView]();
     [self _dequeue];
+    
+    [old removeFromParentViewController];
+    if ( _rearViewController )
+        [self addChildViewController:_rearViewController];
 }
 
 // Primitive method for right controller transition
@@ -1107,6 +1115,10 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     _rightViewController = newRightViewController;
     [self _transitionFromViewController:old toViewController:newRightViewController inView:_contentView.rightView]();
     [self _dequeue];
+    
+    [old removeFromParentViewController];
+    if ( _rightViewController )
+        [self addChildViewController:_rightViewController];
     
 //    UIViewController *old = _rightViewController;
 //    void (^completion)() = [self _transitionRearController:old toController:newRightViewController inView:_contentView.rightView];
