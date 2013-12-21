@@ -61,6 +61,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+#define TestStatusBarStyle 0   // <-- set this to 1 to test status bar style
+#if TestStatusBarStyle
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+#endif
+
+#define TestStatusBarHidden 0  // <-- set this to 1 to test status bar hidden
+#if TestStatusBarHidden
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+#endif
 
 - (IBAction)replaceMe:(id)sender
 {

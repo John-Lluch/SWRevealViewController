@@ -28,7 +28,15 @@
 
  RELEASE NOTES
  
- Version 1.1.1 (Current Version)
+ Version 1.1.2 (Current Version)
+ 
+ - The status bar style and appearance are now handled in sync with the class animations. 
+    You can implement the methods preferredStatusBarStyle and prefersStatusBarHidden on your child controllers to define the desired appearance
+    
+ - The loadView method now calls a method, loadStoryboardControllers, just for the purpose of loading child controllers from a storyboard.
+    You can override this method and remove the @try @catch statements if you want the debuger not to stop at them in case you have set an exception breakpoint.
+ 
+ Version 1.1.1
  
  - You can now get a tapGestureRecognizer from the class. See the tapGestureRecognizer method for more information.
  

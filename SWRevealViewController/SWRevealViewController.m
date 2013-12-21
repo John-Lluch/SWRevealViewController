@@ -475,6 +475,33 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     }
 }
 
+// Load any defined front/rear controllers from the storyboard
+// This method is intended to be overrided in case the default behavior will not meet your needs
+- (void)loadStoryboardControllers
+{
+    if ( self.storyboard && _rearViewController == nil )
+    {
+        //Try each segue separately so it doesn't break prematurely if either Rear or Right views are not used.
+        @try
+        {
+            [self performSegueWithIdentifier:SWSegueRearIdentifier sender:nil];
+        }
+        @catch(NSException *exception) {}
+        
+        @try
+        {
+            [self performSegueWithIdentifier:SWSegueFrontIdentifier sender:nil];
+        }
+        @catch(NSException *exception) {}
+        
+        @try
+        {
+            [self performSegueWithIdentifier:SWSegueRightIdentifier sender:nil];
+        }
+        @catch(NSException *exception) {}
+    }
+}
+
 
 #pragma mark - StatusBar
 
@@ -489,6 +516,11 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     return controller;
 }
 
+- (UIViewController *)childViewControllerForStatusBarHidden
+{
+    UIViewController *controller = [self childViewControllerForStatusBarStyle];
+    return controller;
+}
 
 #pragma mark - View lifecycle
 
@@ -514,33 +546,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     self.view = _contentView;
     
     // load any defined front/rear controllers from the storyboard
-    if ( self.storyboard && _rearViewController == nil )
-    {
-        //Try each segue separately so it doesn't break prematurely if either Rear or Right views are not used.
-        @try
-        {
-            [self performSegueWithIdentifier:SWSegueRearIdentifier sender:nil];
-        }
-        @catch(NSException *exception)
-        {
-        }
-        
-        @try
-        {
-            [self performSegueWithIdentifier:SWSegueFrontIdentifier sender:nil];
-        }
-        @catch(NSException *exception)
-        {
-        }
-        
-        @try
-        {
-            [self performSegueWithIdentifier:SWSegueRightIdentifier sender:nil];
-        }
-        @catch(NSException *exception)
-        {
-        }
-    }
+    [self loadStoryboardControllers];
     
     // Apple also tells us to do this:
     _contentView.backgroundColor = [UIColor blackColor];
@@ -1125,11 +1131,12 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     void (^rightDeploymentCompletion)() = [self _rightViewDeploymentForNewFrontViewPosition:newPosition];
     void (^frontDeploymentCompletion)() = [self _frontViewDeploymentForNewFrontViewPosition:newPosition];
     
-    if ( [self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
-        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate) withObject:nil];
-    
     void (^animations)() = ^()
     {
+        // Calling this in the animation block causes the status bar to appear/dissapear in sync with our own animation
+        if ( [self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
+            [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate) withObject:nil];
+    
         // We call the layoutSubviews method on the contentView view and send a delegate, which will
         // occur inside of an animation block if any animated transition is being performed
         [_contentView layoutSubviews];

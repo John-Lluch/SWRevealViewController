@@ -1,12 +1,10 @@
-martinhj.*
-hhernandez.*
-joan.*
-*xcuserdata/*
-*copy.*
-
 # From https://github.com/github/gitignore/blob/master/Objective-C.gitignore
 #
-*.DS_Store
+
+# OS X
+.DS_Store
+
+# Xcode
 build/
 *.pbxuser
 !default.pbxuser
@@ -16,10 +14,13 @@ build/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-*.xcworkspace
-!default.xcworkspace
 xcuserdata
+*.xccheckout
 profile
 *.moved-aside
 DerivedData
-.idea/
+*.hmap
+*.ipa
+
+# CocoaPods
+Pods
