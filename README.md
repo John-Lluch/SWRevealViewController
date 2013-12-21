@@ -77,7 +77,7 @@ As of November 15, 2013 Release Notes are updated on the class main header file.
 
 ## Special Mentions
 
-A Special Thank you to Joan Martin who formely worked at http:/www.sweetwilliamsl.com and has recently being developing an app for http://www.citizen.tv. He had the original idea and implemented code for generic view deployment/undeployment and replacement of view controllers used in the class. 
+A Special Thank you to Joan Martin who formely worked at http://www.sweetwilliamsl.com and has recently being developing an app for http://www.citizen.tv. He had the original idea and implemented code for generic view deployment/undeployment and replacement of view controllers used in the class. 
 
 Thanks to Jesper Vandborg for having contributed with a Xamarin Binding project for this controller that is available for download at https://github.com/Vandborg/SWRevealViewController-XamarinBinding.
 
