@@ -29,17 +29,18 @@ A UIViewController subclass for revealing a rear (left and/or right) view contro
 
 ## Usage
 
-`SWRevealViewController` attempts to provide an updated cocoaPods file and consistent tag versioning, but it is not actively updated on the cocoapods-specs repository.
+The SWRevealViewController repository attempts to provide an updated cocoaPods file and consistent tag versioning, but it is not actively updated on the cocoapods-specs repository.
 
-The easier way to install it is by copying the following to your project:
+The easiest way to install it is by copying the following to your project:
 * SWRevealViewController.h
 * SWRevealViewController.m
 
 * Initialize an instance of a SWRevealViewController passing in a "rear" and a "front" view controllers.
+* Optionaly add a "right" view controller or pass nil as the "rear" view controller.
 * Use the SWRevealViewController instance in your code as you would use any view controller.
 * Deploy as the application window rootViewController, or as a child of other containment controllers.
-* Add the panGestureRecognized provided by the SWRevealViewController to a suitable view of your "front" view controller, for example use the viewDidLoad method of your controller to add the gesture recognizer to a navigationBar.
-* At any time, you can reveal, conceal the "rear" view or replace the "front" view controller, programmatically or based on user actions, with or without animations enabled
+* Get the panGestureRecognized and tapGestureRecognizer provided by the SWRevealViewController. You can leave them as they are for the default behavior or you can add them to a suitable view on your "front" view controller. For example add the panGestureRecognizer to a navigationBar on the viewDidLoad method of your front controller.
+* At any time, you can reveal, conceal the "rear" or "right" views or replace any of the view controllers, programmatically or based on user actions, with or without animations enabled
 
 ## Basic API Description
 
@@ -47,7 +48,7 @@ Initializing a SWRevealViewController:
 
     - (id)initWithRearViewController:(UIViewController *)rearViewController frontViewController:(UIViewController *)frontViewController;
 
-Setting the right view controller:
+Setting a right view controller:
 
 	@property (strong, nonatomic) UIViewController *rightViewController;
 	
@@ -59,9 +60,13 @@ Animating the position of the front view controller. Position can be: `FrontView
 
 	- (void)setFrontViewPosition:(FrontViewPosition)frontViewPosition animated:(BOOL)animated;
 	
-Obtaining a gesture recognizer to add to your front view controller:
+Creating and obtaining a pan gesture recognizer:
 
 	- (UIPanGestureRecognizer*)panGestureRecognizer;
+
+Creating and obtaining a tap gesture recognizer:
+
+	- (UITapGestureRecognizer*)tapGestureRecognizer;
 	
 Other methods are documented in the SWRevealViewController.h header file. 
 
@@ -72,8 +77,11 @@ As of November 15, 2013 Release Notes are updated on the class main header file.
 
 ## Special Mentions
 
-A Xamarin Binding project for this controller is available for download at https://github.com/Vandborg/SWRevealViewController-XamarinBinding.
-Thanks to Jesper Vandborg for having contributed to this.
+A Special Thank you to Joan Martin who formely worked at http:/www.sweetwilliamsl.com and has recently being developing an app for http://www.citizen.tv. He had the original idea and implemented code for generic view deployment/undeployment and replacement of view controllers used in the class. 
+
+Thanks to Jesper Vandborg for having contributed with a Xamarin Binding project for this controller that is available for download at https://github.com/Vandborg/SWRevealViewController-XamarinBinding.
+
+Early code and api was inspired on a similar class by Philip Kluz (Philip.Kluz@zuui.org)
 	
 ## License
 
@@ -96,5 +104,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
-Early code inspired on a similar class by Philip Kluz (Philip.Kluz@zuui.org)
