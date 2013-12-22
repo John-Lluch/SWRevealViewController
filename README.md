@@ -77,7 +77,7 @@ As of November 15, 2013 Release Notes are updated on the class main header file.
 
 ## Tutorial
 
-Some time ago the guys at AppCoda published an online tutorial featuring the SWRevealViewController: "How To Add a Slide-out Sidebar Menu in Your Apps" (thanks for that). You will find it at http://www.appcoda.com/ios-programming-sidebar-navigation-menu/ . Definitely worth a read.
+Some time ago the guys at AppCoda published an online tutorial featuring the SWRevealViewController: "How To Add a Slide-out Sidebar Menu in Your Apps" (thanks for that). You will find it at http://www.appcoda.com/ios-programming-sidebar-navigation-menu/ . Not updated to the last SWRevealViewController version but still worth a read.
 
 ## Xamarin Binding
 
