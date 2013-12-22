@@ -75,11 +75,17 @@ Other methods are documented in the SWRevealViewController.h header file.
 
 As of November 15, 2013 Release Notes are updated on the class main header file. Please see `SWRevealViewController.h`
 
+## Tutorial
+
+Some time ago the guys at AppCoda published an online tutorial featuring the SWRevealViewController: "How To Add a Slide-out Sidebar Menu in Your Apps" (thanks for that). You will find it at http://www.appcoda.com/ios-programming-sidebar-navigation-menu/ . Definitely worth a read.
+
+## Xamarin Binding
+
+Thanks to Jesper Vandborg for having contributed with a Xamarin Binding project for this controller that is available for download at https://github.com/Vandborg/SWRevealViewController-XamarinBinding.
+
 ## Special Mentions
 
 A Special Thank you to Joan Martin who formely worked at http://www.sweetwilliamsl.com and has recently been developing an app for http://www.citizen.tv. He had the original idea and implemented code for generic view deployment/undeployment and replacement of view controllers used in the class. 
-
-Thanks to Jesper Vandborg for having contributed with a Xamarin Binding project for this controller that is available for download at https://github.com/Vandborg/SWRevealViewController-XamarinBinding.
 
 Early code and api was inspired on a similar class by Philip Kluz (Philip.Kluz@zuui.org)
 	
