@@ -389,6 +389,19 @@ const int FrontViewPositionNone = 0xff;
     return [self initWithRearViewController:nil frontViewController:nil];
 }
 
+- (id)initWithNibName:(NSString *)nibNameOrNil
+			   bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil
+                           bundle:nibBundleOrNil];
+    
+    if (self)
+    {
+        [self _initDefaultProperties];
+    }
+    
+    return self;
+}
 
 - (id)initWithRearViewController:(UIViewController *)rearViewController frontViewController:(UIViewController *)frontViewController;
 {
