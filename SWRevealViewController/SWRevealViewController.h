@@ -34,7 +34,7 @@
     You can implement the methods preferredStatusBarStyle and prefersStatusBarHidden on your child controllers to define the desired appearance
     
  - The loadView method now calls a method, loadStoryboardControllers, just for the purpose of loading child controllers from a storyboard.
-    You can override this method and remove the @try @catch statements if you want the debuger not to stop at them in case you have set an exception breakpoint.
+    You can override this method and remove the @try @catch statements if you want the debugger not to stop at them in case you have set an exception breakpoint.
  
  Version 1.1.1
  
