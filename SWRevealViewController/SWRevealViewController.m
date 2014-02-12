@@ -694,8 +694,10 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
         
         panRecognizer.direction = SWDirectionPanGestureRecognizerHorizontal;
         panRecognizer.delegate = self;
-        [_contentView.frontView addGestureRecognizer:panRecognizer];
-        _panGestureRecognizer = panRecognizer ;
+        _panGestureRecognizer = panRecognizer;
+		
+		// Do not automatically add gestureRecognizer to any views.
+		// This should be done explicitly by the user if they want it.
     }
     return _panGestureRecognizer;
 }
@@ -709,8 +711,10 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
             [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_handleTapGesture:)];
         
         tapRecognizer.delegate = self;
-        [_contentView.frontView addGestureRecognizer:tapRecognizer];
         _tapGestureRecognizer = tapRecognizer ;
+		
+		// Do not automatically add gestureRecognizer to any views.
+		// This should be done explicitly by the user if they want it.
     }
     return _tapGestureRecognizer;
 }
