@@ -39,7 +39,7 @@ The easiest way to install it is by copying the following to your project:
 * Optionaly add a "right" view controller or pass nil as the "rear" view controller.
 * Use the SWRevealViewController instance in your code as you would use any view controller.
 * Deploy as the application window rootViewController, or as a child of other containment controllers.
-* Get the panGestureRecognized and tapGestureRecognizer provided by the SWRevealViewController. You can leave them as they are for the default behavior or you can add them to a suitable view on your "front" view controller. For example add the panGestureRecognizer to a navigationBar on the viewDidLoad method of your front controller.
+* Get the panGestureRecognized and tapGestureRecognizer provided by the SWRevealViewController. You can add them to a suitable view on your "front" view controller. For example add the panGestureRecognizer to a navigationBar on the viewDidLoad method of your front controller.
 * At any time, you can reveal, conceal the "rear" or "right" views or replace any of the view controllers, programmatically or based on user actions, with or without animations enabled
 
 ## Basic API Description

@@ -151,14 +151,10 @@ typedef enum
 // The following method will provide a panGestureRecognizer suitable to be added to any view
 // in order to perform usual drag and swipe gestures to reveal the rear views. This is usually added to the top bar
 // of a front controller, but it can be added to your frontViewController view or to the reveal controller view to provide full screen panning.
-// The provided panGestureRecognizer is initially added to the reveal controller's front container view, so you can dissable
-// user interactions on your controllers views and the recognizer will continue working. 
 - (UIPanGestureRecognizer*)panGestureRecognizer;
 
 // The following method will provide a tapGestureRecognizer suitable to be added to any view on the frontController
-// for concealing the rear views. By default no tap recognizer is created or added to any view, however if you call this method after
-// the controller's view has been loaded the recognizer is added to the reveal controller's front container view.
-// Thus, you can disable user interactions on your frontViewController view without affecting the tap recognizer.
+// for concealing the rear views.
 - (UITapGestureRecognizer*)tapGestureRecognizer;
 
 // The following properties are provided for further customization, they are set to default values on initialization,
