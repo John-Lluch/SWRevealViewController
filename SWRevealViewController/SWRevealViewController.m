@@ -152,6 +152,7 @@ typedef enum
 
 - (void)layoutSubviews
 {
+    [super layoutSubviews];
     if ( _disableLayout ) return;
     
     CGRect bounds = self.bounds;
