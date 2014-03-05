@@ -1174,7 +1174,11 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 - (void)_setFrontViewController:(UIViewController*)newFrontViewController
 {
     UIViewController *old = _frontViewController;
+    
+    [self willChangeValueForKey:@"frontViewController"];
     _frontViewController = newFrontViewController;
+    [self didChangeValueForKey:@"frontViewController"];
+    
     [self _transitionFromViewController:old toViewController:newFrontViewController inView:_contentView.frontView]();
     [self _dequeue];
 }
@@ -1183,7 +1187,11 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 - (void)_setRearViewController:(UIViewController*)newRearViewController
 {
     UIViewController *old = _rearViewController;
+    
+    [self willChangeValueForKey:@"rearViewController"];
     _rearViewController = newRearViewController;
+    [self didChangeValueForKey:@"rearViewController"];
+    
     [self _transitionFromViewController:old toViewController:newRearViewController inView:_contentView.rearView]();
     [self _dequeue];
 }
@@ -1192,7 +1200,11 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 - (void)_setRightViewController:(UIViewController*)newRightViewController
 {
     UIViewController *old = _rightViewController;
+    
+    [self willChangeValueForKey:@"rightViewController"];
     _rightViewController = newRightViewController;
+    [self didChangeValueForKey:@"rightViewController"];
+    
     [self _transitionFromViewController:old toViewController:newRightViewController inView:_contentView.rightView]();
     [self _dequeue];
     
