@@ -28,7 +28,13 @@
 
  RELEASE NOTES
  
- Version 1.1.2 (Current Version)
+ Version 1.1.3 (Current Version)
+ 
+- Reverted the supportedInterfaceOrientations to the default behavior. This is consistent with Apple provided controllers
+
+- The presentFrontViewHierarchically now dynamically takes into account the smaller header hight of bars on iPhone landscape orientation
+ 
+ Version 1.1.2
  
  - The status bar style and appearance are now handled in sync with the class animations. 
     You can implement the methods preferredStatusBarStyle and prefersStatusBarHidden on your child controllers to define the desired appearance
