@@ -150,6 +150,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     return result;
 }
 
+
 - (id)initWithFrame:(CGRect)frame controller:(SWRevealViewController*)controller
 {
     self = [super initWithFrame:frame];
@@ -188,6 +189,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     }
     return frame;
 }
+
 
 - (void)layoutSubviews
 {
@@ -365,6 +367,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     void (^_completion)(void);
 }
 
+
 - (id)initWithRevealController:(SWRevealViewController*)revealVC containerView:(UIView*)view fromVC:(UIViewController*)fromVC
     toVC:(UIViewController*)toVC completion:(void (^)(void))completion
 {
@@ -380,15 +383,18 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     return self;
 }
 
+
 - (UIView *)containerView
 {
     return _view;
 }
 
+
 - (BOOL)isAnimated
 {
     return YES;
 }
+
 
 - (BOOL)isInteractive
 {
@@ -400,30 +406,36 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     return NO; // not supported
 }
 
+
 - (UIModalPresentationStyle)presentationStyle
 {
     return UIModalPresentationNone;  // not applicable
 }
+
 
 - (void)updateInteractiveTransition:(CGFloat)percentComplete
 {
     // not supported
 }
 
+
 - (void)finishInteractiveTransition
 {
     // not supported
 }
+
 
 - (void)cancelInteractiveTransition
 {
     // not supported
 }
 
+
 - (void)completeTransition:(BOOL)didComplete
 {
     _completion();
 }
+
 
 - (UIViewController *)viewControllerForKey:(NSString *)key
 {
@@ -436,10 +448,12 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     return nil;
 }
 
+
 - (CGRect)initialFrameForViewController:(UIViewController *)vc
 {
     return _view.bounds;
 }
+
 
 - (CGRect)finalFrameForViewController:(UIViewController *)vc
 {
@@ -459,6 +473,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     NSTimeInterval _duration;
 }
 
+
 - (id)initWithDuration:(NSTimeInterval)duration
 {
     self = [super init];
@@ -469,10 +484,12 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     return self;
 }
 
+
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext
 {
     return _duration;
 }
+
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext
 {
@@ -739,13 +756,13 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     return [super supportedInterfaceOrientations];
 }
 
-// Support for earlier than iOS 6.0
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
-#endif
+//// Support for earlier than iOS 6.0
+//#if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+//{
+//    return YES;
+//}
+//#endif
 
 
 #pragma mark - Public methods and property accessors
@@ -798,17 +815,6 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 }
 
 
-//- (void)setRightViewController:(UIViewController *)rightViewController
-//{
-//    if ( ![self isViewLoaded])
-//    {
-//        [self _setRightViewController:rightViewController];
-//        return;
-//    }
-//
-//    [self _dispatchSetRightViewController:rightViewController];
-//}
-
 - (void)setRightViewController:(UIViewController *)rightViewController
 {
     [self setRightViewController:rightViewController animated:NO];
@@ -835,6 +841,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     
     [self setFrontViewPosition:toogledFrontViewPosition animated:animated];
 }
+
 
 - (void)rightRevealToggleAnimated:(BOOL)animated
 {
@@ -903,6 +910,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 {    
     [self revealToggleAnimated:YES];
 }
+
 
 - (void)rightRevealToggle:(id)sender
 {    
@@ -1029,7 +1037,6 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 #pragma mark - Gesture Delegate
 
-
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)recognizer
 {
     // only allow gesture if no previous request is in process
@@ -1084,13 +1091,11 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 #pragma mark - Gesture Based Reveal
 
-
 - (void)_handleTapGesture:(UITapGestureRecognizer *)recognizer
 {
     NSTimeInterval duration = _toggleAnimationDuration;
     [self _setFrontViewPosition:FrontViewPositionLeft withDuration:duration];
 }
-
 
 
 - (void)_handleRevealGesture:(UIPanGestureRecognizer *)recognizer

@@ -147,6 +147,16 @@
     NSLog( @"%@: %f, %f", NSStringFromSelector(_cmd), location, progress);
 }
 
+- (void)revealController:(SWRevealViewController *)revealController willAddViewController:(UIViewController *)viewController forOperation:(SWRevealControllerOperation)operation animated:(BOOL)animated
+{
+    NSLog( @"%@: %@, %d", NSStringFromSelector(_cmd), viewController, operation);
+}
+
+- (void)revealController:(SWRevealViewController *)revealController didAddViewController:(UIViewController *)viewController forOperation:(SWRevealControllerOperation)operation animated:(BOOL)animated
+{
+    NSLog( @"%@: %@, %d", NSStringFromSelector(_cmd), viewController, operation);
+}
+
 #endif
 
 
