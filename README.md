@@ -13,10 +13,12 @@ A UIViewController subclass for revealing a rear (left and/or right) view contro
 * You can create custom viewController transition animations by implementing the UIViewControllerAnimatedTransitioning protocol.
  
 * Added the following new delegate methods
+```
     - (void)revealController:(SWRevealViewController *)revealController willAddViewController:(UIViewController *)viewController     forOperation:(SWRevealControllerOperation)operation animated:(BOOL)animated;
     - (void)revealController:(SWRevealViewController *)revealController didAddViewController:(UIViewController *)viewController forOperation:(SWRevealControllerOperation)operation animated:(BOOL)animated;
-- (id<UIViewControllerAnimatedTransitioning>)revealController:(SWRevealViewController *)revealController
+    - (id<UIViewControllerAnimatedTransitioning>)revealController:(SWRevealViewController *)revealController
     animationControllerForOperation:(SWRevealControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC;
+````
 
 * The examples have been updated to demonstrate the new features.
 All animated calls to of setFrontViewController:animated: have been replaced by pushFrontViewController:animated: 
