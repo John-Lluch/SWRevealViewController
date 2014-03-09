@@ -12,7 +12,7 @@ A number of changes have been made since version 2.0 that may break your existin
     
 * Added support for animated replacement of child controllers. The methods `setRearViewController`, `setFrontViewController`, `setRightViewController` now all have animated versions. The default animation is a Cross Dissolve effect. You can set the duration of the view controller replacement animation with `replaceViewAnimationDuration`
 
-* You can create custom viewController transition animations by implementing the UIViewControllerAnimatedTransitioning protocol.
+* You can create custom viewController transition animations by providing a class implementing the `UIViewControllerAnimatedTransitioning` protocol.
  
 * Added the following new delegate methods
 ```
