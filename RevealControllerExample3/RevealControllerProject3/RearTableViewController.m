@@ -163,7 +163,7 @@
             break;
     }
     
-    [revealController setFrontViewController:frontController animated:YES];
+    [revealController pushFrontViewController:frontController animated:YES];
 }
 
 @end

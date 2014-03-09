@@ -40,7 +40,7 @@
         rvcs.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
         {
             UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:dvc];
-            [rvc setFrontViewController:nc animated:YES];
+            [rvc pushFrontViewController:nc animated:YES];
         };
     }
 }

@@ -108,7 +108,8 @@ static CGFloat statusBarAdjustment( UIView* view )
     CGRect viewFrame = [view convertRect:view.bounds toView:nil];
     CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
     
-    if ( CGRectContainsRect(viewFrame, statusBarFrame) )
+    //if ( CGRectContainsRect(viewFrame, statusBarFrame) )
+    if ( CGRectIntersectsRect(viewFrame, statusBarFrame) )
         adjustment = fminf(statusBarFrame.size.width, statusBarFrame.size.height);
 
     return adjustment;
@@ -349,6 +350,143 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 @end
 
 
+#pragma mark - SWContextTransitioningObject
+
+@interface SWContextTransitionObject : NSObject<UIViewControllerContextTransitioning>
+@end
+
+
+@implementation SWContextTransitionObject
+{
+    __weak SWRevealViewController *_revealVC;
+    UIView *_view;
+    UIViewController *_toVC;
+    UIViewController *_fromVC;
+    void (^_completion)(void);
+}
+
+- (id)initWithRevealController:(SWRevealViewController*)revealVC containerView:(UIView*)view fromVC:(UIViewController*)fromVC
+    toVC:(UIViewController*)toVC completion:(void (^)(void))completion
+{
+    self = [super init];
+    if ( self )
+    {
+        _revealVC = revealVC;
+        _view = view;
+        _fromVC = fromVC;
+        _toVC = toVC;
+        _completion = completion;
+    }
+    return self;
+}
+
+- (UIView *)containerView
+{
+    return _view;
+}
+
+- (BOOL)isAnimated
+{
+    return YES;
+}
+
+- (BOOL)isInteractive
+{
+    return NO;  // not supported
+}
+
+- (BOOL)transitionWasCancelled
+{
+    return NO; // not supported
+}
+
+- (UIModalPresentationStyle)presentationStyle
+{
+    return UIModalPresentationNone;  // not applicable
+}
+
+- (void)updateInteractiveTransition:(CGFloat)percentComplete
+{
+    // not supported
+}
+
+- (void)finishInteractiveTransition
+{
+    // not supported
+}
+
+- (void)cancelInteractiveTransition
+{
+    // not supported
+}
+
+- (void)completeTransition:(BOOL)didComplete
+{
+    _completion();
+}
+
+- (UIViewController *)viewControllerForKey:(NSString *)key
+{
+    if ( [key isEqualToString:UITransitionContextFromViewControllerKey] )
+        return _fromVC;
+    
+    if ( [key isEqualToString:UITransitionContextToViewControllerKey] )
+        return _toVC;
+    
+    return nil;
+}
+
+- (CGRect)initialFrameForViewController:(UIViewController *)vc
+{
+    return _view.bounds;
+}
+
+- (CGRect)finalFrameForViewController:(UIViewController *)vc
+{
+    return _view.bounds;
+}
+
+@end
+
+
+#pragma mark - SWDefaultAnimationController Class
+
+@interface SWDefaultAnimationController : NSObject<UIViewControllerAnimatedTransitioning>
+@end
+
+@implementation SWDefaultAnimationController
+{
+    NSTimeInterval _duration;
+}
+
+- (id)initWithDuration:(NSTimeInterval)duration
+{
+    self = [super init];
+    if ( self )
+    {
+        _duration = duration;
+    }
+    return self;
+}
+
+- (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext
+{
+    return _duration;
+}
+
+- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext
+{
+    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+
+    [UIView transitionFromView:fromViewController.view toView:toViewController.view duration:_duration
+        options:UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionOverrideInheritedOptions
+        completion:^(BOOL finished) { [transitionContext completeTransition:finished]; }];
+}
+
+@end
+
+
 #pragma mark - SWRevealViewController Class
 
 @interface SWRevealViewController()<UIGestureRecognizerDelegate>
@@ -359,6 +497,9 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     FrontViewPosition _frontViewPosition;
     FrontViewPosition _rearViewPosition;
     FrontViewPosition _rightViewPosition;
+    SWContextTransitionObject *_rearTransitioningController;
+    SWContextTransitionObject *_frontTransitioningController;
+    SWContextTransitionObject *_rightTransitioningController;
 }
 @end
 
@@ -398,8 +539,8 @@ const int FrontViewPositionNone = 0xff;
     if ( self )
     {
         [self _initDefaultProperties];
-        [self _setRearViewController:rearViewController];
-        [self _setFrontViewController:frontViewController];
+        [self _setRearViewController:rearViewController animated:NO];
+        [self _setFrontViewController:frontViewController animated:NO];
     }
     return self;
 }
@@ -423,6 +564,7 @@ const int FrontViewPositionNone = 0xff;
     _presentFrontViewHierarchically = NO;
     _quickFlickVelocity = 250.0f;
     _toggleAnimationDuration = 0.25;
+    _replaceViewAnimationDuration = 0.25;
     _frontViewShadowRadius = 2.5f;
     _frontViewShadowOffset = CGSizeMake(0.0f, 2.5f);
     _frontViewShadowOpacity = 1.0f;
@@ -457,21 +599,21 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
         {
             segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
             {
-                [self _setRearViewController:dvc];
+                [self _setRearViewController:dvc animated:NO];
             };
         }
         else if ( [identifier isEqualToString:SWSegueFrontIdentifier] )
         {
             segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
             {
-                [self _setFrontViewController:dvc];
+                [self _setFrontViewController:dvc animated:NO];
             };
         }
         else if ( [identifier isEqualToString:SWSegueRightIdentifier] )
         {
             segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
             {
-                [self _setRightViewController:dvc];
+                [self _setRightViewController:dvc animated:NO];
             };
         }
     }
@@ -618,7 +760,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 {
     if ( ![self isViewLoaded])
     {
-        [self _setFrontViewController:frontViewController];
+        [self _setFrontViewController:frontViewController animated:NO];
         return;
     }
     
@@ -626,27 +768,62 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 }
 
 
-- (void)setRearViewController:(UIViewController *)rightViewController
+- (void)pushFrontViewController:(UIViewController *)frontViewController animated:(BOOL)animated
 {
     if ( ![self isViewLoaded])
     {
-        [self _setRearViewController:rightViewController];
+        [self _setFrontViewController:frontViewController animated:NO];
         return;
     }
-
-    [self _dispatchSetRearViewController:rightViewController];
+    
+    [self _dispatchPushFrontViewController:frontViewController animated:animated];
 }
 
 
-- (void)setRightViewController:(UIViewController *)rightViewController
+- (void)setRearViewController:(UIViewController *)rearViewController
+{
+    [self setRearViewController:rearViewController animated:NO];
+}
+
+
+- (void)setRearViewController:(UIViewController *)rearViewController animated:(BOOL)animated
 {
     if ( ![self isViewLoaded])
     {
-        [self _setRightViewController:rightViewController];
+        [self _setRearViewController:rearViewController animated:NO];
         return;
     }
 
-    [self _dispatchSetRightViewController:rightViewController];
+    [self _dispatchSetRearViewController:rearViewController animated:animated];
+}
+
+
+//- (void)setRightViewController:(UIViewController *)rightViewController
+//{
+//    if ( ![self isViewLoaded])
+//    {
+//        [self _setRightViewController:rightViewController];
+//        return;
+//    }
+//
+//    [self _dispatchSetRightViewController:rightViewController];
+//}
+
+- (void)setRightViewController:(UIViewController *)rightViewController
+{
+    [self setRightViewController:rightViewController animated:NO];
+}
+
+
+- (void)setRightViewController:(UIViewController *)rightViewController animated:(BOOL)animated
+{
+    if ( ![self isViewLoaded])
+    {
+        [self _setRightViewController:rightViewController animated:NO];
+        return;
+    }
+
+    [self _dispatchSetRightViewController:rightViewController animated:animated];
 }
 
 
@@ -873,7 +1050,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 {
     if ( _frontViewPosition == FrontViewPositionLeft ||
         _frontViewPosition == FrontViewPositionRightMostRemoved ||
-        _frontViewPosition ==FrontViewPositionLeftSideMostRemoved )
+        _frontViewPosition == FrontViewPositionLeftSideMostRemoved )
             return NO;
     
     // forbid gesture if the following delegate is implemented and returns NO
@@ -887,10 +1064,6 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 - (BOOL)_panGestureShouldBegin
 {
-//    // only allow gesture if no previous request is in process
-//    if ( recognizer != _panGestureRecognizer || _animationQueue.count != 0 )
-//        return NO;
-    
     // forbid gesture if the following delegate is implemented and returns NO
     if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureShouldBegin:)] )
         if ( [_delegate revealControllerPanGestureShouldBegin:self] == NO )
@@ -1086,7 +1259,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 }
 
 
-- (void)_dispatchSetFrontViewController:(UIViewController *)newFrontViewController animated:(BOOL)animated
+- (void)_dispatchPushFrontViewController:(UIViewController *)newFrontViewController animated:(BOOL)animated
 {
     FrontViewPosition preReplacementPosition = FrontViewPositionLeft;
     if ( _frontViewPosition > FrontViewPositionLeft ) preReplacementPosition = FrontViewPositionRightMost;
@@ -1102,27 +1275,34 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     if ( animated )
     {
         _enqueue( [theSelf _setFrontViewPosition:preReplacementPosition withDuration:firstDuration] );
-        _enqueue( [theSelf _setFrontViewController:newFrontViewController] );
+        _enqueue( [theSelf _setFrontViewController:newFrontViewController animated:NO] );  // do not animate this
         _enqueue( [theSelf _setFrontViewPosition:FrontViewPositionLeft withDuration:duration] );
     }
     else
     {
-        _enqueue( [theSelf _setFrontViewController:newFrontViewController] );
+        _enqueue( [theSelf _setFrontViewController:newFrontViewController animated:NO] );
     }
 }
 
 
-- (void)_dispatchSetRearViewController:(UIViewController *)newRearViewController
+- (void)_dispatchSetRearViewController:(UIViewController *)newRearViewController animated:(BOOL)animated
 {
     __weak SWRevealViewController *theSelf = self;
-    _enqueue( [theSelf _setRearViewController:newRearViewController] );
+    _enqueue( [theSelf _setRearViewController:newRearViewController animated:animated] );
 }
 
 
-- (void)_dispatchSetRightViewController:(UIViewController *)newRightViewController
+- (void)_dispatchSetFrontViewController:(UIViewController *)newFrontViewController animated:(BOOL)animated
 {
     __weak SWRevealViewController *theSelf = self;
-    _enqueue( [theSelf _setRightViewController:newRightViewController] );
+    _enqueue( [theSelf _setFrontViewController:newFrontViewController animated:animated] );
+}
+
+
+- (void)_dispatchSetRightViewController:(UIViewController *)newRightViewController animated:(BOOL)animated
+{
+    __weak SWRevealViewController *theSelf = self;
+    _enqueue( [theSelf _setRightViewController:newRightViewController animated:animated] );
 }
 
 
@@ -1170,46 +1350,79 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     }
 }
 
-// primitive method for front controller transition
-- (void)_setFrontViewController:(UIViewController*)newFrontViewController
-{
-    UIViewController *old = _frontViewController;
-    _frontViewController = newFrontViewController;
-    [self _transitionFromViewController:old toViewController:newFrontViewController inView:_contentView.frontView]();
-    [self _dequeue];
-}
 
 // Primitive method for rear controller transition
-- (void)_setRearViewController:(UIViewController*)newRearViewController
+- (void)_setRearViewController:(UIViewController*)newRearViewController animated:(BOOL)animated
 {
-    UIViewController *old = _rearViewController;
-    _rearViewController = newRearViewController;
-    [self _transitionFromViewController:old toViewController:newRearViewController inView:_contentView.rearView]();
-    [self _dequeue];
+    [self _performTransitionToViewController:newRearViewController operation:SWRevealControllerOperationReplaceRearController animated:animated];
 }
 
-// Primitive method for right controller transition
-- (void)_setRightViewController:(UIViewController*)newRightViewController
+
+// primitive method for front controller transition
+- (void)_setFrontViewController:(UIViewController*)newFrontViewController animated:(BOOL)animated
 {
-    UIViewController *old = _rightViewController;
-    _rightViewController = newRightViewController;
-    [self _transitionFromViewController:old toViewController:newRightViewController inView:_contentView.rightView]();
-    [self _dequeue];
+    [self _performTransitionToViewController:newFrontViewController operation:SWRevealControllerOperationReplaceFrontController animated:animated];
+}
+
+
+// Primitive method for right controller transition
+- (void)_setRightViewController:(UIViewController*)newRightViewController animated:(BOOL)animated
+{
+    [self _performTransitionToViewController:newRightViewController operation:SWRevealControllerOperationReplaceRightController animated:animated];
+}
+
+
+// Primitive method for animated controller transition
+- (void)_performTransitionToViewController:(UIViewController*)new operation:(SWRevealControllerOperation)operation animated:(BOOL)animated
+{
+    if ( [_delegate respondsToSelector:@selector(revealController:willAddViewController:forOperation:animated:)] )
+        [_delegate revealController:self willAddViewController:new forOperation:operation animated:animated];
+
+    UIViewController *old = nil;
+    UIView *view = nil;
     
-//    UIViewController *old = _rightViewController;
-//    void (^completion)() = [self _transitionRearController:old toController:newRightViewController inView:_contentView.rightView];
-//    [newRightViewController.view setAlpha:0.0];
-//    [UIView animateWithDuration:_toggleAnimationDuration
-//    animations:^
-//    {
-//        [old.view setAlpha:0.0f];
-//        [newRightViewController.view setAlpha:1.0];
-//    }
-//    completion:^(BOOL finished)
-//    {
-//        completion();
-//        [self _dequeue];
-//    }];
+    if ( operation == SWRevealControllerOperationReplaceRearController )
+        old = _rearViewController, _rearViewController = new, view = _contentView.rearView;
+    
+    else if ( operation == SWRevealControllerOperationReplaceFrontController )
+        old = _frontViewController, _frontViewController = new, view = _contentView.frontView;
+    
+    else if ( operation == SWRevealControllerOperationReplaceRightController )
+        old = _rightViewController, _rightViewController = new, view = _contentView.rightView;
+
+    void (^completion)() = [self _transitionFromViewController:old toViewController:new inView:view];
+    
+    void (^animationCompletion)() = ^
+    {
+        completion();
+        if ( [_delegate respondsToSelector:@selector(revealController:didAddViewController:forOperation:animated:)] )
+            [_delegate revealController:self didAddViewController:new forOperation:operation animated:animated];
+    
+        [self _dequeue];
+    };
+    
+    if ( animated )
+    {
+        id<UIViewControllerAnimatedTransitioning> animationController = nil;
+    
+        if ( [_delegate respondsToSelector:@selector(revealController:animationControllerForOperation:fromViewController:toViewController:)] )
+            animationController = [_delegate revealController:self animationControllerForOperation:operation fromViewController:old toViewController:new];
+    
+        if ( !animationController )
+            animationController = [[SWDefaultAnimationController alloc] initWithDuration:_replaceViewAnimationDuration];
+    
+        SWContextTransitionObject *transitioningObject = [[SWContextTransitionObject alloc] initWithRevealController:self containerView:view
+            fromVC:old toVC:new completion:animationCompletion];
+    
+        if ( [animationController transitionDuration:transitioningObject] > 0 )
+            [animationController animateTransition:transitioningObject];
+        else
+            animationCompletion();
+    }
+    else
+    {
+        animationCompletion();
+    }
 }
 
 
@@ -1385,6 +1598,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 
 @end
+
 
 
 #pragma mark - UIViewController(SWRevealViewController) Category

@@ -107,7 +107,7 @@
         {
 			FrontViewController *frontViewController = [[FrontViewController alloc] init];
 			UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:frontViewController];
-			[revealController setFrontViewController:navigationController animated:YES];
+			[revealController pushFrontViewController:navigationController animated:YES];
         }
 		// Seems the user attempts to 'switch' to exactly the same controller he came from!
 		else
@@ -124,7 +124,7 @@
         {
 			MapViewController *mapViewController = [[MapViewController alloc] init];
 			UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
-			[revealController setFrontViewController:navigationController animated:YES];
+			[revealController pushFrontViewController:navigationController animated:YES];
 		}
         
 		// Seems the user attempts to 'switch' to exactly the same controller he came from!

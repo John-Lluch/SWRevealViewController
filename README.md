@@ -2,9 +2,33 @@
 
 A UIViewController subclass for revealing a rear (left and/or right) view controller behind a front controller, inspired by the Facebook app, done right!
 
+## IMPORTANT NOTE: Upgrading to SWRevealViewController version 2.0
+
+* Dropped support for iOS6 and earlier. This version will only work on iOS7
+
+* The method `setFrontViewController:animated:` does no longer behave as previously. Particularly, it does not perform a full reveal animation. Instead it 		  		just replaces the frontViewController at its current position with optional animation. Use the new `pushFrontViewController:animated:` method as a replacement of your previous `setFrontViewController:animated:` calls.
+    
+* Added support for animated replacement of child controllers. The methods `setRearViewController`, `setFrontViewController`, `setRightViewController` now all have animated versions. The default animation is a Cross Dissolve effect. You can set the duration of the view controller replacement animation with `replaceViewAnimationDuration`
+
+* You can create custom viewController transition animations by implementing the UIViewControllerAnimatedTransitioning protocol.
+ 
+* Added the following new delegate methods
+    - (void)revealController:(SWRevealViewController *)revealController willAddViewController:(UIViewController *)viewController     forOperation:(SWRevealControllerOperation)operation animated:(BOOL)animated;
+    - (void)revealController:(SWRevealViewController *)revealController didAddViewController:(UIViewController *)viewController forOperation:(SWRevealControllerOperation)operation animated:(BOOL)animated;
+- (id<UIViewControllerAnimatedTransitioning>)revealController:(SWRevealViewController *)revealController
+    animationControllerForOperation:(SWRevealControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC;
+
+* The examples have been updated to demonstrate the new features.
+All animated calls to of setFrontViewController:animated: have been replaced by pushFrontViewController:animated: 
+The RevealControllerProject example implements a custom Animation Controller performing a slide up transition on the rightViewController.
+The RevealControllerProject3 example uses the default Cross Dissolve animation to set the Front Controller.
+
+
+
 ## Features
 
 * A Reveal view controller implemented using view controller containment.
+* Support for custom viewController transition animations through UIViewControllerAnimatedTransitioning protocol
 * API easier than a UINavigationController.
 * Support for any combination of left/right rear controllers.
 * Correct handling of appearance methods on its child controllers that you can rely on.
@@ -14,6 +38,7 @@ A UIViewController subclass for revealing a rear (left and/or right) view contro
 * Can be deployed as a child of itself to create cascade-like, hierarchical interfaces.
 * Seamless integration of pan gesture recognizer, behaving as smooth as silk.
 * A category method on UIViewController, `revealViewController`, to get the parent `SWRevealViewController` of any child controller, similar to the UIViewController's property `navigationController`.
+* Comprehensive set of delegate methods for getting full state of the controller and implementing your own code hooks for customizing behavior.
 * Lightweight, clean, easy-to-read, self-documenting code that you will enjoy using in your projects.
 
 ## Examples
@@ -21,10 +46,9 @@ A UIViewController subclass for revealing a rear (left and/or right) view contro
 ![Dynamic](https://raw.github.com/John-Lluch/SWRevealViewController/master/SWRevealViewController3.png)
 ![Dynamic](https://raw.github.com/John-Lluch/SWRevealViewController/master/SWRevealViewController.png)
 
-
 ## Requirements
 
-* iOS 5.1 through iOS 7.0 or later.
+* iOS 7.0 or later.
 * ARC memory management.
 
 ## Usage

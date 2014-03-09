@@ -174,12 +174,12 @@
     
     if ( row != 5 )
     {
-        [revealController setFrontViewController:frontController animated:NO];
+        [revealController setFrontViewController:frontController animated:YES];    //sf
         [revealController setFrontViewPosition:FrontViewPositionRight animated:YES];
     }
     else
     {
-        [revealController setFrontViewController:frontController animated:NO];
+        [revealController setFrontViewController:frontController animated:YES];    //sf
         [revealController setFrontViewPosition:FrontViewPositionRightMost animated:YES];
     }
 }

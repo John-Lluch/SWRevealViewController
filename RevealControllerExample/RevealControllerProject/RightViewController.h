@@ -26,4 +26,6 @@
 
 @interface RightViewController : UIViewController
 
+@property (nonatomic) BOOL wantsCustomAnimation;
+
 @end

@@ -29,6 +29,7 @@
 @interface RightViewController ()
 // Private Methods:
 - (IBAction)replaceMe:(id)sender;
+- (IBAction)replaceMeCustom:(id)sender;
 - (IBAction)toggleFront:(id)sender;
 @end
 
@@ -80,7 +81,14 @@
 - (IBAction)replaceMe:(id)sender
 {
     RightViewController *replacement = [[RightViewController alloc] init];
-    [self.revealViewController setRightViewController:replacement];
+    [self.revealViewController setRightViewController:replacement animated:YES];
+}
+
+- (IBAction)replaceMeCustom:(id)sender
+{
+    RightViewController *replacement = [[RightViewController alloc] init];
+    replacement.wantsCustomAnimation = YES;
+    [self.revealViewController setRightViewController:replacement animated:YES];
 }
 
 
@@ -89,17 +97,8 @@
     MapViewController *mapViewController = [[MapViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
     
-    [self.revealViewController setFrontViewController:navigationController animated:YES];
-    
-    //    This is what was required Before v1.0.9 (Now it was commented out)
-    //
-    //    SWRevealViewController *revealController = self.revealViewController;
-    //    [revealController setFrontViewPosition:FrontViewPositionLeftSideMost animated:YES];
-    //    [revealController setFrontViewController:navigationController];
-    //    [revealController setFrontViewPosition:FrontViewPositionLeft animated:YES];
+    [self.revealViewController pushFrontViewController:navigationController animated:YES];
 }
-
-
 
 
 //- (void)dealloc

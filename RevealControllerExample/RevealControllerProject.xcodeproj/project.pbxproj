@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E19D77818CB6FC100795A13 /* CustomAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E19D77718CB6FC100795A13 /* CustomAnimationController.m */; };
 		4ECAAEE5169049A1005862CE /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECAAEE4169049A1005862CE /* MapViewController.m */; };
 		4ECAAEE9169049AD005862CE /* RearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECAAEE8169049AD005862CE /* RearViewController.m */; };
 		4ECAAEEC169049B7005862CE /* FrontViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECAAEEB169049B7005862CE /* FrontViewController.m */; };
@@ -29,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4E19D77618CB6FC100795A13 /* CustomAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAnimationController.h; sourceTree = "<group>"; };
+		4E19D77718CB6FC100795A13 /* CustomAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnimationController.m; sourceTree = "<group>"; };
 		4ECAAEE3169049A1005862CE /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		4ECAAEE4169049A1005862CE /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		4ECAAEE7169049AD005862CE /* RearViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RearViewController.h; sourceTree = "<group>"; };
@@ -90,6 +93,15 @@
 			children = (
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4E19D77518CB6F1900795A13 /* Animation Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4E19D77618CB6FC100795A13 /* CustomAnimationController.h */,
+				4E19D77718CB6FC100795A13 /* CustomAnimationController.m */,
+			);
+			name = "Animation Controllers";
 			sourceTree = "<group>";
 		};
 		4ECAAEED16904A0F005862CE /* Resources */ = {
@@ -175,6 +187,7 @@
 			children = (
 				5E605BB814A081F900853025 /* AppDelegate.h */,
 				4EDE1D02168F0648005656D1 /* AppDelegate.m */,
+				4E19D77518CB6F1900795A13 /* Animation Controllers */,
 				5E5A2CF414E0CB860042AE1E /* RearViewController (Rear) */,
 				4EE05DEC16BE63ED0046E135 /* RightViewController */,
 				5E5A2CF314E0CB760042AE1E /* FrontViewController (Front) */,
@@ -268,6 +281,7 @@
 				4EDE1D03168F0648005656D1 /* AppDelegate.m in Sources */,
 				4EDE1D0C168F06A5005656D1 /* SWRevealViewController.m in Sources */,
 				4EDE1D11168F06E3005656D1 /* main.m in Sources */,
+				4E19D77818CB6FC100795A13 /* CustomAnimationController.m in Sources */,
 				4ECAAEE5169049A1005862CE /* MapViewController.m in Sources */,
 				4ECAAEE9169049AD005862CE /* RearViewController.m in Sources */,
 				4ECAAEEC169049B7005862CE /* FrontViewController.m in Sources */,
