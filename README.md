@@ -2,7 +2,8 @@
 
 A UIViewController subclass for revealing a rear (left and/or right) view controller behind a front controller, inspired by the Facebook app, done right!
 
-## IMPORTANT NOTE: Upgrading to SWRevealViewController version 2.0
+## IMPORTANT NOTE: 
+## Upgrading to SWRevealViewController version 2.0
 
 * Dropped support for iOS6 and earlier. This version will only work on iOS7
 
