@@ -4,16 +4,16 @@ A UIViewController subclass for revealing a rear (left and/or right) view contro
 
 ## IMPORTANT NOTE: (Upgrading to Version 2.0)
 
-A number of changes have been made since version 2.0 that may break your existing project. In case you are not ready to upgrade you can continue using previous versions. The last commit before 2.0.0 was tagged v1.1.3. Following the list of important changes that affect 2.0.0 
+A number of changes have been made on version 2.0 that may break your existing project. In case you are not ready to upgrade you can continue using previous versions. The last commit before 2.0.0 was tagged v1.1.3. The important changes that affect 2.0.0 are described next. 
 
 * Dropped support for iOS6 and earlier. This version will only work on iOS7
 
-* The method `setFrontViewController:animated:` does no longer behave as previously. Particularly, it does not perform a full reveal animation. Instead it 		  		just replaces the frontViewController at its current position with optional animation. Use the new `pushFrontViewController:animated:` method as a replacement of your previous `setFrontViewController:animated:` calls.
-    
+* The method `setFrontViewController:animated:` does no longer behave as previously. Particularly, it does not perform a full reveal animation. Instead it just replaces the frontViewController at its current position with optional animation. Use the new `pushFrontViewController:animated:` method as a replacement for your previous calls to `setFrontViewController:animated:`.
+
 * Added support for animated replacement of child controllers. The methods `setRearViewController`, `setFrontViewController`, `setRightViewController` now all have animated versions. The default animation is a Cross Dissolve effect. You can set the duration of the view controller replacement animation with `replaceViewAnimationDuration`
 
 * You can create custom viewController transition animations by providing an object implementing the `UIViewControllerAnimatedTransitioning` protocol.
- 
+
 * Added the following new delegate methods
 ```
     - (void)revealController:(SWRevealViewController *)revealController willAddViewController:(UIViewController *)viewController forOperation:(SWRevealControllerOperation)operation animated:(BOOL)animated;
@@ -21,11 +21,7 @@ A number of changes have been made since version 2.0 that may break your existin
     - (id<UIViewControllerAnimatedTransitioning>)revealController:(SWRevealViewController *)revealController animationControllerForOperation:(SWRevealControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC;
 ```
 
-* The examples have been updated to demonstrate the new features.
-All animated calls to `setFrontViewController:animated:` have been replaced by calls to `pushFrontViewController:animated:` 
-The RevealControllerProject example implements a custom Animation Controller performing a slide up transition on the rightViewController.
-The RevealControllerProject3 example uses the default Cross Dissolve animation to set the Front Controller.
-
+* The examples have been updated to demonstrate the new features. All animated calls to `setFrontViewController:animated:` have been replaced by calls to `pushFrontViewController:animated:`. The RevealControllerProject example implements a custom Animation Controller (`UIViewControllerAnimatedTransitioning`) to perform a slide up transition on replacement of the rightViewController. The RevealControllerProject3 example uses the default Cross Dissolve animation to set the Front Controller.
 
 
 ## Features
@@ -62,6 +58,7 @@ The easiest way to install it is by copying the following to your project:
 * SWRevealViewController.h
 * SWRevealViewController.m
 
+On your project:
 * Initialize an instance of a SWRevealViewController passing in a "rear" and a "front" view controllers.
 * Optionaly add a "right" view controller or pass nil as the "rear" view controller.
 * Use the SWRevealViewController instance in your code as you would use any view controller.
@@ -77,26 +74,25 @@ Initializing a SWRevealViewController:
 
 Setting a right view controller:
 
-	@property (strong, nonatomic) UIViewController *rightViewController;
+    @property (strong, nonatomic) UIViewController *rightViewController;
 	
 Animated setting of the front view controller:
 
-    - (void)setFrontViewController:(UIViewController *)frontViewController animated:(BOOL)animated;
+    - (void)pushFrontViewController:(UIViewController *)frontViewController animated:(BOOL)animated;
 
 Animating the position of the front view controller. Position can be: `FrontViewPositionLeftSideMostRemoved`, `FrontViewPositionLeftSideMost`, `FrontViewPositionLeftSide`, `FrontViewPositionLeft`, `FrontViewPositionRight`, `FrontViewPositionRightMost` or `FrontViewPositionRightMostRemoved`
 
-	- (void)setFrontViewPosition:(FrontViewPosition)frontViewPosition animated:(BOOL)animated;
+    - (void)setFrontViewPosition:(FrontViewPosition)frontViewPosition animated:(BOOL)animated;
 	
 Creating and obtaining a pan gesture recognizer:
 
-	- (UIPanGestureRecognizer*)panGestureRecognizer;
+    - (UIPanGestureRecognizer*)panGestureRecognizer;
 
 Creating and obtaining a tap gesture recognizer:
 
-	- (UITapGestureRecognizer*)tapGestureRecognizer;
+    - (UITapGestureRecognizer*)tapGestureRecognizer;
 	
 Other methods are documented in the SWRevealViewController.h header file. 
-
 
 ## Release Notes
 
