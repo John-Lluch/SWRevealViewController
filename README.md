@@ -20,7 +20,7 @@ A UIViewController subclass for revealing a rear (left and/or right) view contro
 ```
 
 * The examples have been updated to demonstrate the new features.
-All animated calls to of setFrontViewController:animated: have been replaced by pushFrontViewController:animated: 
+All animated calls to `setFrontViewController:animated:` have been replaced by calls to `pushFrontViewController:animated:` 
 The RevealControllerProject example implements a custom Animation Controller performing a slide up transition on the rightViewController.
 The RevealControllerProject3 example uses the default Cross Dissolve animation to set the Front Controller.
 
