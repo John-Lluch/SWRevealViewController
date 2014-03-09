@@ -4,7 +4,7 @@ A UIViewController subclass for revealing a rear (left and/or right) view contro
 
 ## IMPORTANT NOTE: (Upgrading to Version 2.0)
 
-A number of changes have been made since version 2.0 that may break your existing project. In case you are not ready to upgrade you can continue using previous commits. The last commit before 2.0.0 was tagged v1.3.0. Following the list of important changes that affect 2.0.0 
+A number of changes have been made since version 2.0 that may break your existing project. In case you are not ready to upgrade you can continue using previous versions. The last commit before 2.0.0 was tagged v1.3.0. Following the list of important changes that affect 2.0.0 
 
 * Dropped support for iOS6 and earlier. This version will only work on iOS7
 
