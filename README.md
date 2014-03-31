@@ -98,9 +98,13 @@ Other methods are documented in the SWRevealViewController.h header file.
 
 As of November 15, 2013 Release Notes are updated on the class main header file. Please see `SWRevealViewController.h`
 
-## Tutorial
+## Tutorials
 
-Some time ago the guys at AppCoda published an online tutorial featuring the SWRevealViewController: "How To Add a Slide-out Sidebar Menu in Your Apps" (thanks for that). You will find it at http://www.appcoda.com/ios-programming-sidebar-navigation-menu/ . Not updated to the last SWRevealViewController version but still worth a read.
+* Some time ago the guys at AppCoda published an online tutorial featuring the SWRevealViewController: "How To Add a Slide-out Sidebar Menu in Your Apps" (thanks for that). You will find it at http://www.appcoda.com/ios-programming-sidebar-navigation-menu/ . Not updated to the last SWRevealViewController version but still worth a read.
+
+* Tammy Coron on Ray Wenderlich blog made an excelent tutorial on "how to build a slide-out navigation panel". She recomends the SWRevealViewController in case you do not want to implement one yourself. http://www.raywenderlich.com/32054/how-to-create-a-slide-out-navigation-like-facebook-and-path
+
+* You can also check "Drawer View iOS App with SWRevealViewController" at http://bcdilumonline.blogspot.com.es/2014/03/drawer-view-ios-app-with.html for a step by step instructions on how to install and use it with no story boards. 
 
 ## Xamarin Binding
 
