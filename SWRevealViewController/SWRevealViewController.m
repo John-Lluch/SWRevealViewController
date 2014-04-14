@@ -1079,10 +1079,14 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     UIView *recognizerView = _panGestureRecognizer.view;
     CGFloat xLocation = [_panGestureRecognizer locationInView:recognizerView].x;
     CGFloat width = recognizerView.bounds.size.width;
-    
-    BOOL draggableBorderAllowing = (
-        _frontViewPosition != FrontViewPositionLeft || _draggableBorderWidth == 0.0f ||
-        xLocation <= _draggableBorderWidth || xLocation >= (width - _draggableBorderWidth) );
+
+    BOOL draggableBorderAllowing = (  _frontViewPosition != FrontViewPositionLeft  || _draggableBorderWidth == 0.0f );
+    if (_rearViewController) {
+        draggableBorderAllowing = draggableBorderAllowing || xLocation <= _draggableBorderWidth;
+    }
+    if (_rightViewController) {
+        draggableBorderAllowing = draggableBorderAllowing || xLocation >= (width - _draggableBorderWidth);
+    }
 
     // allow gesture only within the bounds defined by the draggableBorderWidth property
     return draggableBorderAllowing ;
