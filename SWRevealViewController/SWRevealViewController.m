@@ -128,9 +128,7 @@ static CGFloat statusBarAdjustment( UIView* view )
 @property (nonatomic, readonly) UIView *frontView;
 @property (nonatomic, assign) BOOL disableLayout;
 
-- (void)setFrontViewShadowRadius:(CGFloat)frontViewShadowRadius;
-- (void)setFrontViewShadowOffset:(CGSize)frontViewShadowOffset;
-- (void)setFrontViewShadowOpacity:(CGFloat)frontViewShadowOpacity;
+- (void)reloadShadow;
 
 @end
 
@@ -165,19 +163,21 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     
         _frontView = [[UIView alloc] initWithFrame:bounds];
         _frontView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-
+        [self reloadShadow];
+        
         [self addSubview:_frontView];
-
-        CALayer *frontViewLayer = _frontView.layer;
-        frontViewLayer.masksToBounds = NO;
-        frontViewLayer.shadowColor = [UIColor blackColor].CGColor;
-        //frontViewLayer.shadowOpacity = 1.0f;
-        frontViewLayer.shadowOpacity = _c.frontViewShadowOpacity;
-        frontViewLayer.shadowOffset = _c.frontViewShadowOffset;
-        frontViewLayer.shadowRadius = _c.frontViewShadowRadius;
     }
-    
     return self;
+}
+
+
+- (void)reloadShadow
+{
+    CALayer *frontViewLayer = _frontView.layer;
+    frontViewLayer.shadowColor = [UIColor blackColor].CGColor;
+    frontViewLayer.shadowOpacity = _c.frontViewShadowOpacity;
+    frontViewLayer.shadowOffset = _c.frontViewShadowOffset;
+    frontViewLayer.shadowRadius = _c.frontViewShadowRadius;
 }
 
 
@@ -273,19 +273,6 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     
     CGRect frame = CGRectMake(xLocation, 0.0f, bounds.size.width, bounds.size.height);
     _frontView.frame = [self hierarchycalFrameAdjustment:frame];
-}
-
-
-- (void)setFrontViewShadowRadius:(CGFloat)frontViewShadowRadius {
-    _frontView.layer.shadowRadius = frontViewShadowRadius;
-}
-
-- (void)setFrontViewShadowOffset:(CGSize)frontViewShadowOffset {
-    _frontView.layer.shadowOffset = frontViewShadowOffset;
-}
-
-- (void)setFrontViewShadowOpacity:(CGFloat)frontViewShadowOpacity {
-    _frontView.layer.shadowOpacity = frontViewShadowOpacity;
 }
 
 
@@ -890,21 +877,24 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 }
 
 
-- (void)setFrontViewShadowRadius:(CGFloat)frontViewShadowRadius {
+- (void)setFrontViewShadowRadius:(CGFloat)frontViewShadowRadius
+{
     _frontViewShadowRadius = frontViewShadowRadius;
-    [_contentView setFrontViewShadowRadius:frontViewShadowRadius];
+    [_contentView reloadShadow];
 }
 
 
-- (void)setFrontViewShadowOffset:(CGSize)frontViewShadowOffset {
+- (void)setFrontViewShadowOffset:(CGSize)frontViewShadowOffset
+{
     _frontViewShadowOffset = frontViewShadowOffset;
-    [_contentView setFrontViewShadowOffset:frontViewShadowOffset];
+    [_contentView reloadShadow];
 }
 
 
-- (void)setFrontViewShadowOpacity:(CGFloat)frontViewShadowOpacity {
+- (void)setFrontViewShadowOpacity:(CGFloat)frontViewShadowOpacity
+{
     _frontViewShadowOpacity = frontViewShadowOpacity;
-    [_contentView setFrontViewShadowOpacity:frontViewShadowOpacity];
+    [_contentView reloadShadow];
 }
 
 
