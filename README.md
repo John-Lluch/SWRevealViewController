@@ -40,6 +40,10 @@ A number of changes have been made on version 2.0 that may break your existing p
 * Comprehensive set of delegate methods for getting full state of the controller and implementing your own code hooks for customizing behavior.
 * Lightweight, clean, easy-to-read, self-documenting code that you will enjoy using in your projects.
 
+## YouTube Video
+
+[https://www.youtube.com/watch?v=zrnnYsriMV0](https://www.youtube.com/watch?v=zrnnYsriMV0)
+
 ## Examples
 
 The repo includes the following example projects that can be used as templates or for testing purposes
