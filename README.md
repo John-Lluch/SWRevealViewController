@@ -42,7 +42,8 @@ A number of changes have been made on version 2.0 that may break your existing p
 
 ## YouTube Video
 
-[https://www.youtube.com/watch?v=zrnnYsriMV0](https://www.youtube.com/watch?v=zrnnYsriMV0)
+[http://youtu.be/8qYxGRJ3ZdA](http://youtu.be/8qYxGRJ3ZdA)
+
 
 ## Examples
 
