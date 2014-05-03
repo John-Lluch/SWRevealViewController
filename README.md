@@ -43,7 +43,7 @@ A number of changes have been made on version 2.0 that may break your existing p
 ## Examples
 
 ![Dynamic](https://raw.github.com/John-Lluch/SWRevealViewController/master/RevealControllerProject.png)
-![Dynamic](https://raw.github.com/John-Lluch/SWRevealViewController/master/RevealControllerProject3_b_.png)
+![Dynamic](https://raw.github.com/John-Lluch/SWRevealViewController/master/RevealControllerProject3_b.png)
 
 ## Requirements
 
