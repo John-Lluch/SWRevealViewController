@@ -28,7 +28,12 @@
 
  RELEASE NOTES
  
- Version 2.0.0 (Current Version)
+ Version 2.0.1 (Current Version)
+ 
+ - Fix: draggableBorderWidth now correctly handles the cases where one of the rear controllers is not provided
+ - Fix: the shadow related properties are now granted at any time after view load, not just after initialization.
+ 
+ Version 2.0.0
  
 - Dropped support for iOS6 and earlier. This version will only work on iOS7
  

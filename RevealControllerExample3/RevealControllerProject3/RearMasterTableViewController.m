@@ -163,9 +163,17 @@
             SWRevealViewController *childRevealController =
                 [[SWRevealViewController alloc] initWithRearViewController:rearViewController frontViewController:frontViewController];
             
-            
+#define NoRevealOverdraw true
+#if NoRevealOverdraw
+            childRevealController.rearViewRevealWidth = 60;
+            childRevealController.rearViewRevealOverdraw = 120;
+            childRevealController.bounceBackOnOverdraw = NO;
+            childRevealController.stableDragOnOverdraw = YES;
+#else
             childRevealController.rearViewRevealWidth = 200;
+#endif
             childRevealController.rearViewRevealDisplacement = 0;
+            
             [childRevealController setFrontViewPosition:FrontViewPositionRight animated:NO];
             frontController = childRevealController;
             break;
