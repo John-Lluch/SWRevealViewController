@@ -1075,6 +1075,21 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     return NO;
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    if ( gestureRecognizer == _panGestureRecognizer )
+    {
+        if ( [_delegate respondsToSelector@selector(revealControllerPanGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:)] )
+            return [_delegate revealControllerPanGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:otherGestureRecognizer];
+    }
+    if ( gestureRecognizer == _tapGestureRecognizer )
+    {
+        if ( [_delegate respondsToSelector@selector(revealControllerTapGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:)] )
+            return [_delegate revealControllerTapGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:otherGestureRecognizer];
+    }
+    
+    return NO;
+}
 
 - (BOOL)_tapGestureShouldBegin
 {
