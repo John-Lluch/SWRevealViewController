@@ -1079,13 +1079,15 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 {
     if ( gestureRecognizer == _panGestureRecognizer )
     {
-        if ( [_delegate respondsToSelector@selector(revealControllerPanGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:)] )
-            return [_delegate revealControllerPanGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:otherGestureRecognizer];
+        if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:)] )
+            if ( [_delegate revealControllerPanGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:otherGestureRecognizer] == YES )
+                return YES;
     }
     if ( gestureRecognizer == _tapGestureRecognizer )
     {
-        if ( [_delegate respondsToSelector@selector(revealControllerTapGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:)] )
-            return [_delegate revealControllerTapGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:otherGestureRecognizer];
+        if ( [_delegate respondsToSelector:@selector(revealControllerTapGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:)] )
+            if ( [_delegate revealControllerTapGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:otherGestureRecognizer] == YES )
+                return YES;
     }
     
     return NO;
