@@ -28,7 +28,11 @@
 
  RELEASE NOTES
  
- Version 2.0.1 (Current Version)
+ Version 2.0.2 (Current Version)
+ 
+ - Added new delegates for better control of gesture recognizers
+ 
+ Version 2.0.1
  
  - Fix: draggableBorderWidth now correctly handles the cases where one of the rear controllers is not provided
  - Fix: the shadow related properties are now granted at any time after view load, not just after initialization.
@@ -287,10 +291,12 @@ typedef enum
 - (BOOL)revealControllerTapGestureShouldBegin:(SWRevealViewController *)revealController;
 
 // Implement this to return YES if you want this gesture recognizer to share touch events with the pan gesture
-- (BOOL)revealControllerPanGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
+- (BOOL)revealController:(SWRevealViewController *)revealController
+    panGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
 
 // Implement this to return YES if you want this gesture recognizer to share touch events with the tap gesture
-- (BOOL)revealControllerTapGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
+- (BOOL)revealController:(SWRevealViewController *)revealController
+    tapGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
 
 // Called when the gestureRecognizer began and ended
 - (void)revealControllerPanGestureBegan:(SWRevealViewController *)revealController;
