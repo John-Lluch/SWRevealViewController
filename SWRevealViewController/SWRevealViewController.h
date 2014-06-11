@@ -286,6 +286,12 @@ typedef enum
 // Implement this to return NO when you want the tap gesture recognizer to be ignored
 - (BOOL)revealControllerTapGestureShouldBegin:(SWRevealViewController *)revealController;
 
+// Implement this to return YES if you want this gesture recognizer to share touch events with the pan gesture
+- (BOOL)revealControllerPanGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
+
+// Implement this to return YES if you want this gesture recognizer to share touch events with the tap gesture
+- (BOOL)revealControllerTapGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
+
 // Called when the gestureRecognizer began and ended
 - (void)revealControllerPanGestureBegan:(SWRevealViewController *)revealController;
 - (void)revealControllerPanGestureEnded:(SWRevealViewController *)revealController;
