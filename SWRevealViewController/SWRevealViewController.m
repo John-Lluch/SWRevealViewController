@@ -38,6 +38,9 @@ typedef enum
 
 } SWDirectionPanGestureRecognizerDirection;
 
+NSString *const SWRevireViewControllerDidMoveToPositionNotification = @"SWRevireViewControllerDidMoveToPositionNotification";
+NSString *const SWRevireViewControllerWillMoveToPositionNotification = @"SWRevireViewControllerWillMoveToPositionNotification";
+
 @interface SWDirectionPanGestureRecognizer : UIPanGestureRecognizer
 
 @property (nonatomic, assign) SWDirectionPanGestureRecognizerDirection direction;
@@ -1496,8 +1499,13 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     
     if ( positionIsChanging )
     {
-        if ( [_delegate respondsToSelector:@selector(revealController:willMoveToPosition:)] )
+        if ( [_delegate respondsToSelector:@selector(revealController:willMoveToPosition:)] ){
             [_delegate revealController:self willMoveToPosition:newPosition];
+        }
+        NSNotification *notification = [NSNotification notificationWithName:SWRevireViewControllerWillMoveToPositionNotification
+                                                                     object:self
+                                                                   userInfo:@{@"newPosition":@(newPosition)}];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
     }
     
     _frontViewPosition = newPosition;
@@ -1512,6 +1520,11 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
         {
             if ( [_delegate respondsToSelector:@selector(revealController:didMoveToPosition:)] )
                 [_delegate revealController:self didMoveToPosition:newPosition];
+            
+            NSNotification *notification = [NSNotification notificationWithName:SWRevireViewControllerDidMoveToPositionNotification
+                                                                         object:self
+                                                                       userInfo:@{@"newPosition":@(newPosition)}];
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
         }
     };
 

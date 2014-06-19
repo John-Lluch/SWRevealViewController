@@ -148,6 +148,8 @@ typedef enum
     
 } FrontViewPosition;
 
+extern NSString *const SWRevireViewControllerDidMoveToPositionNotification;
+extern NSString *const SWRevireViewControllerWillMoveToPositionNotification;
 
 @interface SWRevealViewController : UIViewController
 
