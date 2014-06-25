@@ -159,7 +159,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     
         _frontView = [[UIView alloc] initWithFrame:bounds];
         _frontView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-
+        [_frontView setBackgroundColor:UIColorFromRGB(0xFFEBEBEB)];
         [self addSubview:_frontView];
 
         CALayer *frontViewLayer = _frontView.layer;
