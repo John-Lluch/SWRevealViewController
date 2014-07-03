@@ -126,6 +126,8 @@ As of November 15, 2013 Release Notes are updated on the class main header file.
 
 * You can also check "Drawer View iOS App with SWRevealViewController" at http://bcdilumonline.blogspot.com.es/2014/03/drawer-view-ios-app-with.html for step by step instructions on how to install and use the controller. Worth a read for those who do not quite feel at home with storyboards :-)  
 
+* I also found this one in Spanish "Sidebar o menú lateral mediante SWRevealViewController" by wikimovil.es at http://wikimovil.es/sidebar-o-menu-lateral-mediante-swrevealviewcontroller-parte-1/ which is doing a good job with detailed explanations on how to implement it using Story Boards (before V2.1)
+
 ## Xamarin Binding
 
 Thanks to Jesper Vandborg for having contributed with a Xamarin Binding project for this controller that is available for download at https://github.com/Vandborg/SWRevealViewController-XamarinBinding.
