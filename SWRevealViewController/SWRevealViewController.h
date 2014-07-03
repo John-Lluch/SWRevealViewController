@@ -28,13 +28,13 @@
 
  RELEASE NOTES
  
- Version 2.1.0
+ Version 2.1.0 (Current Version)
  
  - Removed SWDirectionPanGestureRecognizer. Horizontal panning is filtered on the shouldBegin delegate. This is cleaner, I hope it does not break previous funcionality
  - Took a cleaner approach to storyboard support. SWRevealViewControllerSegue is now deprecated and you should use SWRevealViewControllerSegueSetController and SWRevealViewControllerSeguePushController instead.
  - A minor change on the autoresizingMask of the internal views to fix a glitch on iOS8. This should not affect iOS7
  
- Version 2.0.2 (Current Version)
+ Version 2.0.2
  
  - Added new delegates for better control of gesture recognizers
  
