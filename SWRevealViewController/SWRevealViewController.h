@@ -28,6 +28,12 @@
 
  RELEASE NOTES
  
+ Version 2.1.0
+ 
+ - Removed SWDirectionPanGestureRecognizer. Horizontal panning is filtered on the shouldBegin delegate. This is cleaner, I hope it does not break previous funcionality
+ - Took a cleaner approach to storyboard support. SWRevealViewControllerSegue is now deprecated and you should use SWRevealViewControllerSegueSetController and SWRevealViewControllerSeguePushController instead.
+ - A minor change on the autoresizingMask of the internal views to fix a glitch on iOS8. This should not affect iOS7
+ 
  Version 2.0.2 (Current Version)
  
  - Added new delegates for better control of gesture recognizers
@@ -155,15 +161,15 @@ typedef enum
 - (id)initWithRearViewController:(UIViewController *)rearViewController frontViewController:(UIViewController *)frontViewController;
 
 // Rear view controller, can be nil if not used
-@property (strong, nonatomic) UIViewController *rearViewController;
+@property (nonatomic) UIViewController *rearViewController;
 - (void)setRearViewController:(UIViewController *)rearViewController animated:(BOOL)animated;
 
 // Optional right view controller, can be nil if not used
-@property (strong, nonatomic) UIViewController *rightViewController;
+@property (nonatomic) UIViewController *rightViewController;
 - (void)setRightViewController:(UIViewController *)rightViewController animated:(BOOL)animated;
 
 // Front view controller, can be nil on initialization but must be supplied by the time the view is loaded
-@property (strong, nonatomic) UIViewController *frontViewController;
+@property (nonatomic) UIViewController *frontViewController;
 - (void)setFrontViewController:(UIViewController *)frontViewController animated:(BOOL)animated;
 
 // Sets the frontViewController using a default set of chained animations consisting on moving the
@@ -172,7 +178,7 @@ typedef enum
 
 // Front view position, use this to set a particular position state on the controller
 // On initialization it is set to FrontViewPositionLeft
-@property (assign, nonatomic) FrontViewPosition frontViewPosition;
+@property (nonatomic) FrontViewPosition frontViewPosition;
 
 // Chained animation of the frontViewController position. You can call it several times in a row to achieve
 // any set of animations you wish. Animations will be chained and performed one after the other.
@@ -186,8 +192,8 @@ typedef enum
 // The following methods are meant to be directly connected to the action method of a button
 // to perform user triggered postion change of the controller views. This is ussually added to a
 // button on top left or right of the frontViewController
-- (void)revealToggle:(id)sender;
-- (void)rightRevealToggle:(id)sender; // <-- simetric implementation of the above for the rightViewController
+- (IBAction)revealToggle:(id)sender;
+- (IBAction)rightRevealToggle:(id)sender; // <-- simetric implementation of the above for the rightViewController
 
 // The following method will provide a panGestureRecognizer suitable to be added to any view
 // in order to perform usual drag and swipe gestures to reveal the rear views. This is usually added to the top bar
@@ -208,58 +214,58 @@ typedef enum
 
 // Defines how much of the rear or right view is shown, default is 260. A negative value indicates that the reveal width should be
 // computed by substracting the full front view width, so the revealed frontView width is constant.
-@property (assign, nonatomic) CGFloat rearViewRevealWidth;
-@property (assign, nonatomic) CGFloat rightViewRevealWidth; // <-- simetric implementation of the above for the rightViewController
+@property (nonatomic) CGFloat rearViewRevealWidth;
+@property (nonatomic) CGFloat rightViewRevealWidth; // <-- simetric implementation of the above for the rightViewController
 
 // Defines how much of an overdraw can occur when dragging further than 'rearViewRevealWidth', default is 60.
-@property (assign, nonatomic) CGFloat rearViewRevealOverdraw;
-@property (assign, nonatomic) CGFloat rightViewRevealOverdraw;   // <-- simetric implementation of the above for the rightViewController
+@property (nonatomic) CGFloat rearViewRevealOverdraw;
+@property (nonatomic) CGFloat rightViewRevealOverdraw;   // <-- simetric implementation of the above for the rightViewController
 
 // Defines how much displacement is applied to the rear view when animating or dragging the front view, default is 40.
-@property (assign, nonatomic) CGFloat rearViewRevealDisplacement;
-@property (assign, nonatomic) CGFloat rightViewRevealDisplacement;
+@property (nonatomic) CGFloat rearViewRevealDisplacement;
+@property (nonatomic) CGFloat rightViewRevealDisplacement;
 
 // Defines a width on the border of the view attached to the panGesturRecognizer where the gesture is allowed,
 // default is 0 which means no restriction.
-@property (assign, nonatomic) CGFloat draggableBorderWidth;
+@property (nonatomic) CGFloat draggableBorderWidth;
 
 // If YES (the default) the controller will bounce to the Left position when dragging further than 'rearViewRevealWidth'
-@property (assign, nonatomic) BOOL bounceBackOnOverdraw;
-@property (assign, nonatomic) BOOL bounceBackOnLeftOverdraw;
+@property (nonatomic) BOOL bounceBackOnOverdraw;
+@property (nonatomic) BOOL bounceBackOnLeftOverdraw;
 
 // If YES (default is NO) the controller will allow permanent dragging up to the rightMostPosition
-@property (assign, nonatomic) BOOL stableDragOnOverdraw;
-@property (assign, nonatomic) BOOL stableDragOnLeftOverdraw; // <-- simetric implementation of the above for the rightViewController
+@property (nonatomic) BOOL stableDragOnOverdraw;
+@property (nonatomic) BOOL stableDragOnLeftOverdraw; // <-- simetric implementation of the above for the rightViewController
 
 // If YES (default is NO) the front view controller will be ofsseted vertically by the height of a navigation bar.
 // Use this on iOS7 when you add an instance of RevealViewController as a child of a UINavigationController (or another SWRevealViewController)
 // and you want the front view controller to be presented below the navigation bar of its UINavigationController grand parent .
 // The rearViewController will still appear full size and blurred behind the navigation bar of its UINavigationController grand parent
-@property (assign, nonatomic) BOOL presentFrontViewHierarchically;
+@property (nonatomic) BOOL presentFrontViewHierarchically;
 
 // Velocity required for the controller to toggle its state based on a swipe movement, default is 300
-@property (assign, nonatomic) CGFloat quickFlickVelocity;
+@property (nonatomic) CGFloat quickFlickVelocity;
 
 // Duration for the revealToggle animation, default is 0.25
-@property (assign, nonatomic) NSTimeInterval toggleAnimationDuration;
+@property (nonatomic) NSTimeInterval toggleAnimationDuration;
 
 // Duration for animated replacement of view controllers
-@property (assign, nonatomic) NSTimeInterval replaceViewAnimationDuration;
+@property (nonatomic) NSTimeInterval replaceViewAnimationDuration;
 
 // Defines the radius of the front view's shadow, default is 2.5f
-@property (assign, nonatomic) CGFloat frontViewShadowRadius;
+@property (nonatomic) CGFloat frontViewShadowRadius;
 
 // Defines the radius of the front view's shadow offset default is {0.0f,2.5f}
-@property (assign, nonatomic) CGSize frontViewShadowOffset;
+@property (nonatomic) CGSize frontViewShadowOffset;
 
 //Defines the front view's shadow opacity, default is 1.0f
-@property (assign, nonatomic) CGFloat frontViewShadowOpacity;
+@property (nonatomic) CGFloat frontViewShadowOpacity;
 
 // The class properly handles all the relevant calls to appearance methods on the contained controllers.
 // Moreover you can assign a delegate to let the class inform you on positions and animation activity.
 
 // Delegate
-@property (weak, nonatomic) id<SWRevealViewControllerDelegate> delegate;
+@property (nonatomic,weak) id<SWRevealViewControllerDelegate> delegate;
 
 @end
 
@@ -334,13 +340,29 @@ typedef enum
 @end
 
 
+// String identifiers to be applied to segues on a storyboard
+extern NSString* const SWSegueRearIdentifier;
+extern NSString* const SWSegueFrontIdentifier;
+extern NSString* const SWSegueRightIdentifier;
+
+
 // This will allow the class to be defined on a storyboard
-#pragma mark - SWRevealViewControllerSegue
+#pragma mark - SWRevealViewControllerSegueSetController Classes
 
-@interface SWRevealViewControllerSegue : UIStoryboardSegue
-
-@property (strong) void(^performBlock)( SWRevealViewControllerSegue* segue, UIViewController* svc, UIViewController* dvc );
-
+// Use this along with one of the segue identifiers to segue to the initial state
+@interface SWRevealViewControllerSegueSetController : UIStoryboardSegue
 @end
 
 
+#pragma mark - SWRevealViewControllerSeguePushController Classes
+
+// Use this to push a view controller
+@interface SWRevealViewControllerSeguePushController : UIStoryboardSegue
+@end
+
+
+#pragma mark - SWRevealViewControllerSegue (Deprecated)
+
+@interface SWRevealViewControllerSegue : UIStoryboardSegue     // DEPRECATED: USE SWRevealViewControllerSegueSetController instead
+@property (nonatomic, strong) void(^performBlock)( SWRevealViewControllerSegue* segue, UIViewController* svc, UIViewController* dvc );
+@end

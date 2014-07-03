@@ -29,73 +29,73 @@
 
 #import "SWRevealViewController.h"
 
-#pragma mark - SWDirectionPanGestureRecognizer
-
-typedef enum
-{
-    SWDirectionPanGestureRecognizerVertical,
-    SWDirectionPanGestureRecognizerHorizontal
-
-} SWDirectionPanGestureRecognizerDirection;
-
-@interface SWDirectionPanGestureRecognizer : UIPanGestureRecognizer
-
-@property (nonatomic, assign) SWDirectionPanGestureRecognizerDirection direction;
-
-@end
-
-
-@implementation SWDirectionPanGestureRecognizer
-{
-    BOOL _dragging;
-    CGPoint _init;
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [super touchesBegan:touches withEvent:event];
-   
-    UITouch *touch = [touches anyObject];
-    _init = [touch locationInView:self.view];
-    _dragging = NO;
-}
-
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [super touchesMoved:touches withEvent:event];
-    
-    if (self.state == UIGestureRecognizerStateFailed)
-        return;
-    
-    if ( _dragging )
-        return;
-    
-    const int kDirectionPanThreshold = 5;
-    
-    UITouch *touch = [touches anyObject];
-    CGPoint nowPoint = [touch locationInView:self.view];
-    
-    CGFloat moveX = nowPoint.x - _init.x;
-    CGFloat moveY = nowPoint.y - _init.y;
-    
-    if (abs(moveX) > kDirectionPanThreshold)
-    {
-        if (_direction == SWDirectionPanGestureRecognizerHorizontal)
-            _dragging = YES;
-        else
-            self.state = UIGestureRecognizerStateFailed;
-    }
-    else if (abs(moveY) > kDirectionPanThreshold)
-    {
-        if (_direction == SWDirectionPanGestureRecognizerVertical)
-            _dragging = YES ;
-        else
-            self.state = UIGestureRecognizerStateFailed;
-    }
-}
-
-@end
+//#pragma mark - SWDirectionPanGestureRecognizer
+//
+//typedef enum
+//{
+//    SWDirectionPanGestureRecognizerVertical,
+//    SWDirectionPanGestureRecognizerHorizontal
+//
+//} SWDirectionPanGestureRecognizerDirection;
+//
+//@interface SWDirectionPanGestureRecognizer : UIPanGestureRecognizer
+//
+//@property (nonatomic, assign) SWDirectionPanGestureRecognizerDirection direction;
+//
+//@end
+//
+//
+//@implementation SWDirectionPanGestureRecognizer
+//{
+//    BOOL _dragging;
+//    CGPoint _init;
+//}
+//
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    [super touchesBegan:touches withEvent:event];
+//   
+//    UITouch *touch = [touches anyObject];
+//    _init = [touch locationInView:self.view];
+//    _dragging = NO;
+//}
+//
+//
+//- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    [super touchesMoved:touches withEvent:event];
+//    
+//    if (self.state == UIGestureRecognizerStateFailed)
+//        return;
+//    
+//    if ( _dragging )
+//        return;
+//    
+//    const int kDirectionPanThreshold = 5;
+//    
+//    UITouch *touch = [touches anyObject];
+//    CGPoint nowPoint = [touch locationInView:self.view];
+//    
+//    CGFloat moveX = nowPoint.x - _init.x;
+//    CGFloat moveY = nowPoint.y - _init.y;
+//    
+//    if (abs(moveX) > kDirectionPanThreshold)
+//    {
+//        if (_direction == SWDirectionPanGestureRecognizerHorizontal)
+//            _dragging = YES;
+//        else
+//            self.state = UIGestureRecognizerStateFailed;
+//    }
+//    else if (abs(moveY) > kDirectionPanThreshold)
+//    {
+//        if (_direction == SWDirectionPanGestureRecognizerVertical)
+//            _dragging = YES ;
+//        else
+//            self.state = UIGestureRecognizerStateFailed;
+//    }
+//}
+//
+//@end
 
 
 #pragma mark - StatusBar Helper Function
@@ -593,79 +593,6 @@ const int FrontViewPositionNone = 0xff;
 }
 
 
-#pragma mark Storyboard support
-
-static NSString * const SWSegueRearIdentifier = @"sw_rear";
-static NSString * const SWSegueFrontIdentifier = @"sw_front";
-static NSString * const SWSegueRightIdentifier = @"sw_right";
-
-- (void)prepareForSegue:(SWRevealViewControllerSegue *)segue sender:(id)sender
-{
-    // $ using a custom segue we can get access to the storyboard-loaded rear/front view controllers
-    // the trick is to define segues of type SWRevealViewControllerSegue on the storyboard
-    // connecting the SWRevealViewController to the desired front/rear controllers,
-    // and setting the identifiers to "sw_rear" and "sw_front"
-    
-    // $ these segues are invoked manually in the loadView method if a storyboard
-    // was used to instantiate the SWRevealViewController
-    
-    // $ none of this would be necessary if Apple exposed "relationship" segues for container view controllers.
-
-    NSString *identifier = segue.identifier;
-    if ( [segue isKindOfClass:[SWRevealViewControllerSegue class]] && sender == nil )
-    {
-        if ( [identifier isEqualToString:SWSegueRearIdentifier] )
-        {
-            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
-            {
-                [self _setRearViewController:dvc animated:NO];
-            };
-        }
-        else if ( [identifier isEqualToString:SWSegueFrontIdentifier] )
-        {
-            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
-            {
-                [self _setFrontViewController:dvc animated:NO];
-            };
-        }
-        else if ( [identifier isEqualToString:SWSegueRightIdentifier] )
-        {
-            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
-            {
-                [self _setRightViewController:dvc animated:NO];
-            };
-        }
-    }
-}
-
-// Load any defined front/rear controllers from the storyboard
-// This method is intended to be overrided in case the default behavior will not meet your needs
-- (void)loadStoryboardControllers
-{
-    if ( self.storyboard && _rearViewController == nil )
-    {
-        //Try each segue separately so it doesn't break prematurely if either Rear or Right views are not used.
-        @try
-        {
-            [self performSegueWithIdentifier:SWSegueRearIdentifier sender:nil];
-        }
-        @catch(NSException *exception) {}
-        
-        @try
-        {
-            [self performSegueWithIdentifier:SWSegueFrontIdentifier sender:nil];
-        }
-        @catch(NSException *exception) {}
-        
-        @try
-        {
-            [self performSegueWithIdentifier:SWSegueRightIdentifier sender:nil];
-        }
-        @catch(NSException *exception) {}
-    }
-}
-
-
 #pragma mark - StatusBar
 
 - (UIViewController *)childViewControllerForStatusBarStyle
@@ -684,6 +611,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     UIViewController *controller = [self childViewControllerForStatusBarStyle];
     return controller;
 }
+
 
 #pragma mark - View lifecycle
 
@@ -757,14 +685,6 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     // want the default behavior.
     return [super supportedInterfaceOrientations];
 }
-
-//// Support for earlier than iOS 6.0
-//#if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
-//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-//{
-//    return YES;
-//}
-//#endif
 
 
 #pragma mark - Public methods and property accessors
@@ -900,10 +820,14 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 {
     if ( _panGestureRecognizer == nil )
     {
-        SWDirectionPanGestureRecognizer *panRecognizer =
-            [[SWDirectionPanGestureRecognizer alloc] initWithTarget:self action:@selector(_handleRevealGesture:)];
+//        SWDirectionPanGestureRecognizer *panRecognizer =
+//            [[SWDirectionPanGestureRecognizer alloc] initWithTarget:self action:@selector(_handleRevealGesture:)];
+//
+//        panRecognizer.direction = SWDirectionPanGestureRecognizerHorizontal;
         
-        panRecognizer.direction = SWDirectionPanGestureRecognizerHorizontal;
+        UIPanGestureRecognizer *panRecognizer =
+            [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_handleRevealGesture:)];
+        
         panRecognizer.delegate = self;
         [_contentView.frontView addGestureRecognizer:panRecognizer];
         _panGestureRecognizer = panRecognizer ;
@@ -929,13 +853,13 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 #pragma mark - Provided acction methods
 
-- (void)revealToggle:(id)sender
+- (IBAction)revealToggle:(id)sender
 {    
     [self revealToggleAnimated:YES];
 }
 
 
-- (void)rightRevealToggle:(id)sender
+- (IBAction)rightRevealToggle:(id)sender
 {    
     [self rightRevealToggleAnimated:YES];
 }
@@ -958,6 +882,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
     [_contentView setUserInteractionEnabled:_userInteractionStore];
     [_contentView setDisableLayout:NO];
 }
+
 
 #pragma mark - PanGesture progress notification
 
@@ -1113,12 +1038,17 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 
 - (BOOL)_panGestureShouldBegin
 {
+    // forbid gesture if the initial translation is not horizontal
+    UIView *recognizerView = _panGestureRecognizer.view;
+    CGPoint translation = [_panGestureRecognizer translationInView:recognizerView];
+    if ( fabs(translation.y/translation.x) > 1 )
+        return NO;
+
     // forbid gesture if the following delegate is implemented and returns NO
     if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureShouldBegin:)] )
         if ( [_delegate revealControllerPanGestureShouldBegin:self] == NO )
             return NO;
 
-    UIView *recognizerView = _panGestureRecognizer.view;
     CGFloat xLocation = [_panGestureRecognizer locationInView:recognizerView].x;
     CGFloat width = recognizerView.bounds.size.width;
     
@@ -1354,7 +1284,7 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 }
 
 
-#pragma mark animated view controller deployment and layout
+#pragma mark Animated view controller deployment and layout
 
 // Primitive method for view controller deployment and animated layout to the given position.
 - (void)_setFrontViewPosition:(FrontViewPosition)newPosition withDuration:(NSTimeInterval)duration
@@ -1645,8 +1575,70 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 }
 
 
-@end
+#pragma mark Storyboard support
 
+- (void)prepareForSegue:(SWRevealViewControllerSegue *)segue sender:(id)sender   // TO REMOVE: DEPRECATED IMPLEMENTATION
+{
+    // This method is required for compatibility with SWRevealViewControllerSegue, now deprecated.
+    // It can be simply removed when using SWRevealViewControllerSegueSetController and SWRevealViewControlerSeguePushController
+    
+    NSString *identifier = segue.identifier;
+    if ( [segue isKindOfClass:[SWRevealViewControllerSegue class]] && sender == nil )
+    {
+        if ( [identifier isEqualToString:SWSegueRearIdentifier] )
+        {
+            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
+            {
+                [self _setRearViewController:dvc animated:NO];
+            };
+        }
+        else if ( [identifier isEqualToString:SWSegueFrontIdentifier] )
+        {
+            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
+            {
+                [self _setFrontViewController:dvc animated:NO];
+            };
+        }
+        else if ( [identifier isEqualToString:SWSegueRightIdentifier] )
+        {
+            segue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
+            {
+                [self _setRightViewController:dvc animated:NO];
+            };
+        }
+    }
+}
+
+
+// Load any defined front/rear controllers from the storyboard
+// This method is intended to be overrided in case the default behavior will not meet your needs
+- (void)loadStoryboardControllers
+{
+    if ( self.storyboard && _rearViewController == nil )
+    {
+        //Try each segue separately so it doesn't break prematurely if either Rear or Right views are not used.
+        @try
+        {
+            [self performSegueWithIdentifier:SWSegueRearIdentifier sender:nil];
+        }
+        @catch(NSException *exception) {}
+        
+        @try
+        {
+            [self performSegueWithIdentifier:SWSegueFrontIdentifier sender:nil];
+        }
+        @catch(NSException *exception) {}
+        
+        @try
+        {
+            [self performSegueWithIdentifier:SWSegueRightIdentifier sender:nil];
+        }
+        @catch(NSException *exception) {}
+    }
+}
+
+
+@end
 
 
 #pragma mark - UIViewController(SWRevealViewController) Category
@@ -1668,16 +1660,58 @@ static NSString * const SWSegueRightIdentifier = @"sw_right";
 @end
 
 
-#pragma mark - SWRevealViewControllerSegue Class
+#pragma mark - SWRevealViewControllerSegueSetController segue identifiers
 
-@implementation SWRevealViewControllerSegue
+NSString * const SWSegueRearIdentifier = @"sw_rear";
+NSString * const SWSegueFrontIdentifier = @"sw_front";
+NSString * const SWSegueRightIdentifier = @"sw_right";
+
+
+#pragma mark - SWRevealViewControllerSegueSetController class
+
+@implementation SWRevealViewControllerSegueSetController
 
 - (void)perform
 {
-    if ( _performBlock != nil )
-    {
+    NSString *identifier = self.identifier;
+    SWRevealViewController *rvc = self.sourceViewController;
+    UIViewController *dvc = self.destinationViewController;
+    
+    if ( [identifier isEqualToString:SWSegueFrontIdentifier] )
+        [rvc _setFrontViewController:dvc animated:NO];
+    
+    else if ( [identifier isEqualToString:SWSegueRearIdentifier] )
+        [rvc _setRearViewController:dvc animated:NO];
+    
+    else if ( [identifier isEqualToString:SWSegueRightIdentifier] )
+        [rvc _setRightViewController:dvc animated:NO];
+}
+
+@end
+
+
+#pragma mark - SWRevealViewControllerSeguePushController class
+
+@implementation SWRevealViewControllerSeguePushController
+
+- (void)perform
+{
+    SWRevealViewController *rvc = [self.sourceViewController revealViewController];
+    UIViewController *dvc = self.destinationViewController;
+    [rvc pushFrontViewController:dvc animated:YES];
+}
+
+@end
+
+
+#pragma mark - SWRevealViewControllerSegue Class
+
+@implementation SWRevealViewControllerSegue  // DEPRECATED
+
+- (void)perform
+{
+    if ( _performBlock )
         _performBlock( self, self.sourceViewController, self.destinationViewController );
-    }
 }
 
 @end
