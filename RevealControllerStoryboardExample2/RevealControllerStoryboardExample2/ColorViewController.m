@@ -48,6 +48,7 @@
 - (void)applicationFinishedRestoringState {
     NSLog(@"%s", __PRETTY_FUNCTION__);
     
+    
     // TODO call whatever function you need to visually restore
 
 }
