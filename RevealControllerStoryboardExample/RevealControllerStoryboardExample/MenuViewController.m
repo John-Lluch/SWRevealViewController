@@ -14,8 +14,7 @@
 
 @implementation MenuViewController
 
-- (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender
-{
+- (void) prepareForSegue:(UIStoryboardSegue *) segue sender:(id) sender;{
     
     UIViewController* destination = segue.destinationViewController;
 
@@ -37,7 +36,6 @@
         destination = currentFrontView;
     }
     
-    NSLog(@"%@ is being transitioned from %@ to %@", frontNavigationController, currentFrontView, destination);
 
     // configure the "destination" view controller:
     if ( [destination isKindOfClass: [ColorViewController class]] &&
@@ -45,13 +43,12 @@
     {
         UILabel* c = [(SWUITableViewCell *)sender label];
         ColorViewController* cvc = (ColorViewController*)destination;
-        NSLog(@"setting labels on %@", cvc);
         cvc.color = c.textColor;
         cvc.text = c.text;
     }
     
 
-    // configure the segue.
+    // configure the segue to move to our new frontVC
     if ( [segue isKindOfClass: [SWRevealViewControllerSegue class]] )
     {
         NSAssert( revealVC != nil, @"revealViewController is not set in the menu controller" );
@@ -59,7 +56,8 @@
         {
             if(replaceVC) {
                 // Do not replace the frontmost VC if we are transitioning to a VC that is already showing.
-                // This means that the destination VC from the segue is not pushed. The segue code is OK with this and it is cleaned up by UIKit.
+                // This means that the destination VC from the segue is not pushed. The segue code is OK with this and
+                // The VC it created as destination gets cleaned up.
                 [frontNavigationController setViewControllers:@[destination] animated:NO];
             }
             
