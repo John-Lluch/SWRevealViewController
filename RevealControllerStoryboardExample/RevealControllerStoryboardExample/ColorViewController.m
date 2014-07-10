@@ -10,6 +10,8 @@
 
 @interface ColorViewController ()
 @property (nonatomic) IBOutlet UIBarButtonItem* revealButtonItem;
+@property (strong, nonatomic) UIColor* color;
+@property (strong, nonatomic) NSString* text;
 @end
 
 @implementation ColorViewController
@@ -18,12 +20,22 @@
 {
     [super viewDidLoad];
 
+    _label.text = _text;
+    _label.textColor = _color;
+
     [self.revealButtonItem setTarget: self.revealViewController];
     [self.revealButtonItem setAction: @selector( revealToggle: )];
     [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
-    
-    _label.text = _text;
-    _label.textColor = _color;
 }
 
+-(void)setText:(NSString*)aString{
+    _text = aString;
+    _label.text = _text;
+
+};
+
+-(void)setColor:(UIColor *)aColor{
+    _color = aColor;
+    _label.textColor = _color;
+};
 @end

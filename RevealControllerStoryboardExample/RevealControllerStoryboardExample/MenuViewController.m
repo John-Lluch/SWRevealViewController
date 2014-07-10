@@ -16,31 +16,54 @@
 
 - (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender
 {
-    // configure the destination view controller:
-    if ( [segue.destinationViewController isKindOfClass: [ColorViewController class]] &&
+    
+    UIViewController* destination = segue.destinationViewController;
+
+    SWRevealViewControllerSegue* revealSegue = (SWRevealViewControllerSegue*) segue;
+    
+    SWRevealViewController* revealVC = self.revealViewController;
+    
+    UINavigationController *frontNavigationController = (UINavigationController*)revealVC.frontViewController;
+    NSAssert([frontNavigationController isKindOfClass:[UINavigationController class]], @"Incorrect storyboard configuration - you must have a NavController");
+    UIViewController* currentFrontView = [[frontNavigationController viewControllers] firstObject];
+    
+    BOOL replaceVC = YES;
+    if([destination isKindOfClass: [currentFrontView class]]) {
+        // Note that this check may not be enough in your code - if you have a menu item that configures the same
+        // viewController in many ways, you may also have to inspect segue.identifier as well as the destination class..
+        replaceVC = NO;
+        
+        //ensure that the colour config code updates the correct viewController if we are not going to perform the switch
+        destination = currentFrontView;
+    }
+    
+    NSLog(@"%@ is being transitioned from %@ to %@", frontNavigationController, currentFrontView, destination);
+
+    // configure the "destination" view controller:
+    if ( [destination isKindOfClass: [ColorViewController class]] &&
         [sender isKindOfClass:[UITableViewCell class]] )
     {
         UILabel* c = [(SWUITableViewCell *)sender label];
-        ColorViewController* cvc = segue.destinationViewController;
-        
+        ColorViewController* cvc = (ColorViewController*)destination;
+        NSLog(@"setting labels on %@", cvc);
         cvc.color = c.textColor;
         cvc.text = c.text;
     }
+    
 
     // configure the segue.
     if ( [segue isKindOfClass: [SWRevealViewControllerSegue class]] )
     {
-        SWRevealViewControllerSegue* rvcs = (SWRevealViewControllerSegue*) segue;
-        
-        SWRevealViewController* rvc = self.revealViewController;
-        NSAssert( rvc != nil, @"oops! must have a revealViewController" );
-        
-        NSAssert( [rvc.frontViewController isKindOfClass: [UINavigationController class]], @"oops!  for this segue we want a permanent navigation controller in the front!" );
-
-        rvcs.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
+        NSAssert( revealVC != nil, @"revealViewController is not set in the menu controller" );
+        revealSegue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc)
         {
-            UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:dvc];
-            [rvc pushFrontViewController:nc animated:YES];
+            if(replaceVC) {
+                // Do not replace the frontmost VC if we are transitioning to a VC that is already showing.
+                // This means that the destination VC from the segue is not pushed. The segue code is OK with this and it is cleaned up by UIKit.
+                [frontNavigationController setViewControllers:@[destination] animated:NO];
+            }
+            
+            [revealVC revealToggle:self];
         };
     }
 }
