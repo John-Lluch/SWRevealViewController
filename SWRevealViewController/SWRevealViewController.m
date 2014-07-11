@@ -105,8 +105,9 @@
 static CGFloat statusBarAdjustment( UIView* view )
 {
     CGFloat adjustment = 0.0f;
-    CGRect viewFrame = [view convertRect:view.bounds toView:nil];
-    CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+    UIApplication *app = [UIApplication sharedApplication];
+    CGRect viewFrame = [view convertRect:view.bounds toView:[app keyWindow]];
+    CGRect statusBarFrame = [app statusBarFrame];
     
     //if ( CGRectContainsRect(viewFrame, statusBarFrame) )
     if ( CGRectIntersectsRect(viewFrame, statusBarFrame) )
@@ -199,14 +200,17 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 
     CGRect bounds = self.bounds;
     
-    CGFloat xLocation = [self frontLocationForPosition:_c.frontViewPosition];
+    FrontViewPosition position = _c.frontViewPosition;
+    CGFloat xLocation = [self frontLocationForPosition:position];
     
     [self _layoutRearViewsForLocation:xLocation];
     
     CGRect frame = CGRectMake(xLocation, 0.0f, bounds.size.width, bounds.size.height);
     _frontView.frame = [self hierarchycalFrameAdjustment:frame];
     
-    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:_frontView.bounds];
+    CGRect shadowBounds = (position < FrontViewPositionLeftSide || position > FrontViewPositionRight) ? CGRectZero: _frontView.bounds;
+    
+    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:shadowBounds];
     _frontView.layer.shadowPath = shadowPath.CGPath;
 }
 
@@ -216,7 +220,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     if ( _rearView == nil )
     {
         _rearView = [[UIView alloc] initWithFrame:self.bounds];
-        _rearView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        _rearView.autoresizingMask = /*UIViewAutoresizingFlexibleWidth|*/UIViewAutoresizingFlexibleHeight;
         [self insertSubview:_rearView belowSubview:_frontView];
     }
     
@@ -231,7 +235,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     if ( _rightView == nil )
     {
         _rightView = [[UIView alloc] initWithFrame:self.bounds];
-        _rightView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        _rightView.autoresizingMask = /*UIViewAutoresizingFlexibleWidth|*/UIViewAutoresizingFlexibleHeight;
         [self insertSubview:_rightView belowSubview:_frontView];
     }
     
