@@ -29,14 +29,11 @@
  RELEASE NOTES
  
  
- Version 2.2.0 
+ Version 2.2.0 (Current Version)
  
- - State restoration support.
+ - State Restoration support.
  - Reverted panGestureRecognizer implementation to before v2.1.0 (works better).
  - New properties 'toggleAnimationType', 'springDampingRatio'. Default reveal animation is 'Spring'
- 
- Version 2.1.1 (Current Version)
- 
  - New property 'frontViewShadowColor'
  - New properties 'clipsViewsToBounds' and '_extendedPointInsideHit'
  - New delegate methods for finer control of front view location in the overdraw area, as long as deprecation note on former delegate methods
