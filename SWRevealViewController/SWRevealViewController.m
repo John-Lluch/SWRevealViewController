@@ -763,21 +763,21 @@ const int FrontViewPositionNone = 0xff;
 
 - (void)revealToggleAnimated:(BOOL)animated
 {
-    FrontViewPosition toogledFrontViewPosition = FrontViewPositionLeft;
+    FrontViewPosition toggledFrontViewPosition = FrontViewPositionLeft;
     if (_frontViewPosition <= FrontViewPositionLeft)
-        toogledFrontViewPosition = FrontViewPositionRight;
+        toggledFrontViewPosition = FrontViewPositionRight;
     
-    [self setFrontViewPosition:toogledFrontViewPosition animated:animated];
+    [self setFrontViewPosition:toggledFrontViewPosition animated:animated];
 }
 
 
 - (void)rightRevealToggleAnimated:(BOOL)animated
 {
-    FrontViewPosition toogledFrontViewPosition = FrontViewPositionLeft;
+    FrontViewPosition toggledFrontViewPosition = FrontViewPositionLeft;
     if (_frontViewPosition >= FrontViewPositionLeft)
-        toogledFrontViewPosition = FrontViewPositionLeftSide;
+        toggledFrontViewPosition = FrontViewPositionLeftSide;
     
-    [self setFrontViewPosition:toogledFrontViewPosition animated:animated];
+    [self setFrontViewPosition:toggledFrontViewPosition animated:animated];
 }
 
 
