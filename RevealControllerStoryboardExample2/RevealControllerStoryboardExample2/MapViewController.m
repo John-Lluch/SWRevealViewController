@@ -17,33 +17,48 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.revealButtonItem setTarget: self.revealViewController];
-    [self.revealButtonItem setAction: @selector( revealToggle: )];
-    [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+    [self customSetup];
+}
+
+- (void)customSetup
+{
+    SWRevealViewController *revealViewController = self.revealViewController;
+    if ( revealViewController )
+    {
+        [self.revealButtonItem setTarget: self.revealViewController];
+        [self.revealButtonItem setAction: @selector( revealToggle: )];
+        [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+    }
 }
 
 #pragma mark state preservation / restoration
-- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
     NSLog(@"%s", __PRETTY_FUNCTION__);
 
-    // TODO save what you need here
+    // Save what you need here
     
     [super encodeRestorableStateWithCoder:coder];
 }
 
-- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
     NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    // TODO restore what you need here
+    // Restore what you need here
     
     [super decodeRestorableStateWithCoder:coder];
 }
 
-- (void)applicationFinishedRestoringState {
+
+- (void)applicationFinishedRestoringState
+{
     NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    // TODO call whatever function you need to visually restore
+    // Call whatever function you need to visually restore
+    [self customSetup];
 }
 
 @end

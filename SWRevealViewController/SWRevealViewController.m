@@ -29,8 +29,6 @@
 #import "SWRevealViewController.h"
 
 
-
-
 #pragma mark - StatusBar Helper Function
 
 // computes the required offset adjustment due to the status bar for the passed in view,
@@ -678,13 +676,17 @@ const int FrontViewPositionNone = 0xff;
 - (void)loadView
 {
     // Do not call super, to prevent the apis from unfruitful looking for inexistent xibs!
+    //[super loadView];
     
-    // This is what Apple tells us to set as the initial frame, which is of course totally irrelevant
-    // with the modern view controller containment patterns, let's leave it for the sake of it!
-    //CGRect frame = [[UIScreen mainScreen] applicationFrame];
+    // load any defined front/rear controllers from the storyboard before
+    [self loadStoryboardControllers];
+    
+    // This is what Apple used to tell us to set as the initial frame, which is of course totally irrelevant
+    // with view controller containment patterns, let's leave it for the sake of it!
+    // CGRect frame = [[UIScreen mainScreen] applicationFrame];
     
     // On iOS7 the applicationFrame does not return the whole screen. This is possibly a bug.
-    // As a workaround we use the screen bounds, this still works on iOS6
+    // As a workaround we use the screen bounds, this still works on iOS6, any zero based frame would work anyway!
     CGRect frame = [[UIScreen mainScreen] bounds];
 
     // create a custom content view for the controller
@@ -698,9 +700,6 @@ const int FrontViewPositionNone = 0xff;
 
     // set our contentView to the controllers view
     self.view = _contentView;
-    
-    // load any defined front/rear controllers from the storyboard
-    [self loadStoryboardControllers];
     
     // Apple also tells us to do this:
     _contentView.backgroundColor = [UIColor blackColor];
@@ -1748,14 +1747,16 @@ const int FrontViewPositionNone = 0xff;
     }
 }
 
+
 #pragma mark state preservation / restoration
-+ (UIViewController*) viewControllerWithRestorationIdentifierPath:(NSArray*) identifierComponents coder:(NSCoder*)coder {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    
-    SWRevealViewController* vc;
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder*)coder
+{
+    SWRevealViewController* vc = nil;
     UIStoryboard* sb = [coder decodeObjectForKey:UIStateRestorationViewControllerStoryboardKey];
     
-    if (sb) {
+    if (sb)
+    {
         vc = (SWRevealViewController*)[sb instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
         vc.restorationIdentifier = [identifierComponents lastObject];
         vc.restorationClass = [SWRevealViewController class];
@@ -1763,56 +1764,87 @@ const int FrontViewPositionNone = 0xff;
     return vc;
 }
 
-- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
 
-    // this will include the other view controllers in state encoding and decoding
-    if (_rearViewController) {
-        [coder encodeObject: _rearViewController forKey: @"rearViewController"];
-    }
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    [coder encodeDouble:_rearViewRevealWidth forKey:@"_rearViewRevealWidth"];
+    [coder encodeDouble:_rearViewRevealOverdraw forKey:@"_rearViewRevealOverdraw"];
+    [coder encodeDouble:_rearViewRevealDisplacement forKey:@"_rearViewRevealDisplacement"];
+    [coder encodeDouble:_rightViewRevealWidth forKey:@"_rightViewRevealWidth"];
+    [coder encodeDouble:_rightViewRevealOverdraw forKey:@"_rightViewRevealOverdraw"];
+    [coder encodeDouble:_rightViewRevealDisplacement forKey:@"_rightViewRevealDisplacement"];
+    [coder encodeBool:_bounceBackOnOverdraw forKey:@"_bounceBackOnOverdraw"];
+    [coder encodeBool:_bounceBackOnLeftOverdraw forKey:@"_bounceBackOnLeftOverdraw"];
+    [coder encodeBool:_stableDragOnOverdraw forKey:@"_stableDragOnOverdraw"];
+    [coder encodeBool:_stableDragOnLeftOverdraw forKey:@"_stableDragOnLeftOverdraw"];
+    [coder encodeBool:_presentFrontViewHierarchically forKey:@"_presentFrontViewHierarchically"];
+    [coder encodeDouble:_quickFlickVelocity forKey:@"_quickFlickVelocity"];
+    [coder encodeDouble:_toggleAnimationDuration forKey:@"_toggleAnimationDuration"];
+    [coder encodeInteger:_toggleAnimationType forKey:@"_toggleAnimationType"];
+    [coder encodeDouble:_springDampingRatio forKey:@"_springDampingRatio"];
+    [coder encodeDouble:_replaceViewAnimationDuration forKey:@"_replaceViewAnimationDuration"];
+    [coder encodeDouble:_frontViewShadowRadius forKey:@"_frontViewShadowRadius"];
+    [coder encodeCGSize:_frontViewShadowOffset forKey:@"_frontViewShadowOffset"];
+    [coder encodeDouble:_frontViewShadowOpacity forKey:@"_frontViewShadowOpacity"];
+    [coder encodeObject:_frontViewShadowColor forKey:@"_frontViewShadowColor"];
+    [coder encodeBool:_userInteractionStore forKey:@"_userInteractionStore"];
+    [coder encodeDouble:_draggableBorderWidth forKey:@"_draggableBorderWidth"];
+    [coder encodeBool:_clipsViewsToBounds forKey:@"_clipsViewsToBounds"];
+    [coder encodeBool:_extendsPointInsideHit forKey:@"_extendsPointInsideHit"];
     
-    if (_frontViewController) {
-        [coder encodeObject: _frontViewController forKey: @"frontViewController"];
-    }
+    [coder encodeObject:_rearViewController forKey:@"_rearViewController"];
+    [coder encodeObject:_frontViewController forKey:@"_frontViewController"];
+    [coder encodeObject:_rightViewController forKey:@"_rightViewController"];
     
-    if (_rightViewController) {
-        [coder encodeObject: _rightViewController forKey: @"rightViewController"];
-    }
-    
-    // ??? What's needed to restore what position the views are in
-    [coder encodeInt: _frontViewPosition  forKey: @"frontViewPosition"];
-    [coder encodeInt: _rearViewPosition   forKey: @"rearViewPosition"];
-    [coder encodeInt: _rightViewPosition  forKey: @"rightViewPosition"];
+    [coder encodeInteger:_frontViewPosition  forKey:@"_frontViewPosition"];
     
     [super encodeRestorableStateWithCoder:coder];
 }
 
-- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    _rearViewRevealWidth = [coder decodeDoubleForKey:@"_rearViewRevealWidth"];
+    _rearViewRevealOverdraw = [coder decodeDoubleForKey:@"_rearViewRevealOverdraw"];
+    _rearViewRevealDisplacement = [coder decodeDoubleForKey:@"_rearViewRevealDisplacement"];
+    _rightViewRevealWidth = [coder decodeDoubleForKey:@"_rightViewRevealWidth"];
+    _rightViewRevealOverdraw = [coder decodeDoubleForKey:@"_rightViewRevealOverdraw"];
+    _rightViewRevealDisplacement = [coder decodeDoubleForKey:@"_rightViewRevealDisplacement"];
+    _bounceBackOnOverdraw = [coder decodeBoolForKey:@"_bounceBackOnOverdraw"];
+    _bounceBackOnLeftOverdraw = [coder decodeBoolForKey:@"_bounceBackOnLeftOverdraw"];
+    _stableDragOnOverdraw = [coder decodeBoolForKey:@"_stableDragOnOverdraw"];
+    _stableDragOnLeftOverdraw = [coder decodeBoolForKey:@"_stableDragOnLeftOverdraw"];
+    _presentFrontViewHierarchically = [coder decodeBoolForKey:@"_presentFrontViewHierarchically"];
+    _quickFlickVelocity = [coder decodeDoubleForKey:@"_quickFlickVelocity"];
+    _toggleAnimationDuration = [coder decodeDoubleForKey:@"_toggleAnimationDuration"];
+    _toggleAnimationType = [coder decodeIntegerForKey:@"_toggleAnimationType"];
+    _springDampingRatio = [coder decodeDoubleForKey:@"_springDampingRatio"];
+    _replaceViewAnimationDuration = [coder decodeDoubleForKey:@"_replaceViewAnimationDuration"];
+    _frontViewShadowRadius = [coder decodeDoubleForKey:@"_frontViewShadowRadius"];
+    _frontViewShadowOffset = [coder decodeCGSizeForKey:@"_frontViewShadowOffset"];
+    _frontViewShadowOpacity = [coder decodeDoubleForKey:@"_frontViewShadowOpacity"];
+    _frontViewShadowColor = [coder decodeObjectForKey:@"_frontViewShadowColor"];
+    _userInteractionStore = [coder decodeBoolForKey:@"_userInteractionStore"];
+    _animationQueue = [NSMutableArray array];
+    _draggableBorderWidth = [coder decodeDoubleForKey:@"_draggableBorderWidth"];
+    _clipsViewsToBounds = [coder decodeBoolForKey:@"_clipsViewsToBounds"];
+    _extendsPointInsideHit = [coder decodeBoolForKey:@"_extendsPointInsideHit"];
+
+    [self setRearViewController:[coder decodeObjectForKey:@"_rearViewController"]];
+    [self setFrontViewController:[coder decodeObjectForKey:@"_frontViewController"]];
+    [self setRightViewController:[coder decodeObjectForKey:@"_rightViewController"]];
     
-    // ??? What's needed to restore what position the views are in
-    _frontViewPosition = [coder decodeIntForKey: @"frontViewPosition"];
-    _rearViewPosition  = [coder decodeIntForKey: @"rearViewPosition"];
-    _rightViewPosition = [coder decodeIntForKey: @"rightViewPosition"];
+    [self setFrontViewPosition:[coder decodeIntForKey: @"_frontViewPosition"]];
     
     [super decodeRestorableStateWithCoder:coder];
 }
 
-- (void)applicationFinishedRestoringState {
 
-    // ??? Get the views to where they should be
-    
-    [self _setFrontViewPosition: _frontViewPosition withDuration:0.0];
-    
-    [self revealToggleAnimated: NO];
-    [self revealToggleAnimated: NO];
-    
-//    if (_rearViewPosition != FrontViewPositionNone) {
-//        [self revealToggleAnimated: NO];
-//    }
-//    
-//    if (_rightViewPosition >= FrontViewPositionLeft) {
-//        [self rightRevealToggleAnimated: NO];
-//    }
+- (void)applicationFinishedRestoringState
+{
+    // nothing to do at this stage
 }
+
 
 @end
 
@@ -1825,11 +1857,7 @@ const int FrontViewPositionNone = 0xff;
 {
     UIViewController *parent = self;
     Class revealClass = [SWRevealViewController class];
-    
-    while ( nil != (parent = [parent parentViewController]) && ![parent isKindOfClass:revealClass] )
-    {
-    }
-    
+    while ( nil != (parent = [parent parentViewController]) && ![parent isKindOfClass:revealClass] ) {}
     return (id)parent;
 }
 

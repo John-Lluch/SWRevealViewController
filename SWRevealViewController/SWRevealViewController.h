@@ -28,7 +28,12 @@
 
  RELEASE NOTES
  
- - New properties 'toggleAnimationType', 'springDampingRatio'
+ 
+ Version 2.2.0 
+ 
+ - State restoration support.
+ - Reverted panGestureRecognizer implementation to before v2.1.0 (works better).
+ - New properties 'toggleAnimationType', 'springDampingRatio'. Default reveal animation is 'Spring'
  
  Version 2.1.1 (Current Version)
  
@@ -167,7 +172,7 @@ typedef NS_ENUM( NSInteger, FrontViewPosition)
 typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 {
     SWRevealToggleAnimationTypeSpring,    // <- produces a spring based animation
-    SWRevealToggleAnimationTypeEaseOut,   // <- produces a simple ease out curve animation
+    SWRevealToggleAnimationTypeEaseOut,   // <- produces an ease out curve animation
 };
 
 

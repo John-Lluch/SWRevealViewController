@@ -211,7 +211,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="oNh-lZ-ivI"/>
         <segue reference="Wxg-jn-KPh"/>
+        <segue reference="oNh-lZ-ivI"/>
     </inferredMetricsTieBreakers>
 </document>

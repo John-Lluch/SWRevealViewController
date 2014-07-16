@@ -17,40 +17,57 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self customSetup];
+}
 
-    [self.revealButtonItem setTarget: self.revealViewController];
-    [self.revealButtonItem setAction: @selector( revealToggle: )];
-    [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+
+- (void)customSetup
+{
+    SWRevealViewController *revealViewController = self.revealViewController;
+    if ( revealViewController )
+    {
+        [self.revealButtonItem setTarget: revealViewController];
+        [self.revealButtonItem setAction: @selector( revealToggle: )];
+        [self.navigationController.navigationBar addGestureRecognizer:revealViewController.panGestureRecognizer];
+    }
     
     _label.text = _text;
     _label.textColor = _color;
 }
 
+
 #pragma mark state preservation / restoration
-- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
     NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    // TODO save what you need here
-    [coder encodeObject: _label.text forKey: @"lableText"];
+    // Save what you need here
+    [coder encodeObject: _text forKey: @"text"];
+    [coder encodeObject: _color forKey: @"color"];
 
     [super encodeRestorableStateWithCoder:coder];
 }
 
-- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder
+{
     NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    // TODO restore what you need here
-    _label.text = [coder decodeObjectForKey: @"labelText"];
+    // Restore what you need here
+    _color = [coder decodeObjectForKey: @"color"];
+    _text = [coder decodeObjectForKey: @"text"];
     
     [super decodeRestorableStateWithCoder:coder];
 }
 
-- (void)applicationFinishedRestoringState {
+
+- (void)applicationFinishedRestoringState
+{
     NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    
-    // TODO call whatever function you need to visually restore
-
+    // Call whatever function you need to visually restore
+    [self customSetup];
 }
 
 @end

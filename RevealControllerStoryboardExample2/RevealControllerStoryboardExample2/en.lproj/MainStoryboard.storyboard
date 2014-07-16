@@ -8,7 +8,7 @@
         <!--Reveal View Controller-->
         <scene sceneID="5">
             <objects>
-                <viewController id="2" customClass="SWRevealViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SWRevealViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2" customClass="SWRevealViewController" sceneMemberID="viewController">
                     <connections>
                         <segue destination="vRn-8p-pLv" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="tdg-ex-6WR"/>
                         <segue destination="fWZ-H6-3Jr" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="bla-Jd-Bu2"/>
@@ -21,7 +21,7 @@
         <!--Navigation Controller-->
         <scene sceneID="b5Y-SE-MeC">
             <objects>
-                <navigationController definesPresentationContext="YES" id="fWZ-H6-3Jr" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationControllerMap" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fWZ-H6-3Jr" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Xkz-rr-sTC">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -36,7 +36,7 @@
         <!--Map View Controller - Map-->
         <scene sceneID="9dn-3g-hds">
             <objects>
-                <viewController id="IHS-Te-pvE" customClass="MapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IHS-Te-pvE" customClass="MapViewController" sceneMemberID="viewController">
                     <mapView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="E6O-iX-rep">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -56,7 +56,7 @@
         <!--Color View Controller - Color-->
         <scene sceneID="vqL-qd-ja9">
             <objects>
-                <viewController id="7k1-p9-rbO" customClass="ColorViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ColorViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7k1-p9-rbO" customClass="ColorViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aUE-BR-SVC"/>
                         <viewControllerLayoutGuide type="bottom" id="5RF-NJ-TaK"/>
@@ -90,7 +90,7 @@
         <!--Menu View Controller-->
         <scene sceneID="cdx-7p-qaC">
             <objects>
-                <tableViewController id="vRn-8p-pLv" customClass="MenuViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MenuViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vRn-8p-pLv" customClass="MenuViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="DAb-w1-9EO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -180,7 +180,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Ha0-6q-JcM">
             <objects>
-                <navigationController definesPresentationContext="YES" id="vjx-U5-Non" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationControllerColor" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vjx-U5-Non" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zt4-Qm-0EX">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
