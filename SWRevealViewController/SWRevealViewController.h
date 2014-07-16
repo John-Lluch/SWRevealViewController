@@ -28,7 +28,16 @@
 
  RELEASE NOTES
  
- Version 2.1.0 (Current Version)
+ - New properties 'toggleAnimationType', 'springDampingRatio'
+ 
+ Version 2.1.1 (Current Version)
+ 
+ - New property 'frontViewShadowColor'
+ - New properties 'clipsViewsToBounds' and '_extendedPointInsideHit'
+ - New delegate methods for finer control of front view location in the overdraw area, as long as deprecation note on former delegate methods
+ - Other minor changes that should not affect current implementations
+ 
+ Version 2.1.0
  
  - Removed SWDirectionPanGestureRecognizer. Horizontal panning is filtered on the shouldBegin delegate. This is cleaner, I hope it does not break previous funcionality
  - Took a cleaner approach to storyboard support. SWRevealViewControllerSegue is now deprecated and you should use SWRevealViewControllerSegueSetController and SWRevealViewControllerSeguePushController instead.
@@ -125,7 +134,7 @@
 #pragma mark - SWRevealViewController Class
 
 // Enum values for setFrontViewPosition:animated:
-typedef enum
+typedef NS_ENUM( NSInteger, FrontViewPosition)
 {
     // Front controller is removed from view. Animated transitioning from this state will cause the same
     // effect than animating from FrontViewPositionLeftSideMost. Use this instead of FrontViewPositionLeftSideMost when
@@ -152,10 +161,19 @@ typedef enum
     // you intent to remove the front controller view from the view hierarchy.
     FrontViewPositionRightMostRemoved,
     
-} FrontViewPosition;
+};
+
+// Enum values for toggleAnimationType
+typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
+{
+    SWRevealToggleAnimationTypeSpring,    // <- produces a spring based animation
+    SWRevealToggleAnimationTypeEaseOut,   // <- produces a simple ease out curve animation
+};
 
 
 @interface SWRevealViewController : UIViewController
+
+/* Basic API */
 
 // Object instance init and rear view setting
 - (id)initWithRearViewController:(UIViewController *)rearViewController frontViewController:(UIViewController *)frontViewController;
@@ -176,24 +194,21 @@ typedef enum
 // presented frontViewController to the right most possition, replacing it, and moving it back to the left position
 - (void)pushFrontViewController:(UIViewController *)frontViewController animated:(BOOL)animated;
 
-// Front view position, use this to set a particular position state on the controller
-// On initialization it is set to FrontViewPositionLeft
+// Sets the frontViewController position. You can call the animated version several times with different
+// positions to obtain a set of animations that will be performed in order one after the other.
 @property (nonatomic) FrontViewPosition frontViewPosition;
-
-// Chained animation of the frontViewController position. You can call it several times in a row to achieve
-// any set of animations you wish. Animations will be chained and performed one after the other.
 - (void)setFrontViewPosition:(FrontViewPosition)frontViewPosition animated:(BOOL)animated;
-
-// Toogles the current state of the front controller between Left or Right and fully visible
-// Use setFrontViewPosition to set a particular position
-- (void)revealToggleAnimated:(BOOL)animated;
-- (void)rightRevealToggleAnimated:(BOOL)animated; // <-- simetric implementation of the above for the rightViewController
 
 // The following methods are meant to be directly connected to the action method of a button
 // to perform user triggered postion change of the controller views. This is ussually added to a
 // button on top left or right of the frontViewController
 - (IBAction)revealToggle:(id)sender;
 - (IBAction)rightRevealToggle:(id)sender; // <-- simetric implementation of the above for the rightViewController
+
+// Toogles the current state of the front controller between Left or Right and fully visible
+// Use setFrontViewPosition to set a particular position
+- (void)revealToggleAnimated:(BOOL)animated;
+- (void)rightRevealToggleAnimated:(BOOL)animated; // <-- simetric implementation of the above for the rightViewController
 
 // The following method will provide a panGestureRecognizer suitable to be added to any view
 // in order to perform usual drag and swipe gestures to reveal the rear views. This is usually added to the top bar
@@ -209,11 +224,12 @@ typedef enum
 // Thus, you can disable user interactions on your frontViewController view without affecting the tap recognizer.
 - (UITapGestureRecognizer*)tapGestureRecognizer;
 
-// The following properties are provided for further customization, they are set to default values on initialization,
-// you should not generally have to set them
+/* The following properties are provided for further customization, they are set to default values on initialization,
+   you do not generally have to set them */
 
-// Defines how much of the rear or right view is shown, default is 260. A negative value indicates that the reveal width should be
-// computed by substracting the full front view width, so the revealed frontView width is constant.
+// Defines how much of the rear or right view is shown, default is 260.
+// Negative values indicate that the reveal width should be computed by substracting the full front view width,
+// so the revealed frontView width is kept constant when bounds change as opposed to the rear or right width.
 @property (nonatomic) CGFloat rearViewRevealWidth;
 @property (nonatomic) CGFloat rightViewRevealWidth; // <-- simetric implementation of the above for the rightViewController
 
@@ -223,7 +239,7 @@ typedef enum
 
 // Defines how much displacement is applied to the rear view when animating or dragging the front view, default is 40.
 @property (nonatomic) CGFloat rearViewRevealDisplacement;
-@property (nonatomic) CGFloat rightViewRevealDisplacement;
+@property (nonatomic) CGFloat rightViewRevealDisplacement;  // <-- simetric implementation of the above for the rightViewController
 
 // Defines a width on the border of the view attached to the panGesturRecognizer where the gesture is allowed,
 // default is 0 which means no restriction.
@@ -231,7 +247,7 @@ typedef enum
 
 // If YES (the default) the controller will bounce to the Left position when dragging further than 'rearViewRevealWidth'
 @property (nonatomic) BOOL bounceBackOnOverdraw;
-@property (nonatomic) BOOL bounceBackOnLeftOverdraw;
+@property (nonatomic) BOOL bounceBackOnLeftOverdraw;  // <-- simetric implementation of the above for the rightViewController
 
 // If YES (default is NO) the controller will allow permanent dragging up to the rightMostPosition
 @property (nonatomic) BOOL stableDragOnOverdraw;
@@ -239,15 +255,21 @@ typedef enum
 
 // If YES (default is NO) the front view controller will be ofsseted vertically by the height of a navigation bar.
 // Use this on iOS7 when you add an instance of RevealViewController as a child of a UINavigationController (or another SWRevealViewController)
-// and you want the front view controller to be presented below the navigation bar of its UINavigationController grand parent .
+// and you want the front view controller to be presented below the navigation bar of its UINavigationController grand parent.
 // The rearViewController will still appear full size and blurred behind the navigation bar of its UINavigationController grand parent
 @property (nonatomic) BOOL presentFrontViewHierarchically;
 
-// Velocity required for the controller to toggle its state based on a swipe movement, default is 300
+// Velocity required for the controller to toggle its state based on a swipe movement, default is 250
 @property (nonatomic) CGFloat quickFlickVelocity;
 
 // Duration for the revealToggle animation, default is 0.25
 @property (nonatomic) NSTimeInterval toggleAnimationDuration;
+
+// Animation type, default is SWRevealToggleAnimationTypeSpring
+@property (nonatomic) SWRevealToggleAnimationType toggleAnimationType;
+
+// When animation type is SWRevealToggleAnimationTypeSpring determines the damping ratio, default is 1
+@property (nonatomic) CGFloat springDampingRatio;
 
 // Duration for animated replacement of view controllers
 @property (nonatomic) NSTimeInterval replaceViewAnimationDuration;
@@ -258,18 +280,33 @@ typedef enum
 // Defines the radius of the front view's shadow offset default is {0.0f,2.5f}
 @property (nonatomic) CGSize frontViewShadowOffset;
 
-//Defines the front view's shadow opacity, default is 1.0f
+// Defines the front view's shadow opacity, default is 1.0f
 @property (nonatomic) CGFloat frontViewShadowOpacity;
 
-// The class properly handles all the relevant calls to appearance methods on the contained controllers.
-// Moreover you can assign a delegate to let the class inform you on positions and animation activity.
+// Defines the front view's shadow color, default is blackColor
+@property (nonatomic) UIColor *frontViewShadowColor;
+
+// Defines whether the controller should clip subviews to its view bounds. Default is NO.
+// Set this to YES when you are presenting this controller as a non full-screen child of a
+// custom container controller which does not explicitly clips its subviews.
+@property (nonatomic) BOOL clipsViewsToBounds;
+
+// Defines whether your views clicable area extends beyond the bounds of this controller. Default is NO.
+// Set this to YES if you are presenting this controller as a non full-screen child of a custom container and you are not
+// clipping your front view to this controller bounds.
+@property (nonatomic) BOOL extendsPointInsideHit;
+
+/* The class properly handles all the relevant calls to appearance methods on the contained controllers.
+   Moreover you can assign a delegate to let the class inform you on positions and animation activity */
 
 // Delegate
 @property (nonatomic,weak) id<SWRevealViewControllerDelegate> delegate;
 
 @end
 
+
 #pragma mark - SWRevealViewControllerDelegate Protocol
+
 typedef enum
 {
     SWRevealControllerOperationReplaceRearController,
@@ -296,11 +333,11 @@ typedef enum
 // Implement this to return NO when you want the tap gesture recognizer to be ignored
 - (BOOL)revealControllerTapGestureShouldBegin:(SWRevealViewController *)revealController;
 
-// Implement this to return YES if you want this gesture recognizer to share touch events with the pan gesture
+// Implement this to return YES if you want other gesture recognizer to share touch events with the pan gesture
 - (BOOL)revealController:(SWRevealViewController *)revealController
     panGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
 
-// Implement this to return YES if you want this gesture recognizer to share touch events with the tap gesture
+// Implement this to return YES if you want other gesture recognizer to share touch events with the tap gesture
 - (BOOL)revealController:(SWRevealViewController *)revealController
     tapGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
 
@@ -310,11 +347,13 @@ typedef enum
 
 // The following methods provide a means to track the evolution of the gesture recognizer.
 // The 'location' parameter is the X origin coordinate of the front view as the user drags it
-// The 'progress' parameter is a positive value from 0 to 1 indicating the front view location relative to the
-// rearRevealWidth or rightRevealWidth. 1 is fully revealed, dragging ocurring in the overDraw region will result in values above 1.
-- (void)revealController:(SWRevealViewController *)revealController panGestureBeganFromLocation:(CGFloat)location progress:(CGFloat)progress;
-- (void)revealController:(SWRevealViewController *)revealController panGestureMovedToLocation:(CGFloat)location progress:(CGFloat)progress;
-- (void)revealController:(SWRevealViewController *)revealController panGestureEndedToLocation:(CGFloat)location progress:(CGFloat)progress;
+// The 'progress' parameter is a number ranging from 0 to 1 indicating the front view location relative to the
+//   rearRevealWidth or rightRevealWidth. 1 is fully revealed, dragging ocurring in the overDraw region will result in values above 1.
+// The 'overProgress' parameter is a number ranging from 0 to 1 indicating the front view location relative to the
+//   overdraw region. 0 is fully revealed, 1 is fully overdrawn. Negative values occur inside the normal reveal region
+- (void)revealController:(SWRevealViewController *)revealController panGestureBeganFromLocation:(CGFloat)location progress:(CGFloat)progress overProgress:(CGFloat)overProgress;
+- (void)revealController:(SWRevealViewController *)revealController panGestureMovedToLocation:(CGFloat)location progress:(CGFloat)progress overProgress:(CGFloat)overProgress;
+- (void)revealController:(SWRevealViewController *)revealController panGestureEndedToLocation:(CGFloat)location progress:(CGFloat)progress overProgress:(CGFloat)overProgress;
 
 // Notification of child controller replacement
 - (void)revealController:(SWRevealViewController *)revealController willAddViewController:(UIViewController *)viewController
@@ -322,17 +361,21 @@ typedef enum
 - (void)revealController:(SWRevealViewController *)revealController didAddViewController:(UIViewController *)viewController
     forOperation:(SWRevealControllerOperation)operation animated:(BOOL)animated;
 
-// Support for custom transition animations while replacing child controllers
+// Support for custom transition animations while replacing child controllers. If implemented, it will be fired in response
+// to calls to 'setXXViewController' methods
 - (id<UIViewControllerAnimatedTransitioning>)revealController:(SWRevealViewController *)revealController
     animationControllerForOperation:(SWRevealControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC;
 
-
+// DEPRECATED - The following delegate methods will be removed some time in the future
+- (void)revealController:(SWRevealViewController *)revealController panGestureBeganFromLocation:(CGFloat)location progress:(CGFloat)progress; // (DEPRECATED)
+- (void)revealController:(SWRevealViewController *)revealController panGestureMovedToLocation:(CGFloat)location progress:(CGFloat)progress; // (DEPRECATED)
+- (void)revealController:(SWRevealViewController *)revealController panGestureEndedToLocation:(CGFloat)location progress:(CGFloat)progress; // (DEPRECATED)
 @end
 
 
 #pragma mark - UIViewController(SWRevealViewController) Category
 
-// We add a category of UIViewController to let childViewControllers easily access their parent SWRevealViewController
+// A category of UIViewController to let childViewControllers easily access their parent SWRevealViewController
 @interface UIViewController(SWRevealViewController)
 
 - (SWRevealViewController*)revealViewController;
@@ -340,28 +383,28 @@ typedef enum
 @end
 
 
+#pragma mark - StoryBoard support Classes
+
+/* StoryBoard support */
+
 // String identifiers to be applied to segues on a storyboard
 extern NSString* const SWSegueRearIdentifier;
 extern NSString* const SWSegueFrontIdentifier;
 extern NSString* const SWSegueRightIdentifier;
 
+/* This will allow the class to be defined on a storyboard */
 
-// This will allow the class to be defined on a storyboard
-#pragma mark - SWRevealViewControllerSegueSetController Classes
-
-// Use this along with one of the segue identifiers to segue to the initial state
+// Use this along with one of the above segue identifiers to segue to the initial state
 @interface SWRevealViewControllerSegueSetController : UIStoryboardSegue
 @end
 
-
-#pragma mark - SWRevealViewControllerSeguePushController Classes
 
 // Use this to push a view controller
 @interface SWRevealViewControllerSeguePushController : UIStoryboardSegue
 @end
 
 
-#pragma mark - SWRevealViewControllerSegue (Deprecated)
+#pragma mark - SWRevealViewControllerSegue (DEPRECATED)
 
 @interface SWRevealViewControllerSegue : UIStoryboardSegue     // DEPRECATED: USE SWRevealViewControllerSegueSetController instead
 @property (nonatomic, strong) void(^performBlock)( SWRevealViewControllerSegue* segue, UIViewController* svc, UIViewController* dvc );
