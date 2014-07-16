@@ -26,4 +26,31 @@
     _label.textColor = _color;
 }
 
+#pragma mark state preservation / restoration
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    // TODO save what you need here
+    [coder encodeObject: _label.text forKey: @"lableText"];
+
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    // TODO restore what you need here
+    _label.text = [coder decodeObjectForKey: @"labelText"];
+    
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (void)applicationFinishedRestoringState {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    
+    // TODO call whatever function you need to visually restore
+
+}
+
 @end

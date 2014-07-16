@@ -1748,6 +1748,71 @@ const int FrontViewPositionNone = 0xff;
     }
 }
 
+#pragma mark state preservation / restoration
++ (UIViewController*) viewControllerWithRestorationIdentifierPath:(NSArray*) identifierComponents coder:(NSCoder*)coder {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    SWRevealViewController* vc;
+    UIStoryboard* sb = [coder decodeObjectForKey:UIStateRestorationViewControllerStoryboardKey];
+    
+    if (sb) {
+        vc = (SWRevealViewController*)[sb instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+        vc.restorationIdentifier = [identifierComponents lastObject];
+        vc.restorationClass = [SWRevealViewController class];
+    }
+    return vc;
+}
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+
+    // this will include the other view controllers in state encoding and decoding
+    if (_rearViewController) {
+        [coder encodeObject: _rearViewController forKey: @"rearViewController"];
+    }
+    
+    if (_frontViewController) {
+        [coder encodeObject: _frontViewController forKey: @"frontViewController"];
+    }
+    
+    if (_rightViewController) {
+        [coder encodeObject: _rightViewController forKey: @"rightViewController"];
+    }
+    
+    // ??? What's needed to restore what position the views are in
+    [coder encodeInt: _frontViewPosition  forKey: @"frontViewPosition"];
+    [coder encodeInt: _rearViewPosition   forKey: @"rearViewPosition"];
+    [coder encodeInt: _rightViewPosition  forKey: @"rightViewPosition"];
+    
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+    
+    // ??? What's needed to restore what position the views are in
+    _frontViewPosition = [coder decodeIntForKey: @"frontViewPosition"];
+    _rearViewPosition  = [coder decodeIntForKey: @"rearViewPosition"];
+    _rightViewPosition = [coder decodeIntForKey: @"rightViewPosition"];
+    
+    [super decodeRestorableStateWithCoder:coder];
+}
+
+- (void)applicationFinishedRestoringState {
+
+    // ??? Get the views to where they should be
+    
+    [self _setFrontViewPosition: _frontViewPosition withDuration:0.0];
+    
+    [self revealToggleAnimated: NO];
+    [self revealToggleAnimated: NO];
+    
+//    if (_rearViewPosition != FrontViewPositionNone) {
+//        [self revealToggleAnimated: NO];
+//    }
+//    
+//    if (_rightViewPosition >= FrontViewPositionLeft) {
+//        [self rightRevealToggleAnimated: NO];
+//    }
+}
 
 @end
 
