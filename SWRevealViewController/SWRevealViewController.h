@@ -1,5 +1,5 @@
 /*
-
+ 
  Copyright (c) 2013 Joan Lluch <joan.lluch@sweetwilliamsl.com>
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,13 +19,13 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
-
+ 
  Early code inspired on a similar class by Philip Kluz (Philip.Kluz@zuui.org)
  
-*/
+ */
 
 /*
-
+ 
  RELEASE NOTES
  
  
@@ -56,57 +56,57 @@
  
  Version 2.0.0
  
-- Dropped support for iOS6 and earlier. This version will only work on iOS7
+ - Dropped support for iOS6 and earlier. This version will only work on iOS7
  
-- The method setFrontViewController:animated: does not longer perform a full reveal animation. Instead it just replaces the frontViewController in 
-    its current position. Use the new pushFrontViewController:animated: method to perform a replacement of the front controlles with reveal animation
-    as in the previous version
-    
-    IMPORTANT: You must replace all calls to setFrontViewController:animated by calls to pushFrontViewController:animated to prevent breaking
-    functionality on existing projects.
+ - The method setFrontViewController:animated: does not longer perform a full reveal animation. Instead it just replaces the frontViewController in
+ its current position. Use the new pushFrontViewController:animated: method to perform a replacement of the front controlles with reveal animation
+ as in the previous version
  
-- Added support for animated replacement of child controllers: setRearViewController, setFrontViewController, setRightViewController now have animated versions.
+ IMPORTANT: You must replace all calls to setFrontViewController:animated by calls to pushFrontViewController:animated to prevent breaking
+ functionality on existing projects.
  
-- The new 'replaceViewAnimationDuration' property sets the default duration of child viewController replacement.
+ - Added support for animated replacement of child controllers: setRearViewController, setFrontViewController, setRightViewController now have animated versions.
  
-- Added the following new delegate methods
-    revealController:willAddViewController:forOperation:animated:
-    revealController:didAddViewController:forOperation:animated:
-
-- The class also supports custom UIViewControllerAnimatedTransitioning related with the replacement of child viewControllers.
-    You can implement the following new delegate method: revealController:animationControllerForOperation:fromViewController:toViewController:
-    and provide an object conforming to UIViewControllerAnimatedTransitioning to implement custom animations.
+ - The new 'replaceViewAnimationDuration' property sets the default duration of child viewController replacement.
+ 
+ - Added the following new delegate methods
+ revealController:willAddViewController:forOperation:animated:
+ revealController:didAddViewController:forOperation:animated:
+ 
+ - The class also supports custom UIViewControllerAnimatedTransitioning related with the replacement of child viewControllers.
+ You can implement the following new delegate method: revealController:animationControllerForOperation:fromViewController:toViewController:
+ and provide an object conforming to UIViewControllerAnimatedTransitioning to implement custom animations.
  
  Version 1.1.3
  
-- Reverted the supportedInterfaceOrientations to the default behavior. This is consistent with Apple provided controllers
-
-- The presentFrontViewHierarchically now dynamically takes into account the smaller header height of bars on iPhone landscape orientation
+ - Reverted the supportedInterfaceOrientations to the default behavior. This is consistent with Apple provided controllers
+ 
+ - The presentFrontViewHierarchically now dynamically takes into account the smaller header height of bars on iPhone landscape orientation
  
  Version 1.1.2
  
- - The status bar style and appearance are now handled in sync with the class animations. 
-    You can implement the methods preferredStatusBarStyle and prefersStatusBarHidden on your child controllers to define the desired appearance
-    
+ - The status bar style and appearance are now handled in sync with the class animations.
+ You can implement the methods preferredStatusBarStyle and prefersStatusBarHidden on your child controllers to define the desired appearance
+ 
  - The loadView method now calls a method, loadStoryboardControllers, just for the purpose of loading child controllers from a storyboard.
-    You can override this method and remove the @try @catch statements if you want the debugger not to stop at them in case you have set an exception breakpoint.
+ You can override this method and remove the @try @catch statements if you want the debugger not to stop at them in case you have set an exception breakpoint.
  
  Version 1.1.1
  
  - You can now get a tapGestureRecognizer from the class. See the tapGestureRecognizer method for more information.
  
  - Both the panGestureRecognizer and the tapGestureRecognizer are now attached to the revealViewController's front content view
-    by default, so they will start working just by calling their access methods even if you do not attach them to any of your views.
-    This enables you to dissable interactions on your views -for example based on position- without breaking normal gesture behavior.
+ by default, so they will start working just by calling their access methods even if you do not attach them to any of your views.
+ This enables you to dissable interactions on your views -for example based on position- without breaking normal gesture behavior.
  
  - Corrected a bug that caused a crash on iOS6 and earlier.
  
  Version 1.1.0
-
+ 
  - The method setFrontViewController:animated now performs the correct animations both for left and right controllers.
-
+ 
  - The class now automatically handles the status bar appearance depending on the currently shown child controller.
-
+ 
  Version 1.0.8
  
  - Support for constant width frontView by setting a negative value to reveal widths. See properties rearViewRevealWidth and rightViewRevealWidth
@@ -114,18 +114,18 @@
  - Support for draggableBorderWidth. See property of the same name.
  
  - The Pan gesture recongnizer can be disabled by implementing the following delegate method and returning NO
-    revealControllerPanGestureShouldBegin:
-
+ revealControllerPanGestureShouldBegin:
+ 
  - Added the ability to track pan gesture reveal progress through the following new delegate methods
-    revealController:panGestureBeganFromLocation:progress:
-    revealController:panGestureMovedToLocation:progress:
-    revealController:panGestureEndedToLocation:progress:
+ revealController:panGestureBeganFromLocation:progress:
+ revealController:panGestureMovedToLocation:progress:
+ revealController:panGestureEndedToLocation:progress:
  
  Previous Versions
  
  - No release notes were updated for previous versions.
-
-*/
+ 
+ */
 
 
 #import <UIKit/UIKit.h>
@@ -148,7 +148,7 @@ typedef NS_ENUM( NSInteger, FrontViewPosition)
     
     // Left position, front view is presented left-offseted by rightViewRevealWidth
     FrontViewPositionLeftSide,
-
+    
     // Center position, rear view is hidden behind front controller
 	FrontViewPositionLeft,
     
@@ -227,7 +227,7 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 - (UITapGestureRecognizer*)tapGestureRecognizer;
 
 /* The following properties are provided for further customization, they are set to default values on initialization,
-   you do not generally have to set them */
+ you do not generally have to set them */
 
 // Defines how much of the rear or right view is shown, default is 260.
 // Negative values indicate that the reveal width should be computed by substracting the full front view width,
@@ -254,6 +254,10 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 // If YES (default is NO) the controller will allow permanent dragging up to the rightMostPosition
 @property (nonatomic) BOOL stableDragOnOverdraw;
 @property (nonatomic) BOOL stableDragOnLeftOverdraw; // <-- simetric implementation of the above for the rightViewController
+
+// If YES (default is NO) the controller will resize frontview according to the width of rear or right view
+@property (nonatomic) BOOL shouldAdjustSizeWithRearView;
+@property (nonatomic) BOOL shouldAdjustSizeWithRightView; // <-- simetric implementation of the above for the rightViewController
 
 // If YES (default is NO) the front view controller will be ofsseted vertically by the height of a navigation bar.
 // Use this on iOS7 when you add an instance of RevealViewController as a child of a UINavigationController (or another SWRevealViewController)
@@ -299,7 +303,7 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 @property (nonatomic) BOOL extendsPointInsideHit;
 
 /* The class properly handles all the relevant calls to appearance methods on the contained controllers.
-   Moreover you can assign a delegate to let the class inform you on positions and animation activity */
+ Moreover you can assign a delegate to let the class inform you on positions and animation activity */
 
 // Delegate
 @property (nonatomic,weak) id<SWRevealViewControllerDelegate> delegate;
@@ -337,11 +341,11 @@ typedef enum
 
 // Implement this to return YES if you want other gesture recognizer to share touch events with the pan gesture
 - (BOOL)revealController:(SWRevealViewController *)revealController
-    panGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
+panGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
 
 // Implement this to return YES if you want other gesture recognizer to share touch events with the tap gesture
 - (BOOL)revealController:(SWRevealViewController *)revealController
-    tapGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
+tapGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
 
 // Called when the gestureRecognizer began and ended
 - (void)revealControllerPanGestureBegan:(SWRevealViewController *)revealController;
@@ -359,14 +363,14 @@ typedef enum
 
 // Notification of child controller replacement
 - (void)revealController:(SWRevealViewController *)revealController willAddViewController:(UIViewController *)viewController
-    forOperation:(SWRevealControllerOperation)operation animated:(BOOL)animated;
+            forOperation:(SWRevealControllerOperation)operation animated:(BOOL)animated;
 - (void)revealController:(SWRevealViewController *)revealController didAddViewController:(UIViewController *)viewController
-    forOperation:(SWRevealControllerOperation)operation animated:(BOOL)animated;
+            forOperation:(SWRevealControllerOperation)operation animated:(BOOL)animated;
 
 // Support for custom transition animations while replacing child controllers. If implemented, it will be fired in response
 // to calls to 'setXXViewController' methods
 - (id<UIViewControllerAnimatedTransitioning>)revealController:(SWRevealViewController *)revealController
-    animationControllerForOperation:(SWRevealControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC;
+                              animationControllerForOperation:(SWRevealControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC;
 
 // DEPRECATED - The following delegate methods will be removed some time in the future
 - (void)revealController:(SWRevealViewController *)revealController panGestureBeganFromLocation:(CGFloat)location progress:(CGFloat)progress; // (DEPRECATED)
