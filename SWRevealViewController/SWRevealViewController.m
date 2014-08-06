@@ -203,6 +203,14 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     
     // set front view frame
     CGRect frame = CGRectMake(xLocation, 0.0f, bounds.size.width, bounds.size.height);
+    
+    if (_c.shouldAdjustSizeWithRearView) {
+        frame.size.width -= CGRectGetWidth(_rearView.frame);
+    }
+    if (_c.shouldAdjustSizeWithRightView) {
+        frame.size.width -= CGRectGetWidth(_rightView.frame);
+    }
+    
     _frontView.frame = [self hierarchycalFrameAdjustment:frame];
     
     // setup front view shadow path if needed (front view loaded and not removed)
