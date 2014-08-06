@@ -1,0 +1,364 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		01FB866A169E2D8B00A0A1A8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01FB8669169E2D8B00A0A1A8 /* UIKit.framework */; };
+		01FB866C169E2D8B00A0A1A8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01FB866B169E2D8B00A0A1A8 /* Foundation.framework */; };
+		01FB866E169E2D8B00A0A1A8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01FB866D169E2D8B00A0A1A8 /* CoreGraphics.framework */; };
+		01FB868F169E2DA500A0A1A8 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01FB868E169E2DA500A0A1A8 /* SWRevealViewController.m */; };
+		01FB86B0169E42B600A0A1A8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01FB86AF169E42B600A0A1A8 /* MapKit.framework */; };
+		4E00E29719659277007CA70B /* MainStoryboard-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EE902391964A22200AA3B42 /* MainStoryboard-iPad.storyboard */; };
+		4EE9022C1964A14200AA3B42 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE9022A1964A14200AA3B42 /* AppDelegate.m */; };
+		4EE902341964A1DE00AA3B42 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE902301964A1DE00AA3B42 /* MenuViewController.m */; };
+		4EE902351964A1DE00AA3B42 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE902321964A1DE00AA3B42 /* MapViewController.m */; };
+		4EE9023D1964A22200AA3B42 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EE902371964A22200AA3B42 /* InfoPlist.strings */; };
+		4EE9023F1964A22200AA3B42 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EE9023B1964A22200AA3B42 /* MainStoryboard.storyboard */; };
+		4EE902421964A25D00AA3B42 /* ColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE902401964A25D00AA3B42 /* ColorViewController.m */; };
+		4EE902451964A27600AA3B42 /* reveal-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE902431964A27600AA3B42 /* reveal-icon@2x.png */; };
+		4EE902461964A27600AA3B42 /* reveal-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE902441964A27600AA3B42 /* reveal-icon.png */; };
+		4EE9024A1964A28600AA3B42 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE902471964A28600AA3B42 /* Default@2x.png */; };
+		4EE9024B1964A28600AA3B42 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE902481964A28600AA3B42 /* Default.png */; };
+		4EE9024C1964A28600AA3B42 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EE902491964A28600AA3B42 /* Default-568h@2x.png */; };
+		4EE9024E1964A29300AA3B42 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE9024D1964A29300AA3B42 /* main.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		01FB8665169E2D8B00A0A1A8 /* RevealControllerStoryboardExample2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RevealControllerStoryboardExample2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		01FB8669169E2D8B00A0A1A8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		01FB866B169E2D8B00A0A1A8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		01FB866D169E2D8B00A0A1A8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		01FB868D169E2DA500A0A1A8 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		01FB868E169E2DA500A0A1A8 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		01FB86AF169E42B600A0A1A8 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		4EE9022A1964A14200AA3B42 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = RevealControllerStoryboardExample2/AppDelegate.m; sourceTree = SOURCE_ROOT; };
+		4EE9022B1964A14200AA3B42 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = RevealControllerStoryboardExample2/AppDelegate.h; sourceTree = SOURCE_ROOT; };
+		4EE9022D1964A15800AA3B42 /* RevealControllerStoryboardExample2-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "RevealControllerStoryboardExample2-Prefix.pch"; path = "RevealControllerStoryboardExample2/RevealControllerStoryboardExample2-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		4EE9022E1964A15800AA3B42 /* RevealControllerStoryboardExample2-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "RevealControllerStoryboardExample2-Info.plist"; path = "RevealControllerStoryboardExample2/RevealControllerStoryboardExample2-Info.plist"; sourceTree = SOURCE_ROOT; };
+		4EE902301964A1DE00AA3B42 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuViewController.m; path = RevealControllerStoryboardExample2/MenuViewController.m; sourceTree = SOURCE_ROOT; };
+		4EE902311964A1DE00AA3B42 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuViewController.h; path = RevealControllerStoryboardExample2/MenuViewController.h; sourceTree = SOURCE_ROOT; };
+		4EE902321964A1DE00AA3B42 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = RevealControllerStoryboardExample2/MapViewController.m; sourceTree = SOURCE_ROOT; };
+		4EE902331964A1DE00AA3B42 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = RevealControllerStoryboardExample2/MapViewController.h; sourceTree = SOURCE_ROOT; };
+		4EE902381964A22200AA3B42 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
+		4EE9023A1964A22200AA3B42 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = "MainStoryboard-iPad.storyboard"; sourceTree = "<group>"; };
+		4EE9023C1964A22200AA3B42 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
+		4EE902401964A25D00AA3B42 /* ColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ColorViewController.m; path = RevealControllerStoryboardExample2/ColorViewController.m; sourceTree = SOURCE_ROOT; };
+		4EE902411964A25D00AA3B42 /* ColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorViewController.h; path = RevealControllerStoryboardExample2/ColorViewController.h; sourceTree = SOURCE_ROOT; };
+		4EE902431964A27600AA3B42 /* reveal-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reveal-icon@2x.png"; path = "RevealControllerStoryboardExample2/reveal-icon@2x.png"; sourceTree = SOURCE_ROOT; };
+		4EE902441964A27600AA3B42 /* reveal-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reveal-icon.png"; path = "RevealControllerStoryboardExample2/reveal-icon.png"; sourceTree = SOURCE_ROOT; };
+		4EE902471964A28600AA3B42 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "RevealControllerStoryboardExample2/Default@2x.png"; sourceTree = SOURCE_ROOT; };
+		4EE902481964A28600AA3B42 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = RevealControllerStoryboardExample2/Default.png; sourceTree = SOURCE_ROOT; };
+		4EE902491964A28600AA3B42 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "RevealControllerStoryboardExample2/Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
+		4EE9024D1964A29300AA3B42 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = RevealControllerStoryboardExample2/main.m; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		01FB8662169E2D8B00A0A1A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01FB86B0169E42B600A0A1A8 /* MapKit.framework in Frameworks */,
+				01FB866A169E2D8B00A0A1A8 /* UIKit.framework in Frameworks */,
+				01FB866C169E2D8B00A0A1A8 /* Foundation.framework in Frameworks */,
+				01FB866E169E2D8B00A0A1A8 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		01FB865A169E2D8B00A0A1A8 = {
+			isa = PBXGroup;
+			children = (
+				01FB866F169E2D8B00A0A1A8 /* RevealControllerStoryboardExample */,
+				01FB868C169E2DA500A0A1A8 /* SWRevealViewController */,
+				01FB8668169E2D8B00A0A1A8 /* Frameworks */,
+				01FB8666169E2D8B00A0A1A8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		01FB8666169E2D8B00A0A1A8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				01FB8665169E2D8B00A0A1A8 /* RevealControllerStoryboardExample2.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		01FB8668169E2D8B00A0A1A8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				01FB86AF169E42B600A0A1A8 /* MapKit.framework */,
+				01FB8669169E2D8B00A0A1A8 /* UIKit.framework */,
+				01FB866B169E2D8B00A0A1A8 /* Foundation.framework */,
+				01FB866D169E2D8B00A0A1A8 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		01FB866F169E2D8B00A0A1A8 /* RevealControllerStoryboardExample */ = {
+			isa = PBXGroup;
+			children = (
+				91090B7A1790ED0B0090B501 /* iPad */,
+				4EE9022B1964A14200AA3B42 /* AppDelegate.h */,
+				4EE9022A1964A14200AA3B42 /* AppDelegate.m */,
+				4EE9023B1964A22200AA3B42 /* MainStoryboard.storyboard */,
+				4EE902391964A22200AA3B42 /* MainStoryboard-iPad.storyboard */,
+				4EE902311964A1DE00AA3B42 /* MenuViewController.h */,
+				4EE902301964A1DE00AA3B42 /* MenuViewController.m */,
+				4EE902331964A1DE00AA3B42 /* MapViewController.h */,
+				4EE902321964A1DE00AA3B42 /* MapViewController.m */,
+				4EE902411964A25D00AA3B42 /* ColorViewController.h */,
+				4EE902401964A25D00AA3B42 /* ColorViewController.m */,
+				01FB8670169E2D8B00A0A1A8 /* Supporting Files */,
+			);
+			path = RevealControllerStoryboardExample;
+			sourceTree = "<group>";
+		};
+		01FB8670169E2D8B00A0A1A8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4EE9022D1964A15800AA3B42 /* RevealControllerStoryboardExample2-Prefix.pch */,
+				4EE9022E1964A15800AA3B42 /* RevealControllerStoryboardExample2-Info.plist */,
+				4EE902431964A27600AA3B42 /* reveal-icon@2x.png */,
+				4EE902441964A27600AA3B42 /* reveal-icon.png */,
+				4EE902471964A28600AA3B42 /* Default@2x.png */,
+				4EE902481964A28600AA3B42 /* Default.png */,
+				4EE902491964A28600AA3B42 /* Default-568h@2x.png */,
+				4EE9024D1964A29300AA3B42 /* main.m */,
+				4EE902371964A22200AA3B42 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		01FB868C169E2DA500A0A1A8 /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				01FB868D169E2DA500A0A1A8 /* SWRevealViewController.h */,
+				01FB868E169E2DA500A0A1A8 /* SWRevealViewController.m */,
+			);
+			name = SWRevealViewController;
+			path = ../SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		91090B7A1790ED0B0090B501 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = iPad;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		01FB8664169E2D8B00A0A1A8 /* RevealControllerStoryboardExample2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 01FB8689169E2D8B00A0A1A8 /* Build configuration list for PBXNativeTarget "RevealControllerStoryboardExample2" */;
+			buildPhases = (
+				01FB8661169E2D8B00A0A1A8 /* Sources */,
+				01FB8662169E2D8B00A0A1A8 /* Frameworks */,
+				01FB8663169E2D8B00A0A1A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RevealControllerStoryboardExample2;
+			productName = RevealControllerStoryboardExample;
+			productReference = 01FB8665169E2D8B00A0A1A8 /* RevealControllerStoryboardExample2.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		01FB865C169E2D8B00A0A1A8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = CoDeveloper;
+			};
+			buildConfigurationList = 01FB865F169E2D8B00A0A1A8 /* Build configuration list for PBXProject "RevealControllerStoryboardExample2" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 01FB865A169E2D8B00A0A1A8;
+			productRefGroup = 01FB8666169E2D8B00A0A1A8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				01FB8664169E2D8B00A0A1A8 /* RevealControllerStoryboardExample2 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		01FB8663169E2D8B00A0A1A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EE9024B1964A28600AA3B42 /* Default.png in Resources */,
+				4EE902461964A27600AA3B42 /* reveal-icon.png in Resources */,
+				4EE9024C1964A28600AA3B42 /* Default-568h@2x.png in Resources */,
+				4EE9023F1964A22200AA3B42 /* MainStoryboard.storyboard in Resources */,
+				4EE902451964A27600AA3B42 /* reveal-icon@2x.png in Resources */,
+				4EE9024A1964A28600AA3B42 /* Default@2x.png in Resources */,
+				4E00E29719659277007CA70B /* MainStoryboard-iPad.storyboard in Resources */,
+				4EE9023D1964A22200AA3B42 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		01FB8661169E2D8B00A0A1A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01FB868F169E2DA500A0A1A8 /* SWRevealViewController.m in Sources */,
+				4EE902351964A1DE00AA3B42 /* MapViewController.m in Sources */,
+				4EE902341964A1DE00AA3B42 /* MenuViewController.m in Sources */,
+				4EE902421964A25D00AA3B42 /* ColorViewController.m in Sources */,
+				4EE9024E1964A29300AA3B42 /* main.m in Sources */,
+				4EE9022C1964A14200AA3B42 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4EE902371964A22200AA3B42 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4EE902381964A22200AA3B42 /* en */,
+			);
+			name = InfoPlist.strings;
+			path = RevealControllerStoryboardExample2/en.lproj;
+			sourceTree = SOURCE_ROOT;
+		};
+		4EE902391964A22200AA3B42 /* MainStoryboard-iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4EE9023A1964A22200AA3B42 /* en */,
+			);
+			name = "MainStoryboard-iPad.storyboard";
+			path = RevealControllerStoryboardExample2/en.lproj;
+			sourceTree = SOURCE_ROOT;
+		};
+		4EE9023B1964A22200AA3B42 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4EE9023C1964A22200AA3B42 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			path = RevealControllerStoryboardExample2/en.lproj;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		01FB8687169E2D8B00A0A1A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		01FB8688169E2D8B00A0A1A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		01FB868A169E2D8B00A0A1A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RevealControllerStoryboardExample2/RevealControllerStoryboardExample2-Prefix.pch";
+				INFOPLIST_FILE = "RevealControllerStoryboardExample2/RevealControllerStoryboardExample2-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		01FB868B169E2D8B00A0A1A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RevealControllerStoryboardExample2/RevealControllerStoryboardExample2-Prefix.pch";
+				INFOPLIST_FILE = "RevealControllerStoryboardExample2/RevealControllerStoryboardExample2-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		01FB865F169E2D8B00A0A1A8 /* Build configuration list for PBXProject "RevealControllerStoryboardExample2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01FB8687169E2D8B00A0A1A8 /* Debug */,
+				01FB8688169E2D8B00A0A1A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		01FB8689169E2D8B00A0A1A8 /* Build configuration list for PBXNativeTarget "RevealControllerStoryboardExample2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01FB868A169E2D8B00A0A1A8 /* Debug */,
+				01FB868B169E2D8B00A0A1A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 01FB865C169E2D8B00A0A1A8 /* Project object */;
+}
