@@ -29,6 +29,9 @@
 #import "MapViewController.h"
 
 @interface RearViewController()
+{
+    NSInteger _presentedRow;
+}
 
 @end
 
@@ -37,26 +40,26 @@
 @synthesize rearTableView = _rearTableView;
 
 /*
- * The following lines are crucial to understanding how the SWRevealController works.
+ * The following lines are crucial to understanding how the SWRevealViewController works.
  *
- * In this example, we show how a SWRevealController can be contained in another instance 
+ * In this example, we show how a SWRevealViewController can be contained in another instance
  * of the same class. We have three scenarios of hierarchies as follows
  *
  * In the first scenario a FrontViewController is contained inside of a UINavigationController.
- * And the UINavigationController is contained inside of a SWRevealController. Thus the
+ * And the UINavigationController is contained inside of a SWRevealViewController. Thus the
  * following hierarchy is created:
  *
- * - SWRevealController is parent of:
+ * - SWRevealViewController is parent of:
  * - 1 UINavigationController is parent of:
  * - - 1.1 RearViewController
  * - 2 UINavigationController is parent of:
  * - - 2.1 FrontViewController
  *
  * In the second scenario a MapViewController is contained inside of a UINavigationController.
- * And the UINavigationController is contained inside of a SWRevealController. Thus the
+ * And the UINavigationController is contained inside of a SWRevealViewController. Thus the
  * following hierarchy is created:
  *
- * - SWRevealController is parent of:
+ * - SWRevealViewController is parent of:
  * - 1 UINavigationController is parent of:
  * - - 1.1 RearViewController
  * - 2 UINavigationController is parent of:
@@ -65,12 +68,13 @@
  * In the third scenario a SWRevealViewController is contained directly inside of another.
  * SWRevealController. Thus the following hierarchy is created:
  *
- * - SWRevealController is parent of:
+ * - SWRevealViewController is parent of:
  * - 1 UINavigationController is parent of:
  * - - 1.1 RearViewController
- * - 2 SWRevealController
+ * - 2 SWRevealViewController
+ * - - ...
  *
- * The second SWRevealController on the third scenario can in turn contain anything. 
+ * The second SWRevealViewController on the third scenario can in turn contain anything.
  * On this example it may recursively contain any of the above, including again the third one
  */
 
@@ -87,7 +91,7 @@
     
     // if we have a reveal controller as a grand parent, this means we are are being added as a
     // child of a detail (child) reveal controller, so we add a gesture recognizer provided by our grand parent to our
-    // navigation bar as well as a "reveal" button
+    // navigation bar as well as a "reveal" button, we also set
     if ( grandParentRevealController )
     {
         // to present a title, we count the number of ancestor reveal controllers we have, this is of course
@@ -111,6 +115,21 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    SWRevealViewController *grandParentRevealController = self.revealViewController.revealViewController;
+    grandParentRevealController.bounceBackOnOverdraw = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    SWRevealViewController *grandParentRevealController = self.revealViewController.revealViewController;
+    grandParentRevealController.bounceBackOnOverdraw = YES;
+}
 
 
 #pragma marl - UITableView Data Source
@@ -131,111 +150,97 @@
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
 	}
 	
+    NSString *text = nil;
 	if (row == 0)
 	{
-		cell.textLabel.text = @"Front View Controller";
+		text = @"Front View Controller";
 	}
 	else if (row == 1)
 	{
-		cell.textLabel.text = @"Map View Controller";
+        text = @"Map View Controller";
 	}
 	else if (row == 2)
 	{
-		cell.textLabel.text = @"Enter Presentation Mode";
+		text = @"Enter Presentation Mode";
 	}
 	else if (row == 3)
 	{
-		cell.textLabel.text = @"Resign Presentation Mode";
+		text = @"Resign Presentation Mode";
 	}
-    
     else if (row == 4)
 	{
-		cell.textLabel.text = @"A RevealViewController !!";
+		text = @"A RevealViewController !!";
 	}
+    
+    cell.textLabel.text = NSLocalizedString( text, nil );
 	
 	return cell;
 }
 
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SWRevealViewController *revealController = [self revealViewController];
-    UIViewController *frontViewController = revealController.frontViewController;
-    UINavigationController *frontNavigationController =nil;
+    // Grab a handle to the reveal controller, as if you'd do with a navigtion controller via self.navigationController.
+    SWRevealViewController *revealController = self.revealViewController;
     
-    if ( [frontViewController isKindOfClass:[UINavigationController class]] )
-        frontNavigationController = (id)frontViewController;
-    
+    // selecting row
     NSInteger row = indexPath.row;
-
-	// Here you'd implement some of your own logic... I simply take for granted that the first row (=0) corresponds to the "FrontViewController".
-	if (row == 0)
-	{
-		// Now let's see if we're not attempting to swap the current frontViewController for a new instance of ITSELF, which'd be highly redundant.        
-        if ( ![frontNavigationController.topViewController isKindOfClass:[FrontViewController class]] )
-        {
-			FrontViewController *frontViewController = [[FrontViewController alloc] init];
-			UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:frontViewController];
-			[revealController pushFrontViewController:navigationController animated:YES];
-        }
-		// Seems the user attempts to 'switch' to exactly the same controller he came from!
-		else
-		{
-            [revealController revealToggleAnimated:YES];
-		}
-	}
     
-	// ... and the second row (=1) corresponds to the "MapViewController".
-	else if (row == 1)
-	{
-		// Now let's see if we're not attempting to swap the current frontViewController for a new instance of ITSELF, which'd be highly redundant.
-        if ( ![frontNavigationController.topViewController isKindOfClass:[MapViewController class]] )
-        {
-			MapViewController *mapViewController = [[MapViewController alloc] init];
-			UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
-			[revealController pushFrontViewController:navigationController animated:YES];
-		}
-        
-		// Seems the user attempts to 'switch' to exactly the same controller he came from!
-		else
-		{
-            [revealController revealToggleAnimated:YES];
-		}
-	}
-	else if (row == 2)
-	{
+    // if we are trying to push the same row or perform an operation that does not imply frontViewController replacement
+    // we'll just set position and return
+    
+    if ( row == _presentedRow )
+    {
+        [revealController setFrontViewPosition:FrontViewPositionLeft animated:YES];
+        return;
+    }
+    else if (row == 2)
+    {
         [revealController setFrontViewPosition:FrontViewPositionRightMost animated:YES];
-	}
-	else if (row == 3)
-	{
+        return;
+    }
+    else if (row == 3)
+    {
         [revealController setFrontViewPosition:FrontViewPositionRight animated:YES];
-	}
+        return;
+    }
+
+    // otherwise we'll create a new frontViewController and push it with animation
+
+    UIViewController *newFrontController = nil;
+
+    if (row == 0)
+    {
+        FrontViewController *frontViewController = [[FrontViewController alloc] init];
+        newFrontController = [[UINavigationController alloc] initWithRootViewController:frontViewController];
+    }
     
-    else if (row == 4)
-	{
-        if ( ![frontViewController isKindOfClass:[SWRevealViewController class]] &&
-            ![frontNavigationController.topViewController isKindOfClass:[SWRevealViewController class]])
-        {
-            FrontViewController *frontViewController = [[FrontViewController alloc] init];
-            RearViewController *rearViewController = [[RearViewController alloc] init];
+    else if (row == 1)
+    {
+        MapViewController *mapViewController = [[MapViewController alloc] init];
+        newFrontController = [[UINavigationController alloc] initWithRootViewController:mapViewController];
+    }
+    
+    else if ( row == 4 )
+    {
+        FrontViewController *frontViewController = [[FrontViewController alloc] init];
+        UINavigationController *frontNavigationController = [[UINavigationController alloc] initWithRootViewController:frontViewController];
+        
+        RearViewController *rearViewController = [[RearViewController alloc] init];
+        UINavigationController *rearNavigationController = [[UINavigationController alloc] initWithRootViewController:rearViewController];
+
+        SWRevealViewController *childRevealController = [[SWRevealViewController alloc]
+            initWithRearViewController:rearNavigationController frontViewController:frontNavigationController];
             
-            UINavigationController *frontNavigationController = [[UINavigationController alloc] initWithRootViewController:frontViewController];
-            UINavigationController *rearNavigationController = [[UINavigationController alloc] initWithRootViewController:rearViewController];
-            
-            SWRevealViewController *childRevealController = [[SWRevealViewController alloc]
-                initWithRearViewController:rearNavigationController frontViewController:frontNavigationController];
-            
-            childRevealController.rearViewRevealDisplacement = 0.0f;
-            revealController.bounceBackOnOverdraw = NO;
-            [childRevealController setFrontViewPosition:FrontViewPositionRight animated:NO];
-            
-            // at this point we simply set the front view controller of our revealController to the next revealController
-            [revealController pushFrontViewController:childRevealController animated:YES];
-        }
-        else
-        {
-            [revealController revealToggleAnimated:YES];
-        }
-	}
+        childRevealController.rearViewRevealDisplacement = 0.0f;
+        [childRevealController setFrontViewPosition:FrontViewPositionRight animated:NO];
+        
+        newFrontController = childRevealController;
+    }
+    
+    [revealController pushFrontViewController:newFrontController animated:YES];
+    
+    _presentedRow = row;  // <- store the presented row
 }
 
 

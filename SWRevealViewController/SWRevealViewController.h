@@ -29,7 +29,12 @@
  RELEASE NOTES
  
  
- Version 2.2.0 (Current Version)
+ Version 2.3.0 (Current Version)
+ 
+  - StoryBoard initializing bug fix
+  - Minor Code refactoring
+ 
+ Version 2.2.0
  
  - State Restoration support.
  - Reverted panGestureRecognizer implementation to before v2.1.0 (works better).
@@ -311,6 +316,7 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 
 typedef enum
 {
+    SWRevealControllerOperationNone,
     SWRevealControllerOperationReplaceRearController,
     SWRevealControllerOperationReplaceFrontController,
     SWRevealControllerOperationReplaceRightController,
@@ -390,9 +396,9 @@ typedef enum
 /* StoryBoard support */
 
 // String identifiers to be applied to segues on a storyboard
-extern NSString* const SWSegueRearIdentifier;
-extern NSString* const SWSegueFrontIdentifier;
-extern NSString* const SWSegueRightIdentifier;
+extern NSString* const SWSegueRearIdentifier;  // this is @"sw_rear"
+extern NSString* const SWSegueFrontIdentifier; // this is @"sw_front"
+extern NSString* const SWSegueRightIdentifier; // this is @"sw_right"
 
 /* This will allow the class to be defined on a storyboard */
 
@@ -400,14 +406,13 @@ extern NSString* const SWSegueRightIdentifier;
 @interface SWRevealViewControllerSegueSetController : UIStoryboardSegue
 @end
 
-
 // Use this to push a view controller
 @interface SWRevealViewControllerSeguePushController : UIStoryboardSegue
 @end
 
 
-#pragma mark - SWRevealViewControllerSegue (DEPRECATED)
-
-@interface SWRevealViewControllerSegue : UIStoryboardSegue     // DEPRECATED: USE SWRevealViewControllerSegueSetController instead
-@property (nonatomic, strong) void(^performBlock)( SWRevealViewControllerSegue* segue, UIViewController* svc, UIViewController* dvc );
-@end
+//#pragma mark - SWRevealViewControllerSegue (DEPRECATED)
+//
+//@interface SWRevealViewControllerSegue : UIStoryboardSegue     // DEPRECATED: USE SWRevealViewControllerSegueSetController instead
+//@property (nonatomic, strong) void(^performBlock)( SWRevealViewControllerSegue* segue, UIViewController* svc, UIViewController* dvc );
+//@end
