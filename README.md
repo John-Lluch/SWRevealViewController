@@ -6,7 +6,7 @@ A UIViewController subclass for revealing a rear (left and/or right) view contro
 ## NOTE ( Version 2.3)
 
 * This version fixes an old bug that caused an incorrect initialization of the class on particular scenarios.
-* The old RevealControllerStoryboardExample has been removed from the report as it was deprecated, please look at the newest RevealControllerStoryboardExample2 instead.
+* The old RevealControllerStoryboardExample has been removed from the repo as it was deprecated, please use the newest RevealControllerStoryboardExample2 instead.
 
 
 ## NOTE ( Upgrading to Version 2.1)
