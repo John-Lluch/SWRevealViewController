@@ -1842,6 +1842,40 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
 @end
 
 
+// Use this to toggle the menu
+@interface SWRevealViewControllerSegueRearToggle : UIStoryboardSegue
+@end
+
+// Use this to toggle the right menu
+@interface SWRevealViewControllerSegueRightToggle : UIStoryboardSegue
+@end
+
+#pragma mark - SWRevealViewControllerSegueRearToggle class
+
+@implementation SWRevealViewControllerSegueRearToggle
+
+- (void)perform
+{
+    SWRevealViewController *rvc = [self.sourceViewController revealViewController];
+    [rvc revealToggleAnimated:YES];
+}
+
+@end
+
+#pragma mark - SWRevealViewControllerSegueRightToggle class
+
+@implementation SWRevealViewControllerSegueRightToggle
+
+- (void)perform
+{
+    SWRevealViewController *rvc = [self.sourceViewController revealViewController];
+    [rvc rightRevealToggleAnimated:YES];
+}
+
+@end
+
+
+
 //#pragma mark - SWRevealViewControllerSegue Class
 //
 //@implementation SWRevealViewControllerSegue  // DEPRECATED
