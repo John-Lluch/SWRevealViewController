@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.7" systemVersion="13D65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="BnE-t1-cO2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="BnE-t1-cO2">
     <dependencies>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6181.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Reveal View Controller-->
@@ -114,7 +114,7 @@
             </objects>
             <point key="canvasLocation" x="695" y="-724"/>
         </scene>
-        <!--iPad Color-->
+        <!--Color View Controller - iPad Color-->
         <scene sceneID="a2e-Aa-0Nf">
             <objects>
                 <viewController storyboardIdentifier="ColorViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ziO-d3-BPQ" customClass="ColorViewController" sceneMemberID="viewController">
@@ -132,12 +132,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="iPad Color" id="8uR-aH-2Ws">
-                        <barButtonItem key="leftBarButtonItem" image="reveal-icon.png" style="plain" id="3Sl-96-8SJ"/>
+                        <barButtonItem key="leftBarButtonItem" image="reveal-icon.png" style="plain" id="3Sl-96-8SJ">
+                            <connections>
+                                <segue destination="ziO-d3-BPQ" kind="custom" customClass="SWRevealViewControllerSegueRearToggle" id="rNM-f3-VCL"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="label" destination="o1O-Cu-zau" id="Wb9-OW-lD7"/>
-                        <outlet property="revealButtonItem" destination="3Sl-96-8SJ" id="LGi-mA-mjD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GOw-3a-qgw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -159,7 +162,7 @@
             </objects>
             <point key="canvasLocation" x="1811" y="812"/>
         </scene>
-        <!--iPad Map-->
+        <!--Map View Controller - iPad Map-->
         <scene sceneID="hHE-Es-ToG">
             <objects>
                 <viewController storyboardIdentifier="MapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dN4-6k-5wY" customClass="MapViewController" sceneMemberID="viewController">
@@ -208,13 +211,11 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination">
-            <size key="portraitSize" width="768" height="1024"/>
-            <size key="landscapeSize" width="1024" height="768"/>
-        </simulatedScreenMetrics>
+        <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Wxg-jn-KPh"/>
         <segue reference="oNh-lZ-ivI"/>
+        <segue reference="Wxg-jn-KPh"/>
+        <segue reference="2od-hw-duN"/>
     </inferredMetricsTieBreakers>
 </document>
