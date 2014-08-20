@@ -1384,9 +1384,8 @@ const int FrontViewPositionNone = 0xff;
     void (^animations)() = ^()
     {
         // Calling this in the animation block causes the status bar to appear/dissapear in sync with our own animation
-        if ( [self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
-            [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate) withObject:nil];
-    
+        [self setNeedsStatusBarAppearanceUpdate];
+        
         // We call the layoutSubviews method on the contentView view and send a delegate, which will
         // occur inside of an animation block if any animated transition is being performed
         [_contentView layoutSubviews];
@@ -1586,9 +1585,9 @@ const int FrontViewPositionNone = 0xff;
     controllerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     controllerView.frame = frame;
     
-    if ( [controller respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)] && [controllerView isKindOfClass:[UIScrollView class]] )
+    if ( [controllerView isKindOfClass:[UIScrollView class]] )
     {
-        BOOL adjust = (BOOL)[controller performSelector:@selector(automaticallyAdjustsScrollViewInsets) withObject:nil];
+        BOOL adjust = controller.automaticallyAdjustsScrollViewInsets;
         
         if ( adjust )
         {
