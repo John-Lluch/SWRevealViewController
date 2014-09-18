@@ -670,6 +670,20 @@ const int FrontViewPositionNone = 0xff;
     return controller;
 }
 
+#pragma mark - UIStoryboardUnwindSegue Support
+
+-(UIViewController *)viewControllerForUnwindSegueAction:(SEL)action fromViewController:(UIViewController *)fromViewController withSender:(id)sender
+{
+    //Still allow the default logic, and only override it if it does not provide a view controller.
+    UIViewController *viewController = [super viewControllerForUnwindSegueAction:action fromViewController:fromViewController withSender:sender];
+    
+    if(!viewController)
+    {
+        viewController = [self.frontViewController viewControllerForUnwindSegueAction:action fromViewController:fromViewController withSender:sender];
+    }
+    
+    return viewController;
+}
 
 #pragma mark - View lifecycle
 
