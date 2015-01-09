@@ -134,6 +134,7 @@
 
 
 #import <UIKit/UIKit.h>
+#import <objc/runtime.h>
 
 @class SWRevealViewController;
 @protocol SWRevealViewControllerDelegate;
@@ -309,6 +310,8 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 // Delegate
 @property (nonatomic,weak) id<SWRevealViewControllerDelegate> delegate;
 
+@property (nonatomic, strong) NSMutableDictionary *sidebarItems;
+
 @end
 
 
@@ -386,10 +389,11 @@ typedef enum
 // A category of UIViewController to let childViewControllers easily access their parent SWRevealViewController
 @interface UIViewController(SWRevealViewController)
 
+@property (nonatomic, assign) id controllerIdentifier;
+
 - (SWRevealViewController*)revealViewController;
 
 @end
-
 
 #pragma mark - StoryBoard support Classes
 
