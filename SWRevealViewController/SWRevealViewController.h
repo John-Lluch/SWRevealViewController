@@ -231,6 +231,9 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 // Thus, you can disable user interactions on your frontViewController view without affecting the tap recognizer.
 - (UITapGestureRecognizer*)tapGestureRecognizer;
 
+//custom method to remove gestures
+- (void)removeGestureRecognizers;
+
 /* The following properties are provided for further customization, they are set to default values on initialization,
    you do not generally have to set them */
 
