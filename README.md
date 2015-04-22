@@ -126,7 +126,7 @@ As of November 15, 2013 Release Notes are updated on the class main header file.
 
 ## Tutorials
 
-* Some time ago the guys at AppCoda published an online tutorial featuring the SWRevealViewController: "How To Add a Slide-out Sidebar Menu in Your Apps" (thanks for that). You will find it at http://www.appcoda.com/ios-programming-sidebar-navigation-menu/ . Not updated to the last SWRevealViewController version but still worth a read.
+* Some time ago the guys at AppCoda published an online tutorial featuring the SWRevealViewController: "How To Add a Slide-out Sidebar Menu in Your Apps" (thanks for that). You will find it at http://www.appcoda.com/ios-programming-sidebar-navigation-menu/ . They have recently updated it to match the lastest SWRevealViewController version. Worth a read.
 
 * Tammy Coron on Ray Wenderlich blog made an excelent tutorial on "how to build a slide-out navigation panel". She recomends the SWRevealViewController in case you do not want to implement one yourself. http://www.raywenderlich.com/32054/how-to-create-a-slide-out-navigation-like-facebook-and-path
 
