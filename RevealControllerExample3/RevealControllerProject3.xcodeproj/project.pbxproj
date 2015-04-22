@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E17A514197C612B00D126E4 /* FrontViewControllerLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ECAAF2316905A81005862CE /* FrontViewControllerLabel.xib */; };
+		4E17A515197C613300D126E4 /* FrontViewControllerImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ECAAEF9169055FF005862CE /* FrontViewControllerImage.xib */; };
+		4E17A516197C614200D126E4 /* RearTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ECAAF2E16905DE9005862CE /* RearTableViewController.xib */; };
+		4E17A517197C614500D126E4 /* RearMasterTableViewControllerv.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E523226169088D200A13268 /* RearMasterTableViewControllerv.xib */; };
 		4E235CC6168F9C6500223C30 /* reveal-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E235CC4168F9C6500223C30 /* reveal-icon.png */; };
 		4E235CC7168F9C6500223C30 /* reveal-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E235CC5168F9C6500223C30 /* reveal-icon@2x.png */; };
 		4E523227169088D200A13268 /* RearMasterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E523225169088D200A13268 /* RearMasterTableViewController.m */; };
-		4E523228169088D200A13268 /* RearMasterTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E523226169088D200A13268 /* RearMasterTableViewController.xib */; };
 		4ECAAEFA169055FF005862CE /* FrontViewControllerImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECAAEF8169055FF005862CE /* FrontViewControllerImage.m */; };
-		4ECAAEFB169055FF005862CE /* FrontViewControllerImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ECAAEF9169055FF005862CE /* FrontViewControllerImage.xib */; };
 		4ECAAF0E16905677005862CE /* airplane.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ECAAEFD16905677005862CE /* airplane.png */; };
 		4ECAAF0F16905677005862CE /* airplane@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ECAAEFE16905677005862CE /* airplane@2x.png */; };
 		4ECAAF1016905677005862CE /* bg_blocks.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4ECAAEFF16905677005862CE /* bg_blocks.jpg */; };
@@ -29,9 +31,7 @@
 		4ECAAF1D16905677005862CE /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ECAAF0C16905677005862CE /* star.png */; };
 		4ECAAF1E16905677005862CE /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ECAAF0D16905677005862CE /* star@2x.png */; };
 		4ECAAF2416905A81005862CE /* FrontViewControllerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECAAF2216905A81005862CE /* FrontViewControllerLabel.m */; };
-		4ECAAF2516905A81005862CE /* FrontViewControllerLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ECAAF2316905A81005862CE /* FrontViewControllerLabel.xib */; };
 		4ECAAF2F16905DE9005862CE /* RearTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECAAF2D16905DE9005862CE /* RearTableViewController.m */; };
-		4ECAAF3016905DE9005862CE /* RearTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ECAAF2E16905DE9005862CE /* RearTableViewController.xib */; };
 		4EDE1D03168F0648005656D1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDE1D02168F0648005656D1 /* AppDelegate.m */; };
 		4EDE1D0C168F06A5005656D1 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDE1D0B168F06A5005656D1 /* SWRevealViewController.m */; };
 		4EDE1D0F168F06D6005656D1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EDE1D0E168F06D6005656D1 /* Default-568h@2x.png */; };
@@ -48,7 +48,7 @@
 		4E235CC5168F9C6500223C30 /* reveal-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reveal-icon@2x.png"; path = "Resources/reveal-icon@2x.png"; sourceTree = "<group>"; };
 		4E523224169088D200A13268 /* RearMasterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RearMasterTableViewController.h; sourceTree = "<group>"; };
 		4E523225169088D200A13268 /* RearMasterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RearMasterTableViewController.m; sourceTree = "<group>"; };
-		4E523226169088D200A13268 /* RearMasterTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RearMasterTableViewController.xib; sourceTree = "<group>"; };
+		4E523226169088D200A13268 /* RearMasterTableViewControllerv.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RearMasterTableViewControllerv.xib; sourceTree = "<group>"; };
 		4ECAAEF7169055FF005862CE /* FrontViewControllerImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrontViewControllerImage.h; sourceTree = "<group>"; };
 		4ECAAEF8169055FF005862CE /* FrontViewControllerImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrontViewControllerImage.m; sourceTree = "<group>"; };
 		4ECAAEF9169055FF005862CE /* FrontViewControllerImage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FrontViewControllerImage.xib; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 			children = (
 				4E523224169088D200A13268 /* RearMasterTableViewController.h */,
 				4E523225169088D200A13268 /* RearMasterTableViewController.m */,
-				4E523226169088D200A13268 /* RearMasterTableViewController.xib */,
+				4E523226169088D200A13268 /* RearMasterTableViewControllerv.xib */,
 			);
 			name = RearMasterTableViewController;
 			sourceTree = "<group>";
@@ -294,28 +294,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E605BB414A081F900853025 /* InfoPlist.strings in Resources */,
+				4E17A515197C613300D126E4 /* FrontViewControllerImage.xib in Resources */,
 				4EDE1D0F168F06D6005656D1 /* Default-568h@2x.png in Resources */,
 				4E235CC6168F9C6500223C30 /* reveal-icon.png in Resources */,
 				4E235CC7168F9C6500223C30 /* reveal-icon@2x.png in Resources */,
-				4ECAAEFB169055FF005862CE /* FrontViewControllerImage.xib in Resources */,
 				4ECAAF0E16905677005862CE /* airplane.png in Resources */,
 				4ECAAF0F16905677005862CE /* airplane@2x.png in Resources */,
 				4ECAAF1016905677005862CE /* bg_blocks.jpg in Resources */,
 				4ECAAF1116905677005862CE /* bg_flowers.jpg in Resources */,
 				4ECAAF1216905677005862CE /* bg_grass.jpg in Resources */,
 				4ECAAF1316905677005862CE /* gift.png in Resources */,
+				4E17A516197C614200D126E4 /* RearTableViewController.xib in Resources */,
 				4ECAAF1416905677005862CE /* gift@2x.png in Resources */,
 				4ECAAF1516905677005862CE /* heart.png in Resources */,
 				4ECAAF1616905677005862CE /* heart@2x.png in Resources */,
+				4E17A517197C614500D126E4 /* RearMasterTableViewControllerv.xib in Resources */,
+				4E17A514197C612B00D126E4 /* FrontViewControllerLabel.xib in Resources */,
 				4ECAAF1716905677005862CE /* ipod.png in Resources */,
 				4ECAAF1816905677005862CE /* ipod@2x.png in Resources */,
 				4ECAAF1B16905677005862CE /* skull.png in Resources */,
 				4ECAAF1C16905677005862CE /* skull@2x.png in Resources */,
 				4ECAAF1D16905677005862CE /* star.png in Resources */,
 				4ECAAF1E16905677005862CE /* star@2x.png in Resources */,
-				4ECAAF2516905A81005862CE /* FrontViewControllerLabel.xib in Resources */,
-				4ECAAF3016905DE9005862CE /* RearTableViewController.xib in Resources */,
-				4E523228169088D200A13268 /* RearMasterTableViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
