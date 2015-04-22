@@ -40,12 +40,12 @@
     //[self.navigationController.navigationBar addGestureRecognizer:revealController.panGestureRecognizer];
     
     UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
-        style:UIBarButtonItemStyleBordered target:revealController action:@selector(revealToggle:)];
+        style:UIBarButtonItemStylePlain target:revealController action:@selector(revealToggle:)];
     
     self.navigationItem.leftBarButtonItem = revealButtonItem;
     
     UIBarButtonItem *rightRevealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
-        style:UIBarButtonItemStyleBordered target:revealController action:@selector(rightRevealToggle:)];
+        style:UIBarButtonItemStylePlain target:revealController action:@selector(rightRevealToggle:)];
     
     self.navigationItem.rightBarButtonItem = rightRevealButtonItem;
 }
