@@ -154,6 +154,20 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 }
 
 
+- (void)unloadRearView
+{
+    [_rearView removeFromSuperview];
+    _rearView = nil;
+}
+
+
+- (void)unloadRightView
+{
+    [_rightView removeFromSuperview];
+    _rightView = nil;
+}
+
+
 - (CGFloat)frontLocationForPosition:(FrontViewPosition)frontViewPosition
 {
     CGFloat revealWidth;
@@ -1540,7 +1554,17 @@ const int FrontViewPositionNone = 0xff;
     
     _rearViewPosition = newPosition;
     
-    return [self _deploymentForViewController:_rearViewController inView:_contentView.rearView appear:appear disappear:disappear];
+    void (^deploymentCompletion)() =
+        [self _deploymentForViewController:_rearViewController inView:_contentView.rearView appear:appear disappear:disappear];
+    
+    void (^completion)() = ^()
+    {
+        deploymentCompletion();
+        if ( disappear )
+            [_contentView unloadRearView];
+    };
+    
+    return completion;
 }
 
 // Deploy/Undeploy of the right view controller following the containment principles. Returns a block
@@ -1558,7 +1582,17 @@ const int FrontViewPositionNone = 0xff;
     
     _rightViewPosition = newPosition;
     
-    return [self _deploymentForViewController:_rightViewController inView:_contentView.rightView appear:appear disappear:disappear];
+    void (^deploymentCompletion)() =
+        [self _deploymentForViewController:_rightViewController inView:_contentView.rightView appear:appear disappear:disappear];
+    
+    void (^completion)() = ^()
+    {
+        deploymentCompletion();
+        if ( disappear )
+            [_contentView unloadRightView];
+    };
+
+    return completion;
 }
 
 
