@@ -140,7 +140,7 @@ Thanks to Jesper Vandborg for having contributed with a Xamarin Binding project 
 
 ## Special Mentions
 
-A Special Thank you to Joan Martin who formely worked at http://www.sweetwilliamsl.com and has recently been developing an app for http://www.citizen.tv. He had the original idea and implemented code for generic view deployment/undeployment and replacement of view controllers used in the class. 
+A Special Thank you to [Joan Martin](www.vilanovi.com) who formely worked at http://www.sweetwilliamsl.com and has recently been developing an app for http://www.citizen.tv. He had the original idea and implemented code for generic view deployment/undeployment and replacement of view controllers used in the class. 
 
 Early code and api was inspired on a similar class by Philip Kluz (Philip.Kluz@zuui.org)
 	
