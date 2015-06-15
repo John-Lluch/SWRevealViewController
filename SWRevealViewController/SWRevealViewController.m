@@ -291,7 +291,10 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     CGFloat rearXLocation = scaledValue(xLocation, -_c.rearViewRevealDisplacement, 0, 0, rearRevealWidth);
     
     CGFloat rearWidth = rearRevealWidth + _c.rearViewRevealOverdraw;
-    _rearView.frame = CGRectMake(rearXLocation, 0.0, rearWidth, bounds.size.height);
+    _rearView.frame = CGRectMake(rearXLocation, 
+                                 CGRectGetHeight([UIApplication sharedApplication].statusBarFrame),
+                                 rearWidth, 
+                                 bounds.size.height);
     
     CGFloat rightRevealWidth = _c.rightViewRevealWidth;
     if ( rightRevealWidth < 0) rightRevealWidth = bounds.size.width + _c.rightViewRevealWidth;
@@ -299,7 +302,10 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     CGFloat rightXLocation = scaledValue(xLocation, 0, _c.rightViewRevealDisplacement, -rightRevealWidth, 0);
     
     CGFloat rightWidth = rightRevealWidth + _c.rightViewRevealOverdraw;
-    _rightView.frame = CGRectMake(bounds.size.width-rightWidth+rightXLocation, 0.0f, rightWidth, bounds.size.height);
+    _rightView.frame = CGRectMake(bounds.size.width-rightWidth+rightXLocation, 
+                                  CGRectGetHeight([UIApplication sharedApplication].statusBarFrame), 
+                                  rightWidth, 
+                                  bounds.size.height);
 }
 
 
