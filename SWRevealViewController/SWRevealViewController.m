@@ -669,6 +669,7 @@ const int FrontViewPositionNone = 0xff;
     _draggableBorderWidth = 0.0f;
     _clipsViewsToBounds = NO;
     _extendsPointInsideHit = NO;
+    _sidebarItems = [NSMutableDictionary new];
 }
 
 
@@ -1820,7 +1821,21 @@ const int FrontViewPositionNone = 0xff;
 
 #pragma mark - UIViewController(SWRevealViewController) Category
 
+NSString * const kControllerIdentifierKey = @"kControllerIdentifierKey";
+
 @implementation UIViewController(SWRevealViewController)
+
+@dynamic controllerIdentifier;
+
+- (void)setControllerIdentifier:(id)aObject
+{
+    objc_setAssociatedObject(self, (__bridge const void *)(kControllerIdentifierKey), aObject, OBJC_ASSOCIATION_ASSIGN);
+}
+
+- (id)controllerIdentifier
+{
+    return objc_getAssociatedObject(self, (__bridge const void *)(kControllerIdentifierKey));
+}
 
 - (SWRevealViewController*)revealViewController
 {
@@ -1852,6 +1867,14 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
     SWRevealViewController *rvc = self.sourceViewController;
     UIViewController *dvc = self.destinationViewController;
     
+    if (dvc.controllerIdentifier) {
+        
+        if (![[rvc.sidebarItems allKeys] containsObject:self.identifier])
+            [rvc.sidebarItems setObject:dvc forKey:self.identifier];
+        else
+            dvc = [rvc.sidebarItems objectForKey:self.identifier];
+    }
+
     if ( [identifier isEqualToString:SWSegueFrontIdentifier] )
         operation = SWRevealControllerOperationReplaceFrontController;
     
@@ -1876,6 +1899,15 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
 {
     SWRevealViewController *rvc = [self.sourceViewController revealViewController];
     UIViewController *dvc = self.destinationViewController;
+    
+    if (dvc.controllerIdentifier) {
+        
+        if (![[rvc.sidebarItems allKeys] containsObject:self.identifier])
+            [rvc.sidebarItems setObject:dvc forKey:self.identifier];
+        else
+            dvc = [rvc.sidebarItems objectForKey:self.identifier];
+    }
+    
     [rvc pushFrontViewController:dvc animated:YES];
 }
 
