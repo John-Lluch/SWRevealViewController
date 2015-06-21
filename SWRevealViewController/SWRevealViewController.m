@@ -205,6 +205,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 
 - (void)layoutSubviews
 {
+    [super layoutSubviews];
     if ( _disableLayout ) return;
 
     CGRect bounds = self.bounds;
