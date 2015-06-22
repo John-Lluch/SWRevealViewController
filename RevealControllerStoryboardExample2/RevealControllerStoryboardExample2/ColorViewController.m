@@ -8,10 +8,6 @@
 
 #import "ColorViewController.h"
 
-@interface ColorViewController ()
-@property (nonatomic) IBOutlet UIBarButtonItem* revealButtonItem;
-@end
-
 @implementation ColorViewController
 
 - (void)viewDidLoad
@@ -26,8 +22,6 @@
     SWRevealViewController *revealViewController = self.revealViewController;
     if ( revealViewController )
     {
-        [self.revealButtonItem setTarget: revealViewController];
-        [self.revealButtonItem setAction: @selector( revealToggle: )];
         [self.navigationController.navigationBar addGestureRecognizer:revealViewController.panGestureRecognizer];
     }
     
