@@ -57,6 +57,7 @@ static CGFloat statusBarAdjustment( UIView* view )
 @property (nonatomic, readonly) UIView *rearView;
 @property (nonatomic, readonly) UIView *rightView;
 @property (nonatomic, readonly) UIView *frontView;
+@property (nonatomic, readonly) UIView *frontBlockingView; // Prevents interaction with frontView when sidebar is visible
 @property (nonatomic, assign) BOOL disableLayout;
 
 @end
@@ -93,6 +94,11 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
         _frontView = [[UIView alloc] initWithFrame:bounds];
         _frontView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         [self reloadShadow];
+        
+        _frontBlockingView = [[UIView alloc] initWithFrame:bounds];
+        _frontBlockingView.autoresizingMask = _frontView.autoresizingMask;
+        _frontBlockingView.hidden = YES;
+        [_frontView addSubview:_frontBlockingView];
 
         [self addSubview:_frontView];
     }
@@ -666,9 +672,10 @@ const int FrontViewPositionNone = 0xff;
     _frontViewShadowColor = [UIColor blackColor];
     _userInteractionStore = YES;
     _animationQueue = [NSMutableArray array];
-    _draggableBorderWidth = 0.0f;
+    _draggableBorderWidth = INFINITY;
     _clipsViewsToBounds = NO;
     _extendsPointInsideHit = NO;
+    _enableGesturesForRootViewControllerOnly = NO;
 }
 
 
@@ -1158,30 +1165,24 @@ const int FrontViewPositionNone = 0xff;
 {
     // forbid gesture if the initial translation is not horizontal
     UIView *recognizerView = _panGestureRecognizer.view;
-    CGPoint translation = [_panGestureRecognizer translationInView:recognizerView];
-//        NSLog( @"translation:%@", NSStringFromCGPoint(translation) );
-//    if ( fabs(translation.y/translation.x) > 1 )
-//        return NO;
-
+    
     // forbid gesture if the following delegate is implemented and returns NO
     if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureShouldBegin:)] )
         if ( [_delegate revealControllerPanGestureShouldBegin:self] == NO )
             return NO;
-
+    
     CGFloat xLocation = [_panGestureRecognizer locationInView:recognizerView].x;
     CGFloat width = recognizerView.bounds.size.width;
     
-    BOOL draggableBorderAllowing = (
-         /*_frontViewPosition != FrontViewPositionLeft ||*/ _draggableBorderWidth == 0.0f ||
-         (_rearViewController && xLocation <= _draggableBorderWidth) ||
-         (_rightViewController && xLocation >= (width - _draggableBorderWidth)) );
-    
-    
-    BOOL translationForbidding = ( _frontViewPosition == FrontViewPositionLeft &&
-        ((_rearViewController == nil && translation.x > 0) || (_rightViewController == nil && translation.x < 0)) );
-
-    // allow gesture only within the bounds defined by the draggableBorderWidth property
-    return draggableBorderAllowing && !translationForbidding ;
+    if ( _frontViewPosition == FrontViewPositionLeft )
+    {
+        if ( _enableGesturesForRootViewControllerOnly && [_frontViewController isKindOfClass:[UINavigationController class]] &&
+            [(UINavigationController *)_frontViewController viewControllers].count > 1) return NO;
+        
+        // Check if close enough to either the left or right edge
+        return (_rearViewController && xLocation <= _draggableBorderWidth) || (_rightViewController && xLocation >= width - _draggableBorderWidth);
+    }
+    else return YES; // Always enable gesture if sidebar is open
 }
 
 
@@ -1535,6 +1536,9 @@ const int FrontViewPositionNone = 0xff;
         deploymentCompletion();
         if ( positionIsChanging )
         {
+            _contentView.frontBlockingView.hidden = newPosition == FrontViewPositionLeft;
+            [_contentView.frontView bringSubviewToFront:_contentView.frontBlockingView];
+            
             if ( [_delegate respondsToSelector:@selector(revealController:didMoveToPosition:)] )
                 [_delegate revealController:self didMoveToPosition:newPosition];
         }

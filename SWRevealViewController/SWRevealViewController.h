@@ -252,8 +252,8 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 @property (nonatomic) CGFloat rearViewRevealDisplacement;
 @property (nonatomic) CGFloat rightViewRevealDisplacement;  // <-- simetric implementation of the above for the rightViewController
 
-// Defines a width on the border of the view attached to the panGesturRecognizer where the gesture is allowed,
-// default is 0 which means no restriction.
+// Defines a width on the border of the view attached to the panGestureRecognizer where the gesture is allowed.
+// Default is INFINITY.
 @property (nonatomic) CGFloat draggableBorderWidth;
 
 // If YES (the default) the controller will bounce to the Left position when dragging further than 'rearViewRevealWidth'
@@ -306,6 +306,13 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 // Set this to YES if you are presenting this controller as a non full-screen child of a custom container and you are not
 // clipping your front view to this controller bounds.
 @property (nonatomic) BOOL extendsPointInsideHit;
+
+// Set this to YES to disable sidebar access from pages deeper than the root view controller when the front view controller is
+// a UINavigationController. Defaults is NO.
+// Helps avoid conflicts with iOS 7 and up's built-in gesture that navigates to the previous view controller when swiping from
+// the edge. Also helpful if you don't want the user to be able to access the sidebar from pages other than the root view
+// controller, especially if your app has a "hamburger" ("☰") menu to access the sidebar, but only on the root view controller.
+@property (nonatomic) BOOL enableGesturesForRootViewControllerOnly;
 
 /* The class properly handles all the relevant calls to appearance methods on the contained controllers.
    Moreover you can assign a delegate to let the class inform you on positions and animation activity */
