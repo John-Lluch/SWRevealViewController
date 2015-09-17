@@ -762,12 +762,19 @@ const int FrontViewPositionNone = 0xff;
 }
 
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 90000
 - (NSUInteger)supportedInterfaceOrientations
 {
     // we could have simply not implemented this, but we choose to call super to make explicit that we
     // want the default behavior.
     return [super supportedInterfaceOrientations];
 }
+#else
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return [super supportedInterfaceOrientations];
+}
+#endif
 
 
 #pragma mark - Public methods and property accessors
