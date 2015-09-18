@@ -762,7 +762,12 @@ const int FrontViewPositionNone = 0xff;
 }
 
 
+// Fix warning for Xcode 7(7A220) and iOS 9
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 90000
 - (NSUInteger)supportedInterfaceOrientations
+#else
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+#endif
 {
     // we could have simply not implemented this, but we choose to call super to make explicit that we
     // want the default behavior.
