@@ -236,7 +236,7 @@
 		5E605B9C14A081F900853025 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 5E605B9F14A081F900853025 /* Build configuration list for PBXProject "RevealControllerProject" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -342,6 +342,7 @@
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -407,6 +408,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RevealControllerProject/Project-Prefix.pch";
 				INFOPLIST_FILE = "RevealControllerProject/RevealControllerProject-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.zuui.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -418,6 +420,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RevealControllerProject/Project-Prefix.pch";
 				INFOPLIST_FILE = "RevealControllerProject/RevealControllerProject-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.zuui.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
