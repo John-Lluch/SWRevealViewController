@@ -101,7 +101,7 @@
         while( nil != (controller = [controller revealViewController]) )
             level++;
         
-        NSString *title = [NSString stringWithFormat:@"Detail Level %d", level];
+        NSString *title = [NSString stringWithFormat:@"Detail Level %ld", (long)level];
             
         [self.navigationController.navigationBar addGestureRecognizer:grandParentRevealController.panGestureRecognizer];
         self.navigationItem.leftBarButtonItem = revealButtonItem;
