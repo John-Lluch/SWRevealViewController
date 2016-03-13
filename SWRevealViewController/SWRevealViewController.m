@@ -303,7 +303,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 }
 
 
-- (void)_prepareForNewPosition:(FrontViewPosition)newPosition;
+- (void)_prepareForNewPosition:(FrontViewPosition)newPosition
 {
     if ( _rearView == nil || _rightView == nil )
         return;
