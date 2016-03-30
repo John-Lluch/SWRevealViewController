@@ -1369,8 +1369,9 @@ const int FrontViewPositionNone = 0xff;
     NSTimeInterval duration = animated?_toggleAnimationDuration:0.0;
     NSTimeInterval firstDuration = duration;
     NSInteger initialPosDif = ABS( _frontViewPosition - preReplacementPosition );
-    if ( initialPosDif == 1 ) firstDuration *= 0.8;
-    else if ( initialPosDif == 0 ) firstDuration = 0;
+    CGFloat revealOverdraw = preReplacementPosition == FrontViewPositionRightMost ? _rearViewRevealOverdraw : _rightViewRevealOverdraw;
+    if ( initialPosDif == 1 && revealOverdraw != 0.0f ) firstDuration *= 0.8;
+    else if ( initialPosDif == 0 || revealOverdraw == 0.0f ) firstDuration = 0;
     
     __weak SWRevealViewController *theSelf = self;
     if ( animated )
