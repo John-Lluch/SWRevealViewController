@@ -263,7 +263,7 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 // If YES (default is NO) the controller will allow permanent dragging up to the rightMostPosition
 @property (nonatomic) BOOL stableDragOnOverdraw;
 @property (nonatomic) BOOL stableDragOnLeftOverdraw; // <-- simetric implementation of the above for the rightViewController
-
+@property (assign, nonatomic) BOOL rearViewWillDisplayOverFrontView;
 // If YES (default is NO) the front view controller will be ofsseted vertically by the height of a navigation bar.
 // Use this on iOS7 when you add an instance of RevealViewController as a child of a UINavigationController (or another SWRevealViewController)
 // and you want the front view controller to be presented below the navigation bar of its UINavigationController grand parent.
