@@ -85,7 +85,7 @@ The easiest way to install it is by copying the following to your project:
 * SWRevealViewController.m
 
 On your project:
-* Initialize an instance of a SWRevealViewController passing in a "rear" and a "front" view controllers.
+* Initialize an instance of a SWRevealViewController passing in a "rear" and a "front" view controller.
 * Optionaly add a "right" view controller or pass nil as the "rear" view controller.
 * Use the SWRevealViewController instance in your code as you would use any view controller.
 * Deploy as the application window rootViewController, or as a child of other containment controllers.
