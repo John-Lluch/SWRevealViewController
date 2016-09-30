@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22A5A3E21D9EAEF40042DEB4 /* SWRevealViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 22A5A3E01D9EAEF40042DEB4 /* SWRevealViewController.h */; };
+		22A5A3E21D9EAEF40042DEB4 /* SWRevealViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 22A5A3E01D9EAEF40042DEB4 /* SWRevealViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22A5A3E31D9EAEF40042DEB4 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A5A3E11D9EAEF40042DEB4 /* SWRevealViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -281,6 +281,7 @@
 				22A5A3DF1D9EAEC00042DEB4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
