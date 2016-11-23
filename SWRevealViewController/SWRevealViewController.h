@@ -414,6 +414,13 @@ extern NSString* const SWSegueRightIdentifier; // this is @"sw_right"
 @interface SWRevealViewControllerSeguePushController : UIStoryboardSegue
 @end
 
+// Use this to toggle the menu
+@interface SWRevealViewControllerSegueRearToggle : UIStoryboardSegue
+@end
+
+// Use this to toggle the right menu
+@interface SWRevealViewControllerSegueRightToggle : UIStoryboardSegue
+@end
 
 //#pragma mark - SWRevealViewControllerSegue (DEPRECATED)
 //
