@@ -1184,6 +1184,9 @@ const int FrontViewPositionNone = 0xff;
     return draggableBorderAllowing && !translationForbidding ;
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
 
 #pragma mark - Gesture Based Reveal
 
