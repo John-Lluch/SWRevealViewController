@@ -238,6 +238,8 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 /* The following properties are provided for further customization, they are set to default values on initialization,
    you do not generally have to set them */
 
+@property (assign, nonatomic) CGFloat frontViewLocation;
+
 // Defines how much of the rear or right view is shown, default is 260.
 // Negative values indicate that the reveal width should be computed by substracting the full front view width,
 // so the revealed frontView width is kept constant when bounds change as opposed to the rear or right width.

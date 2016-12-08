@@ -173,7 +173,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
     CGFloat revealWidth;
     CGFloat revealOverdraw;
     
-    CGFloat location = 0.0f;
+    CGFloat location = [_c frontViewLocation];
     
     int symetry = frontViewPosition<FrontViewPositionLeft? -1 : 1;
     [_c _getRevealWidth:&revealWidth revealOverDraw:&revealOverdraw forSymetry:symetry];
@@ -641,6 +641,7 @@ const int FrontViewPositionNone = 0xff;
 
 - (void)_initDefaultProperties
 {
+    _frontViewLocation = 0.0f;
     _frontViewPosition = FrontViewPositionLeft;
     _rearViewPosition = FrontViewPositionLeft;
     _rightViewPosition = FrontViewPositionLeft;
@@ -1657,7 +1658,8 @@ const int FrontViewPositionNone = 0xff;
     
     void (^completionBlock)(void) = ^(void)
     {
-        [controller.view removeFromSuperview];
+        if (_frontViewLocation <= 0.0f)
+            [controller.view removeFromSuperview];
     };
     
     return completionBlock;
