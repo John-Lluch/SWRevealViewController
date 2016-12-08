@@ -1,0 +1,358 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9A26F2AE1698A1A7001357A3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A26F2AD1698A1A7001357A3 /* MapKit.framework */; };
+		9A26F2B31698A7A2001357A3 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A26F2B21698A7A2001357A3 /* SWRevealViewController.m */; };
+		9A4DFD7916989B6200544F3B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4DFD7816989B6200544F3B /* UIKit.framework */; };
+		9A4DFD7B16989B6200544F3B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4DFD7A16989B6200544F3B /* Foundation.framework */; };
+		9A4DFD7D16989B6200544F3B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4DFD7C16989B6200544F3B /* CoreGraphics.framework */; };
+		9A4DFD8316989B6200544F3B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A4DFD8116989B6200544F3B /* InfoPlist.strings */; };
+		9A4DFD8516989B6200544F3B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A4DFD8416989B6200544F3B /* main.m */; };
+		9A4DFD8B16989B6200544F3B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4DFD8A16989B6200544F3B /* Default.png */; };
+		9A4DFD8D16989B6200544F3B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4DFD8C16989B6200544F3B /* Default@2x.png */; };
+		9A4DFD8F16989B6200544F3B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A4DFD8E16989B6200544F3B /* Default-568h@2x.png */; };
+		9A4DFD9216989B6200544F3B /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A4DFD9016989B6200544F3B /* MainStoryboard_iPhone.storyboard */; };
+		9A4DFD9516989B6200544F3B /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A4DFD9316989B6200544F3B /* MainStoryboard_iPad.storyboard */; };
+		9A7A79EA16989D6C00C03BEE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7A79E116989D6C00C03BEE /* AppDelegate.m */; };
+		9A7A79EB16989D6C00C03BEE /* FrontViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7A79E316989D6C00C03BEE /* FrontViewController.m */; };
+		9A7A79EC16989D6C00C03BEE /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7A79E516989D6C00C03BEE /* MapViewController.m */; };
+		9A7A79ED16989D6C00C03BEE /* RearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7A79E716989D6C00C03BEE /* RearViewController.m */; };
+		9A7A79EE16989D6C00C03BEE /* RevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7A79E916989D6C00C03BEE /* RevealViewController.m */; };
+		9A7A79F416989E8F00C03BEE /* reveal-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A7A79F216989E8F00C03BEE /* reveal-icon.png */; };
+		9A7A79F516989E8F00C03BEE /* reveal-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A7A79F316989E8F00C03BEE /* reveal-icon@2x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9A26F2AD1698A1A7001357A3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		9A26F2B11698A7A2001357A3 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		9A26F2B21698A7A2001357A3 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		9A4DFD7416989B6200544F3B /* RevealControllerWithStoryboards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RevealControllerWithStoryboards.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A4DFD7816989B6200544F3B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		9A4DFD7A16989B6200544F3B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9A4DFD7C16989B6200544F3B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		9A4DFD8016989B6200544F3B /* RevealControllerWithStoryboards-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RevealControllerWithStoryboards-Info.plist"; sourceTree = "<group>"; };
+		9A4DFD8216989B6200544F3B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9A4DFD8416989B6200544F3B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9A4DFD8616989B6200544F3B /* RevealControllerWithStoryboards-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RevealControllerWithStoryboards-Prefix.pch"; sourceTree = "<group>"; };
+		9A4DFD8A16989B6200544F3B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		9A4DFD8C16989B6200544F3B /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		9A4DFD8E16989B6200544F3B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		9A4DFD9116989B6200544F3B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		9A4DFD9416989B6200544F3B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		9A7A79E016989D6C00C03BEE /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		9A7A79E116989D6C00C03BEE /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		9A7A79E216989D6C00C03BEE /* FrontViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrontViewController.h; sourceTree = "<group>"; };
+		9A7A79E316989D6C00C03BEE /* FrontViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrontViewController.m; sourceTree = "<group>"; };
+		9A7A79E416989D6C00C03BEE /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		9A7A79E516989D6C00C03BEE /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		9A7A79E616989D6C00C03BEE /* RearViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RearViewController.h; sourceTree = "<group>"; };
+		9A7A79E716989D6C00C03BEE /* RearViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RearViewController.m; sourceTree = "<group>"; };
+		9A7A79E816989D6C00C03BEE /* RevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevealViewController.h; sourceTree = "<group>"; };
+		9A7A79E916989D6C00C03BEE /* RevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RevealViewController.m; sourceTree = "<group>"; };
+		9A7A79F216989E8F00C03BEE /* reveal-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reveal-icon.png"; sourceTree = "<group>"; };
+		9A7A79F316989E8F00C03BEE /* reveal-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reveal-icon@2x.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9A4DFD7116989B6200544F3B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A26F2AE1698A1A7001357A3 /* MapKit.framework in Frameworks */,
+				9A4DFD7916989B6200544F3B /* UIKit.framework in Frameworks */,
+				9A4DFD7B16989B6200544F3B /* Foundation.framework in Frameworks */,
+				9A4DFD7D16989B6200544F3B /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9A26F2B01698A7A2001357A3 /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9A26F2B11698A7A2001357A3 /* SWRevealViewController.h */,
+				9A26F2B21698A7A2001357A3 /* SWRevealViewController.m */,
+			);
+			path = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		9A4DFD6916989B6200544F3B = {
+			isa = PBXGroup;
+			children = (
+				9A4DFD7E16989B6200544F3B /* RevealControllerWithStoryboards */,
+				9A26F2B01698A7A2001357A3 /* SWRevealViewController */,
+				9A4DFD7716989B6200544F3B /* Frameworks */,
+				9A4DFD7516989B6200544F3B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9A4DFD7516989B6200544F3B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9A4DFD7416989B6200544F3B /* RevealControllerWithStoryboards.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9A4DFD7716989B6200544F3B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9A4DFD7816989B6200544F3B /* UIKit.framework */,
+				9A4DFD7A16989B6200544F3B /* Foundation.framework */,
+				9A26F2AD1698A1A7001357A3 /* MapKit.framework */,
+				9A4DFD7C16989B6200544F3B /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9A4DFD7E16989B6200544F3B /* RevealControllerWithStoryboards */ = {
+			isa = PBXGroup;
+			children = (
+				9A7A79F216989E8F00C03BEE /* reveal-icon.png */,
+				9A7A79F316989E8F00C03BEE /* reveal-icon@2x.png */,
+				9A7A79E016989D6C00C03BEE /* AppDelegate.h */,
+				9A7A79E116989D6C00C03BEE /* AppDelegate.m */,
+				9A7A79E216989D6C00C03BEE /* FrontViewController.h */,
+				9A7A79E316989D6C00C03BEE /* FrontViewController.m */,
+				9A7A79E416989D6C00C03BEE /* MapViewController.h */,
+				9A7A79E516989D6C00C03BEE /* MapViewController.m */,
+				9A7A79E616989D6C00C03BEE /* RearViewController.h */,
+				9A7A79E716989D6C00C03BEE /* RearViewController.m */,
+				9A7A79E816989D6C00C03BEE /* RevealViewController.h */,
+				9A7A79E916989D6C00C03BEE /* RevealViewController.m */,
+				9A4DFD9016989B6200544F3B /* MainStoryboard_iPhone.storyboard */,
+				9A4DFD9316989B6200544F3B /* MainStoryboard_iPad.storyboard */,
+				9A4DFD7F16989B6200544F3B /* Supporting Files */,
+			);
+			path = RevealControllerWithStoryboards;
+			sourceTree = "<group>";
+		};
+		9A4DFD7F16989B6200544F3B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9A4DFD8016989B6200544F3B /* RevealControllerWithStoryboards-Info.plist */,
+				9A4DFD8116989B6200544F3B /* InfoPlist.strings */,
+				9A4DFD8416989B6200544F3B /* main.m */,
+				9A4DFD8616989B6200544F3B /* RevealControllerWithStoryboards-Prefix.pch */,
+				9A4DFD8A16989B6200544F3B /* Default.png */,
+				9A4DFD8C16989B6200544F3B /* Default@2x.png */,
+				9A4DFD8E16989B6200544F3B /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9A4DFD7316989B6200544F3B /* RevealControllerWithStoryboards */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9A4DFD9B16989B6200544F3B /* Build configuration list for PBXNativeTarget "RevealControllerWithStoryboards" */;
+			buildPhases = (
+				9A4DFD7016989B6200544F3B /* Sources */,
+				9A4DFD7116989B6200544F3B /* Frameworks */,
+				9A4DFD7216989B6200544F3B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RevealControllerWithStoryboards;
+			productName = RevealControllerWithStoryboards;
+			productReference = 9A4DFD7416989B6200544F3B /* RevealControllerWithStoryboards.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9A4DFD6B16989B6200544F3B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Funny or Die";
+			};
+			buildConfigurationList = 9A4DFD6E16989B6200544F3B /* Build configuration list for PBXProject "RevealControllerWithStoryboards" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9A4DFD6916989B6200544F3B;
+			productRefGroup = 9A4DFD7516989B6200544F3B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9A4DFD7316989B6200544F3B /* RevealControllerWithStoryboards */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9A4DFD7216989B6200544F3B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A4DFD8316989B6200544F3B /* InfoPlist.strings in Resources */,
+				9A4DFD8B16989B6200544F3B /* Default.png in Resources */,
+				9A4DFD8D16989B6200544F3B /* Default@2x.png in Resources */,
+				9A4DFD8F16989B6200544F3B /* Default-568h@2x.png in Resources */,
+				9A4DFD9216989B6200544F3B /* MainStoryboard_iPhone.storyboard in Resources */,
+				9A4DFD9516989B6200544F3B /* MainStoryboard_iPad.storyboard in Resources */,
+				9A7A79F416989E8F00C03BEE /* reveal-icon.png in Resources */,
+				9A7A79F516989E8F00C03BEE /* reveal-icon@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9A4DFD7016989B6200544F3B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A4DFD8516989B6200544F3B /* main.m in Sources */,
+				9A7A79EA16989D6C00C03BEE /* AppDelegate.m in Sources */,
+				9A7A79EB16989D6C00C03BEE /* FrontViewController.m in Sources */,
+				9A7A79EC16989D6C00C03BEE /* MapViewController.m in Sources */,
+				9A7A79ED16989D6C00C03BEE /* RearViewController.m in Sources */,
+				9A7A79EE16989D6C00C03BEE /* RevealViewController.m in Sources */,
+				9A26F2B31698A7A2001357A3 /* SWRevealViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		9A4DFD8116989B6200544F3B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9A4DFD8216989B6200544F3B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		9A4DFD9016989B6200544F3B /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9A4DFD9116989B6200544F3B /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		9A4DFD9316989B6200544F3B /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9A4DFD9416989B6200544F3B /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9A4DFD9916989B6200544F3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9A4DFD9A16989B6200544F3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9A4DFD9C16989B6200544F3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RevealControllerWithStoryboards/RevealControllerWithStoryboards-Prefix.pch";
+				INFOPLIST_FILE = "RevealControllerWithStoryboards/RevealControllerWithStoryboards-Info.plist";
+				PRODUCT_NAME = RevealControllerWithStoryboards;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		9A4DFD9D16989B6200544F3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RevealControllerWithStoryboards/RevealControllerWithStoryboards-Prefix.pch";
+				INFOPLIST_FILE = "RevealControllerWithStoryboards/RevealControllerWithStoryboards-Info.plist";
+				PRODUCT_NAME = RevealControllerWithStoryboards;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9A4DFD6E16989B6200544F3B /* Build configuration list for PBXProject "RevealControllerWithStoryboards" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A4DFD9916989B6200544F3B /* Debug */,
+				9A4DFD9A16989B6200544F3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9A4DFD9B16989B6200544F3B /* Build configuration list for PBXNativeTarget "RevealControllerWithStoryboards" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A4DFD9C16989B6200544F3B /* Debug */,
+				9A4DFD9D16989B6200544F3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9A4DFD6B16989B6200544F3B /* Project object */;
+}
