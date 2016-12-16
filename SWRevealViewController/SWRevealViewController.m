@@ -766,7 +766,12 @@ const int FrontViewPositionNone = 0xff;
 {
     // we could have simply not implemented this, but we choose to call super to make explicit that we
     // want the default behavior.
-    return [super supportedInterfaceOrientations];
+    return self.frontViewController.supportedInterfaceOrientations;
+}
+
+- (BOOL)shouldAutorotate
+{
+    return self.frontViewController.shouldAutorotate;
 }
 
 
