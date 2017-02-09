@@ -15,5 +15,5 @@ FOUNDATION_EXPORT double SWRevealViewVersionNumber;
 FOUNDATION_EXPORT const unsigned char SWRevealViewVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <SWRevealView/PublicHeader.h>
-
+#import "SWRevealViewController.h"
 
