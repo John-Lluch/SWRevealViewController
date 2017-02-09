@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4FC3ABF11E4C8C0C00D9BC77 /* SWRevealView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FC3ABEF1E4C8C0C00D9BC77 /* SWRevealView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4FC3ABFA1E4C8C1B00D9BC77 /* SWRevealViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FC3ABF81E4C8C1B00D9BC77 /* SWRevealViewController.h */; };
+		4FC3ABFA1E4C8C1B00D9BC77 /* SWRevealViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FC3ABF81E4C8C1B00D9BC77 /* SWRevealViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FC3ABFB1E4C8C1B00D9BC77 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC3ABF91E4C8C1B00D9BC77 /* SWRevealViewController.m */; };
 /* End PBXBuildFile section */
 
