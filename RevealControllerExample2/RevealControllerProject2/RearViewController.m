@@ -66,7 +66,7 @@
  * - - 1.2 MapViewController
  *
  * In the third scenario a SWRevealViewController is contained directly inside of another.
- * SWRevealController. Thus the following hierarchy is created:
+ * SWRevealViewController. Thus the following hierarchy is created:
  *
  * - SWRevealViewController is parent of:
  * - 1 UINavigationController is parent of:
