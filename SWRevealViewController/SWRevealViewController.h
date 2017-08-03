@@ -312,6 +312,8 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 // An overlay view that is laid on top of the frontview when rearview is displayed.
 // It prevents the front view from accepting any touched when it is pushed to the side.
 @property (strong, nonatomic) UIView *frontOverlayView;
+@property (strong, nonatomic) UIButton *overlayButton;
+
 @property (assign, nonatomic) BOOL shouldUseFrontViewOverlay;
 
 /* The class properly handles all the relevant calls to appearance methods on the contained controllers.

@@ -842,10 +842,8 @@ const int FrontViewPositionNone = 0xff;
 - (void)revealToggleAnimated:(BOOL)animated
 {
     FrontViewPosition toggledFrontViewPosition = FrontViewPositionLeft;
-    if (_frontViewPosition <= FrontViewPositionLeft) {
+    if (_frontViewPosition <= FrontViewPositionLeft)
         toggledFrontViewPosition = FrontViewPositionRight;
-
-            }
           
 
     [self setFrontViewPosition:toggledFrontViewPosition animated:animated];
@@ -1033,24 +1031,6 @@ const int FrontViewPositionNone = 0xff;
     if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureEnded:)] )
         [_delegate revealControllerPanGestureEnded:self];
     
-    /* NOT SURE HOW TO DO THIS
-     
-     
-    //Add overlay if requested
-    if (_shouldUseFrontViewOverlay) {
-        //Create
-        if (!_frontOverlayView) {
-            self.frontOverlayView = [[UIView alloc] initWithFrame:self.frontViewController.view.bounds];
-            _frontOverlayView.backgroundColor = [UIColor blackColor];
-            _frontOverlayView.alpha = 0.5;
-            UIButton * overlayButton = [[UIButton alloc] initWithFrame:_frontOverlayView.bounds];
-            [overlayButton addTarget:self action:@selector(revealToggleAnimated:) forControlEvents:UIControlEventTouchUpInside];
-            [_frontOverlayView addSubview:overlayButton];
-        }
-        [self.frontViewController.view addSubview:_frontOverlayView];
-    }
-    
-   */
 }
 
 
@@ -1685,10 +1665,20 @@ const int FrontViewPositionNone = 0xff;
                     self.frontOverlayView = [[UIView alloc] initWithFrame:self.frontViewController.view.bounds];
                     _frontOverlayView.backgroundColor = [UIColor blackColor];
                     _frontOverlayView.alpha = 0.5;
-                    UIButton * overlayButton = [[UIButton alloc] initWithFrame:_frontOverlayView.bounds];
-                    [overlayButton addTarget:self action:@selector(revealToggleAnimated:) forControlEvents:UIControlEventTouchUpInside];
-                    [_frontOverlayView addSubview:overlayButton];
+                    _overlayButton = [[UIButton alloc] initWithFrame:_frontOverlayView.bounds];
+                    
+                   
+                    
+                    [_frontOverlayView addSubview:_overlayButton];
+                } else {
+                    [_overlayButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
                 }
+                
+                if (controller == _rearViewController)
+                    [_overlayButton addTarget:self action:@selector(revealToggleAnimated:) forControlEvents:UIControlEventTouchUpInside];
+                else
+                    [_overlayButton addTarget:self action:@selector(rightRevealToggleAnimated:) forControlEvents:UIControlEventTouchUpInside];
+                
                 [self.frontViewController.view addSubview:_frontOverlayView];
             }
 
