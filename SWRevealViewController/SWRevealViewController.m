@@ -1664,15 +1664,23 @@ const int FrontViewPositionNone = 0xff;
                 if (!_frontOverlayView) {
                     self.frontOverlayView = [[UIView alloc] initWithFrame:self.frontViewController.view.bounds];
                     _frontOverlayView.backgroundColor = [UIColor blackColor];
-                    _frontOverlayView.alpha = 0.5;
+                    _frontOverlayView.alpha = 0.0;
                     _overlayButton = [[UIButton alloc] initWithFrame:_frontOverlayView.bounds];
-                    
-                   
-                    
                     [_frontOverlayView addSubview:_overlayButton];
+
                 } else {
                     [_overlayButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
                 }
+                _frontOverlayView.alpha = 0.0;
+                
+                void (^animations)() = ^()
+                {
+                    _frontOverlayView.alpha = 0.5;
+                };
+                
+                
+                [UIView animateWithDuration:_toggleAnimationDuration delay:0.0
+                                    options:UIViewAnimationOptionCurveEaseOut animations:animations completion:NULL];
                 
                 if (controller == _rearViewController)
                     [_overlayButton addTarget:self action:@selector(revealToggleAnimated:) forControlEvents:UIControlEventTouchUpInside];
@@ -2017,5 +2025,4 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
 //}
 //
 //@end
-
 
