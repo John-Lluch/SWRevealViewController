@@ -159,13 +159,13 @@ typedef NS_ENUM( NSInteger, FrontViewPosition)
     FrontViewPositionLeftSide,
 
     // Center position, rear view is hidden behind front controller
-	FrontViewPositionLeft,
+    FrontViewPositionLeft,
     
     // Right possition, front view is presented right-offseted by rearViewRevealWidth
-	FrontViewPositionRight,
+    FrontViewPositionRight,
     
     // Right most possition, front view is presented right-offseted by rearViewRevealWidth+rearViewRevealOverdraw
-	FrontViewPositionRightMost,
+    FrontViewPositionRightMost,
     
     // Front controller is removed from view. Animated transitioning from this state will cause the same
     // effect than animating from FrontViewPositionRightMost. Use this instead of FrontViewPositionRightMost when
@@ -228,6 +228,7 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 // you still need to call this method, just don't add it to any of your views. The default setup allows you to dissable
 // user interactions on your controller views without affecting the recognizer.
 - (UIPanGestureRecognizer*)panGestureRecognizer;
+- (UIPanGestureRecognizer*)rightPanGestureRecognizer;
 
 // The following method will provide a tapGestureRecognizer suitable to be added to any view on the frontController
 // for concealing the rear views. By default no tap recognizer is created or added to any view, however if you call this method after
@@ -306,6 +307,14 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 // Set this to YES if you are presenting this controller as a non full-screen child of a custom container and you are not
 // clipping your front view to this controller bounds.
 @property (nonatomic) BOOL extendsPointInsideHit;
+
+
+// An overlay view that is laid on top of the frontview when rearview is displayed.
+// It prevents the front view from accepting any touched when it is pushed to the side.
+@property (strong, nonatomic) UIView *frontOverlayView;
+@property (strong, nonatomic) UIButton *overlayButton;
+
+@property (assign, nonatomic) BOOL shouldUseFrontViewOverlay;
 
 /* The class properly handles all the relevant calls to appearance methods on the contained controllers.
    Moreover you can assign a delegate to let the class inform you on positions and animation activity */

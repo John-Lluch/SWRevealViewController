@@ -2,6 +2,10 @@
 
 A UIViewController subclass for revealing a rear (left and/or right) view controller behind a front controller, inspired by the Facebook app, done right!
 
+## NOTE (Changes from carloscorreia94)
+
+* Adds rightViewController panGestureRecognizer
+* Adds frontOverlay (longtime ago from the issues, please let your self know if you find the bit of code stolen from you) for both rear and right view controllers, with or without gesture.
 
 ## NOTE ( Version 2.3)
 

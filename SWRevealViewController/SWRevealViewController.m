@@ -586,6 +586,7 @@ static CGFloat scaledValue( CGFloat v1, CGFloat min2, CGFloat max2, CGFloat min1
 {
     SWRevealView *_contentView;
     UIPanGestureRecognizer *_panGestureRecognizer;
+    UIPanGestureRecognizer *_rightPanGestureRecognizer;
     UITapGestureRecognizer *_tapGestureRecognizer;
     FrontViewPosition _frontViewPosition;
     FrontViewPosition _rearViewPosition;
@@ -843,7 +844,8 @@ const int FrontViewPositionNone = 0xff;
     FrontViewPosition toggledFrontViewPosition = FrontViewPositionLeft;
     if (_frontViewPosition <= FrontViewPositionLeft)
         toggledFrontViewPosition = FrontViewPositionRight;
-    
+          
+
     [self setFrontViewPosition:toggledFrontViewPosition animated:animated];
 }
 
@@ -916,6 +918,18 @@ const int FrontViewPositionNone = 0xff;
     }
     return _panGestureRecognizer;
 }
+
+- (UIPanGestureRecognizer*)rightPanGestureRecognizer
+{
+    if ( _rightPanGestureRecognizer == nil )
+    {
+        _rightPanGestureRecognizer = [[SWRevealViewControllerPanGestureRecognizer alloc] initWithTarget:self action:@selector(_handleRevealGesture:)];
+        _rightPanGestureRecognizer.delegate = self;
+        [_contentView.frontView addGestureRecognizer:_rightPanGestureRecognizer];
+    }
+    return _rightPanGestureRecognizer;
+}
+
 
 
 - (UITapGestureRecognizer*)tapGestureRecognizer
@@ -1016,6 +1030,7 @@ const int FrontViewPositionNone = 0xff;
     
     if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureEnded:)] )
         [_delegate revealControllerPanGestureEnded:self];
+    
 }
 
 
@@ -1108,8 +1123,12 @@ const int FrontViewPositionNone = 0xff;
     // only allow gesture if no previous request is in process
     if ( _animationQueue.count == 0 )
     {
-        if ( recognizer == _panGestureRecognizer )
+        if ( recognizer == _panGestureRecognizer)
             return [self _panGestureShouldBegin];
+       
+        if ( recognizer == _rightPanGestureRecognizer)
+            return [self _rightPanGestureShouldBegin];
+
         
         if ( recognizer == _tapGestureRecognizer )
             return [self _tapGestureShouldBegin];
@@ -1121,7 +1140,7 @@ const int FrontViewPositionNone = 0xff;
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-    if ( gestureRecognizer == _panGestureRecognizer )
+    if ( gestureRecognizer == _panGestureRecognizer || gestureRecognizer == _rightPanGestureRecognizer )
     {
         if ( [_delegate respondsToSelector:@selector(revealController:panGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:)] )
             if ( [_delegate revealController:self panGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:otherGestureRecognizer] != NO )
@@ -1183,6 +1202,38 @@ const int FrontViewPositionNone = 0xff;
     // allow gesture only within the bounds defined by the draggableBorderWidth property
     return draggableBorderAllowing && !translationForbidding ;
 }
+
+
+- (BOOL)_rightPanGestureShouldBegin
+{
+    // forbid gesture if the initial translation is not horizontal
+    UIView *recognizerView = _rightPanGestureRecognizer.view;
+    CGPoint translation = [_rightPanGestureRecognizer translationInView:recognizerView];
+    //        NSLog( @"translation:%@", NSStringFromCGPoint(translation) );
+    //    if ( fabs(translation.y/translation.x) > 1 )
+    //        return NO;
+    
+    // forbid gesture if the following delegate is implemented and returns NO
+    if ( [_delegate respondsToSelector:@selector(revealControllerPanGestureShouldBegin:)] )
+        if ( [_delegate revealControllerPanGestureShouldBegin:self] == NO )
+            return NO;
+    
+    CGFloat xLocation = [_rightPanGestureRecognizer locationInView:recognizerView].x;
+    CGFloat width = recognizerView.bounds.size.width;
+    
+    BOOL draggableBorderAllowing = (
+                                    /*_frontViewPosition != FrontViewPositionLeft ||*/ _draggableBorderWidth == 0.0f ||
+                                    (_rearViewController && xLocation <= _draggableBorderWidth) ||
+                                    (_rightViewController && xLocation >= (width - _draggableBorderWidth)) );
+    
+    
+    BOOL translationForbidding = ( _frontViewPosition == FrontViewPositionLeft &&
+                                  ((_rearViewController == nil && translation.x > 0) || (_rightViewController == nil && translation.x < 0)) );
+    
+    // allow gesture only within the bounds defined by the draggableBorderWidth property
+    return draggableBorderAllowing && !translationForbidding ;
+}
+
 
 
 #pragma mark - Gesture Based Reveal
@@ -1605,8 +1656,50 @@ const int FrontViewPositionNone = 0xff;
 
 - (void (^)(void)) _deploymentForViewController:(UIViewController*)controller inView:(UIView*)view appear:(BOOL)appear disappear:(BOOL)disappear
 {
-    if ( appear ) return [self _deployForViewController:controller inView:view];
-    if ( disappear ) return [self _undeployForViewController:controller];
+    if ( appear ) {
+        if (controller == _rightViewController || controller == _rearViewController) {
+            //Add overlay if requested
+            if (_shouldUseFrontViewOverlay) {
+                //Create
+                if (!_frontOverlayView) {
+                    self.frontOverlayView = [[UIView alloc] initWithFrame:self.frontViewController.view.bounds];
+                    _frontOverlayView.backgroundColor = [UIColor blackColor];
+                    _frontOverlayView.alpha = 0.0;
+                    _overlayButton = [[UIButton alloc] initWithFrame:_frontOverlayView.bounds];
+                    [_frontOverlayView addSubview:_overlayButton];
+
+                } else {
+                    [_overlayButton removeTarget:nil action:NULL forControlEvents:UIControlEventAllEvents];
+                }
+                _frontOverlayView.alpha = 0.0;
+                
+                void (^animations)() = ^()
+                {
+                    _frontOverlayView.alpha = 0.5;
+                };
+                
+                
+                [UIView animateWithDuration:_toggleAnimationDuration delay:0.0
+                                    options:UIViewAnimationOptionCurveEaseOut animations:animations completion:NULL];
+                
+                if (controller == _rearViewController)
+                    [_overlayButton addTarget:self action:@selector(revealToggleAnimated:) forControlEvents:UIControlEventTouchUpInside];
+                else
+                    [_overlayButton addTarget:self action:@selector(rightRevealToggleAnimated:) forControlEvents:UIControlEventTouchUpInside];
+                
+                [self.frontViewController.view addSubview:_frontOverlayView];
+            }
+
+        }
+        
+        return [self _deployForViewController:controller inView:view];
+    }
+    if ( disappear )  {
+            if ([[_frontViewController.view subviews] containsObject:_frontOverlayView]) {
+                [_frontOverlayView removeFromSuperview];
+            }
+        return [self _undeployForViewController:controller];
+    }
     return ^{};
 }
 
@@ -1932,5 +2025,4 @@ NSString * const SWSegueRightIdentifier = @"sw_right";
 //}
 //
 //@end
-
 
