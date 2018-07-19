@@ -87,7 +87,7 @@
     SWRevealViewController *grandParentRevealController = parentRevealController.revealViewController;
     
     UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
-            style:UIBarButtonItemStyleBordered target:grandParentRevealController action:@selector(revealToggle:)];
+            style:UIBarButtonItemStylePlain target:grandParentRevealController action:@selector(revealToggle:)];
     
     // if we have a reveal controller as a grand parent, this means we are are being added as a
     // child of a detail (child) reveal controller, so we add a gesture recognizer provided by our grand parent to our
@@ -101,7 +101,7 @@
         while( nil != (controller = [controller revealViewController]) )
             level++;
         
-        NSString *title = [NSString stringWithFormat:@"Detail Level %d", level];
+        NSString *title = [NSString stringWithFormat:@"Detail Level %ld", level];
             
         [self.navigationController.navigationBar addGestureRecognizer:grandParentRevealController.panGestureRecognizer];
         self.navigationItem.leftBarButtonItem = revealButtonItem;
