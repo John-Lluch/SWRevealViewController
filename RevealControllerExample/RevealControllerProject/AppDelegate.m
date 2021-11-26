@@ -56,7 +56,7 @@
     revealController.delegate = self;
     
     
-    RightViewController *rightViewController = rightViewController = [[RightViewController alloc] init];
+    RightViewController *rightViewController = [[RightViewController alloc] init];
     rightViewController.view.backgroundColor = [UIColor greenColor];
     
     revealController.rightViewController = rightViewController;
