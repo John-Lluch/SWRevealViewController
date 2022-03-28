@@ -24,3 +24,5 @@ DerivedData
 
 # CocoaPods
 Pods
+
+.build
