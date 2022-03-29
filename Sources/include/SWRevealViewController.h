@@ -136,8 +136,10 @@
 
 */
 
-
-#import <UIKit/UIKit.h>
+@import Foundation;
+@import CoreGraphics;
+#if TARGET_OS_IOS
+@import UIKit;
 
 @class SWRevealViewController;
 @protocol SWRevealViewControllerDelegate;
@@ -420,3 +422,4 @@ extern NSString* const SWSegueRightIdentifier; // this is @"sw_right"
 //@interface SWRevealViewControllerSegue : UIStoryboardSegue     // DEPRECATED: USE SWRevealViewControllerSegueSetController instead
 //@property (nonatomic, strong) void(^performBlock)( SWRevealViewControllerSegue* segue, UIViewController* svc, UIViewController* dvc );
 //@end
+#endif
